@@ -7,15 +7,10 @@
  */
 
 import React from 'react';
-import { Helmet } from 'react-helmet';
-import styled from 'styled-components';
+import styled, { ThemeProvider } from 'styled-components';
 import { Switch, Route } from 'react-router-dom';
-
 import HomePage from 'containers/HomePage/Loadable';
-import FeaturePage from 'containers/FeaturePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
-import Header from 'components/Header';
-import Footer from 'components/Footer';
 
 import GlobalStyle from '../../global-styles';
 
@@ -28,23 +23,33 @@ const AppWrapper = styled.div`
   flex-direction: column;
 `;
 
+const theme = {
+  colors: {
+    darkBrown: '#551E19',
+    lightBrown: '#C56E33',
+    lightGreen: '#A8C686',
+    darkGreen: '#7A804D',
+    lightYellow: '#EFEA5A',
+    darkYellow: '#A38800',
+    darkBlue: '#044576',
+    lightBlue: '#087CA7',
+    darkPurple: '#7F5A83',
+    lightPurple: '#B185A7',
+    darkOrange: '#FF8C42',
+    lightOrange: '#F9C784',
+  },
+};
+
 export default function App() {
   return (
-    <AppWrapper>
-      <Helmet
-        titleTemplate="%s - React.js Boilerplate"
-        defaultTitle="React.js Boilerplate"
-      >
-        <meta name="description" content="A React.js Boilerplate application" />
-      </Helmet>
-      <Header />
-      <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route path="/features" component={FeaturePage} />
-        <Route path="" component={NotFoundPage} />
-      </Switch>
-      <Footer />
-      <GlobalStyle />
-    </AppWrapper>
+    <ThemeProvider theme={theme}>
+      <>
+        <Switch>
+          <Route exact path="/" component={HomePage} />
+          <Route path="" component={NotFoundPage} />
+        </Switch>
+        <GlobalStyle />
+      </>
+    </ThemeProvider>
   );
 }
