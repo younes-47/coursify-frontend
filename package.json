@@ -1,16 +1,11 @@
 {
-  "name": "react-boilerplate",
-  "version": "4.0.0",
-  "description": "A highly scalable, offline-first foundation with the best DX and a focus on performance and best practices",
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/react-boilerplate/react-boilerplate.git"
-  },
+  "name": "courses-platform",
+  "description": "A platform that makes you enroll in basic courses for free!",
   "engines": {
-    "npm": ">=5",
-    "node": ">=8.15.1"
+    "npm": ">=8.14.0",
+    "node": ">=16.16.0"
   },
-  "author": "Max Stoiber",
+  "author": "Younes Khoubaz",
   "license": "MIT",
   "scripts": {
     "analyze:clean": "rimraf stats.json",
@@ -22,7 +17,7 @@
     "prebuild": "npm run build:clean",
     "build": "cross-env NODE_ENV=production webpack --config internals/webpack/webpack.prod.babel.js --color -p --progress --hide-modules --display-optimization-bailout",
     "build:clean": "rimraf ./build",
-    "start": "cross-env NODE_ENV=development node server",
+    "start": "set NODE_OPTIONS=--openssl-legacy-provider && cross-env NODE_ENV=development node server",
     "start:tunnel": "cross-env NODE_ENV=development ENABLE_TUNNEL=true node server",
     "start:production": "npm run test && npm run build && npm run start:prod",
     "start:prod": "cross-env NODE_ENV=production node server",
