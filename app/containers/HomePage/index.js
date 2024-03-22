@@ -24,14 +24,7 @@ const key = 'home';
 const mapStateToProps = createStructuredSelector({});
 
 export function HomePage() {
-  useInjectReducer({ key, reducer });
-  useInjectSaga({ key, saga });
-
-  return (
-    <>
-      <HomePageHeader />
-    </>
-  );
+  return <HomePageHeader />;
 }
 
 HomePage.propTypes = {};
