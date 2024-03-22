@@ -1,7 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Roboto&display=swap');
 ::selection { /* Optional */
   /* It can be really hard to read highlighted text with a text-shadow, it should be removed when selected */
   text-shadow: none;
