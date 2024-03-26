@@ -1,1 +1,1 @@
-## Frontend parto of my courses platform project
+## Frontend part of my courses platform project
