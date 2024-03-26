@@ -17,14 +17,22 @@ import {
 import { makeSelectUsername } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import HomePageHeader from '../../components/HomePage/Header';
+import HomePageHeader from '../../components/HomeSection/Header';
+import FrontSection from '../../components/HomeSection/FrontSection';
+import ReviewSection from '../../components/HomeSection/ReviewSection';
 
 const key = 'home';
 
 const mapStateToProps = createStructuredSelector({});
 
 export function HomePage() {
-  return <HomePageHeader />;
+  return (
+    <>
+      <HomePageHeader />
+      <FrontSection />
+      <ReviewSection />
+    </>
+  );
 }
 
 HomePage.propTypes = {};
