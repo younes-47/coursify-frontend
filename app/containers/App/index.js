@@ -25,12 +25,12 @@ const AppWrapper = styled.div`
 `;
 
 const theme = {
-  colors: {
+  palette: {
     darkBrown: '#551E19',
     lightBrown: '#C56E33',
     lightGreen: '#A8C686',
     darkGreen: '#7A804D',
-    lightYellow: '#EFEA5A',
+    lightYellow: '#F2EE7D',
     darkYellow: '#A38800',
     darkBlue: '#044576',
     lightBlue: '#087CA7',
@@ -38,6 +38,7 @@ const theme = {
     lightPurple: '#B185A7',
     darkOrange: '#FF8C42',
     lightOrange: '#F9C784',
+    lightGray: '#E7EFE9',
   },
 };
 
