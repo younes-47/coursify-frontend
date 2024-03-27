@@ -5,10 +5,13 @@
  */
 
 import React from 'react';
+import { Typography } from '@mui/joy';
+import { useTheme } from 'styled-components';
 import notFoundImg from '../../images/not-found-illustration.jpg';
-import { StyledLink } from '../../components/Styles/StyledLink';
+import { StyledLink } from '../../components/Styled/StyledLink';
 
 export default function NotFound() {
+  const theme = useTheme();
   return (
     <div
       style={{
@@ -33,13 +36,18 @@ export default function NotFound() {
           width: '40%',
         }}
       >
-        <p>
+        <Typography level="title-md">
           Désolé, la page que vous avez demandée n'existe pas. Veuillez vérifier
           l'URL ou cliquer sur le bouton ci-dessous pour revenir à la page
           d'accueil.
-        </p>
+        </Typography>
         <StyledLink color="lightBrown" href="/">
-          Retour à l'accueil
+          <Typography
+            level="title-md"
+            sx={{ color: theme.palette.lightBrown, marginTop: '1em' }}
+          >
+            Retour à l'accueil
+          </Typography>
         </StyledLink>
       </div>
     </div>
