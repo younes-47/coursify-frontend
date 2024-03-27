@@ -4,7 +4,7 @@ export const StyledButton = styled.button`
   font-weight: 500;
   font-size: large;
   color: white;
-  background-color: ${props => props.theme.colors[props.color]};
+  background-color: ${(props) => props.theme.palette[props.color]};
   transition: 200ms;
   border: none;
   padding: 0.5em 1em;
