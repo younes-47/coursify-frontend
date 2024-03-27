@@ -20,6 +20,7 @@ import saga from './saga';
 import HomePageHeader from '../../components/HomeSection/Header';
 import FrontSection from '../../components/HomeSection/FrontSection';
 import ReviewSection from '../../components/HomeSection/ReviewSection';
+import SubjectSection from '../../components/HomeSection/SubjectSection';
 
 const key = 'home';
 
@@ -31,6 +32,7 @@ export function HomePage() {
       <HomePageHeader />
       <FrontSection />
       <ReviewSection />
+      <SubjectSection />
     </>
   );
 }
