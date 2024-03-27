@@ -21,6 +21,9 @@ import { StyledContainer } from '../Styled/StyledContainer';
 import creativeIllustration from '../../images/creative-illustration.svg';
 import { CenteredContainer } from '../Styled/CenteredContainer';
 import QuoteIcon from '../icons/QuoteIcon';
+import mehdiAvatar from '../../images/reviewers/mehdi.jpg';
+import marieAvatar from '../../images/reviewers/marie.jpg';
+import mohammedAvatar from '../../images/reviewers/mohammed.jpg';
 
 // import PropTypes from 'prop-types';
 // import styled from 'styled-components';
@@ -31,30 +34,26 @@ function ReviewSection() {
     {
       name: 'Mehdi Ben Youssef',
       role: 'Freelancer',
-      avatar:
-        'https://images.unsplash.com/photo-1564564321837-a57b7070ac4f?q=80&w=1776&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      avatar: mehdiAvatar,
       review:
         "Les cours ici sont très bien faits. J'aime bien comment ils sont organisés, c'est facile à suivre. C'est vraiment super pour apprendre, je vous le recommande.",
     },
     {
       name: 'Marie Dubois',
       role: 'Etudiante',
-      avatar:
-        'https://images.unsplash.com/photo-1489424731084-a5d8b219a5bb?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-
+      avatar: marieAvatar,
       review:
         "J'ai appris beaucoup de choses sur ce site. Les cours sont très bien expliqués et j'ai pu les suivre sans problème. Je recommande ce site à tous ceux qui veulent apprendre.",
     },
     {
       name: 'Mohammed Mbarki',
       role: 'Professeur',
-      avatar:
-        'https://images.unsplash.com/flagged/photo-1559475555-b26777ed3ab4?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      avatar: mohammedAvatar,
       review:
         "J'aime beaucoup comment c'est facile à se retrouver sur ce site. Et les cours sont vraiment utiles pour mon travail. merci beaucoup !",
     },
   ];
-  const reviewTemplate = review => (
+  const reviewTemplate = (review) => (
     <Card
       orientation="horizontal"
       sx={{
@@ -75,7 +74,7 @@ function ReviewSection() {
           </Box>
           <Box sx={{ width: '50%' }}>
             <Typography level="h4" fontWeight="lg">
-              <QuoteIcon Color={theme.colors.lightBrown} />
+              <QuoteIcon Color={theme.palette.lightBrown} />
             </Typography>
             <Typography level="h4" fontWeight="lg">
               {review.review}
@@ -89,7 +88,7 @@ function ReviewSection() {
     <div
       style={{
         padding: '1em 25%',
-        backgroundColor: theme.colors.lightYellow,
+        backgroundColor: theme.palette.lightYellow,
       }}
     >
       <Typography level="h3" textAlign="center" sx={{ marginBottom: '1em' }}>
