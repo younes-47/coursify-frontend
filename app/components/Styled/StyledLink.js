@@ -4,7 +4,7 @@ export const StyledLink = styled.a`
   position: relative;
   font-weight: 500;
   text-decoration: none;
-  font-size: large;
+  font-size: ${(props) => props.fontSize || 'large'};
   color: ${(props) => props.theme.palette[props.color] || 'black'};
   cursor: pointer;
   transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
