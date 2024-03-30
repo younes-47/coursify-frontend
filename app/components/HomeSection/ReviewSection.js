@@ -88,7 +88,7 @@ function ReviewSection() {
     <div
       style={{
         padding: '1em 25%',
-        backgroundColor: theme.palette.lightYellow,
+        backgroundColor: theme.palette.lightGray,
       }}
     >
       <Typography level="h3" textAlign="center" sx={{ marginBottom: '1em' }}>
