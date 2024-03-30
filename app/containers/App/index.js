@@ -10,6 +10,8 @@ import React from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 import { Switch, Route } from 'react-router-dom';
 import HomePage from 'containers/HomePage/Loadable';
+import SignupPage from 'containers/SignupPage/Loadable';
+import LoginPage from 'containers/LoginPage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 
 import { Helmet } from 'react-helmet';
@@ -48,6 +50,8 @@ export default function App() {
       <>
         <Switch>
           <Route exact path="/" component={HomePage} />
+          <Route exact path="/Signup" component={SignupPage} />
+          <Route exact path="/Login" component={LoginPage} />
           <Route path="" component={NotFoundPage} />
         </Switch>
         <GlobalStyle />
