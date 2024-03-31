@@ -4,35 +4,131 @@
  *
  */
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { createStructuredSelector } from 'reselect';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
 
 import {
-  Button,
+  Alert,
   FormControl,
+  FormHelperText,
   FormLabel,
   Input,
-  Link,
   Sheet,
   Stack,
   Typography,
 } from '@mui/joy';
-import makeSelectSignupPage from './selectors';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  makeSelectBirthdate,
+  makeSelectEmail,
+  makeSelectFirstName,
+  makeSelectLastName,
+  makeSelectPassword,
+} from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import HomePageHeader from '../../components/HomeSection/Header';
 import { StyledLink } from '../../components/Styled/StyledLink';
 import { StyledButton } from '../../components/Styled/StyledButton';
 import Footer from '../../components/HomeSection/Footer';
+import {
+  cleanupStore,
+  setBirthdate,
+  setEmail,
+  setFirstName,
+  setLastName,
+  setPassword,
+} from './actions';
+import { formatName } from '../../utils/custom/stringManipulation';
+import {
+  validateData,
+  validateDate,
+  validateEmail,
+  validatePassword,
+} from '../../utils/custom/ValidateInputs';
 
-const mapStateToProps = createStructuredSelector({});
+const mapStateToProps = createStructuredSelector({
+  firstName: makeSelectFirstName(),
+  lastName: makeSelectLastName(),
+  birthdate: makeSelectBirthdate(),
+  email: makeSelectEmail(),
+  password: makeSelectPassword(),
+});
 
 export function SignupPage() {
   useInjectReducer({ key: 'signupPage', reducer });
   useInjectSaga({ key: 'signupPage', saga });
+
+  const dispatch = useDispatch();
+
+  const [invalidBirthdate, setInvalidBirthdate] = useState(false);
+  const [invalidEmail, setInvalidEmail] = useState(false);
+  const [invalidPassword, setInvalidPassword] = useState(false);
+  const [isDataValid, setIsDataValid] = useState(false);
+
+  const { firstName, lastName, birthdate, email, password } =
+    useSelector(mapStateToProps);
+
+  const handleFirstNameChange = (e) => {
+    const formattedName = formatName(e.target.value);
+    dispatch(setFirstName(formattedName));
+  };
+  const handleLastNameChange = (e) => {
+    const formattedName = formatName(e.target.value);
+    dispatch(setLastName(formattedName));
+  };
+
+  const handleBirthdateChange = (e) => {
+    const restult = validateDate(e.target.value);
+    if (!restult) {
+      setInvalidBirthdate(true);
+    } else {
+      setInvalidBirthdate(false);
+    }
+    dispatch(setBirthdate(e.target.value));
+  };
+
+  const handleEmailChange = (e) => {
+    const restult = validateEmail(e.target.value);
+    if (!restult) {
+      setInvalidEmail(true);
+    } else {
+      setInvalidEmail(false);
+    }
+    dispatch(setEmail(e.target.value));
+  };
+
+  const handlePasswordChange = (e) => {
+    const restult = validatePassword(e.target.value);
+    if (!restult) {
+      setInvalidPassword(true);
+    } else {
+      setInvalidPassword(false);
+    }
+    dispatch(setPassword(e.target.value));
+  };
+
+  useEffect(() => {
+    setIsDataValid(
+      validateData({
+        firstName,
+        lastName,
+        birthdate,
+        email,
+        password,
+      }),
+    );
+  }, [firstName, lastName, birthdate, email, password]);
+
+  useEffect(
+    () => () => {
+      dispatch(cleanupStore());
+    },
+    [],
+  );
 
   return (
     <>
@@ -60,27 +156,70 @@ export function SignupPage() {
         <Stack direction="row" spacing={2}>
           <FormControl>
             <FormLabel>Prénom</FormLabel>
-            <Input type="text" placeholder="Prénom" />
+            <Input
+              value={firstName}
+              onChange={handleFirstNameChange}
+              type="text"
+              placeholder="Prénom"
+            />
           </FormControl>
 
           <FormControl>
             <FormLabel>Nom de famille</FormLabel>
-            <Input type="text" placeholder="Nom de famille" />
+            <Input
+              type="text"
+              value={lastName}
+              onChange={handleLastNameChange}
+              placeholder="Nom de famille"
+            />
           </FormControl>
         </Stack>
-        <FormControl>
+        <FormControl error={invalidBirthdate}>
           <FormLabel>Date de naissance</FormLabel>
-          <Input type="date" />
+          <Input
+            value={birthdate}
+            onChange={handleBirthdateChange}
+            type="date"
+          />
+          {invalidBirthdate && (
+            <FormHelperText color="danger">
+              Date de naissance invalide
+            </FormHelperText>
+          )}
         </FormControl>
-        <FormControl>
+        <FormControl error={invalidEmail}>
           <FormLabel>E-mail</FormLabel>
-          <Input type="email" placeholder="username@email.com" />
+          <Input
+            value={email}
+            onChange={handleEmailChange}
+            type="email"
+            placeholder="username@email.com"
+          />
+          {invalidEmail && (
+            <FormHelperText color="danger">
+              Addresse e-mail invalide
+            </FormHelperText>
+          )}
         </FormControl>
-        <FormControl>
+        <FormControl error={invalidPassword}>
           <FormLabel>Mot de passe</FormLabel>
-          <Input type="password" placeholder="******" />
+          <Input
+            value={password}
+            onChange={handlePasswordChange}
+            type="password"
+            placeholder="******"
+          />
+          {invalidPassword && (
+            <FormHelperText>
+              Mot de passe invalide (8 à 24 caractères, sans espace)
+            </FormHelperText>
+          )}
         </FormControl>
-        <StyledButton color="darkPurple" style={{ marginTop: '1.5em' }}>
+        <StyledButton
+          color="darkPurple"
+          style={{ marginTop: '1.5em' }}
+          disabled={!isDataValid}
+        >
           S'inscrire
         </StyledButton>
         <Typography level="body-sm" sx={{ alignSelf: 'center' }}>
@@ -90,9 +229,9 @@ export function SignupPage() {
           </StyledLink>
         </Typography>
       </Sheet>
-      <div style={{ position: 'absolute', bottom: 0, width: '100%' }}>
+      <section style={{ position: 'relative', bottom: 0, width: '100%' }}>
         <Footer />
-      </div>
+      </section>
     </>
   );
 }
