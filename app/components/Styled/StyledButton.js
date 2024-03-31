@@ -10,11 +10,16 @@ export const StyledButton = styled.button`
   padding: 0.5em 1em;
   border-radius: 0.5em;
   cursor: pointer;
-  &:hover {
+  &:not(:disabled):hover {
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
   }
-  &:active {
+  &:not(:disabled):active {
     transform: translateY(2px);
     box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.3);
+  }
+  &:disabled {
+    background-color: grey;
+    opacity: 0.5;
+    cursor: not-allowed;
   }
 `;
