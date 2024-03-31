@@ -2,7 +2,7 @@ import { SvgIcon } from '@mui/joy';
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const QuoteIcon = ({ Color = '#fff' }) => (
+const QuoteIcon = ({ Color = 'black' }) => (
   <SvgIcon>
     <path
       fill={Color}
