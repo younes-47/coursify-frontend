@@ -16,6 +16,7 @@ import NotFoundPage from 'containers/NotFoundPage/Loadable';
 
 import { Helmet } from 'react-helmet';
 import GlobalStyle from '../../global-styles';
+import { AuthProvider } from '../../utils/custom/context/AuthProvider';
 
 const AppWrapper = styled.div`
   max-width: calc(768px + 16px * 2);
@@ -46,16 +47,18 @@ const theme = {
 
 export default function App() {
   return (
-    <ThemeProvider theme={theme}>
-      <>
-        <Switch>
-          <Route exact path="/" component={HomePage} />
-          <Route exact path="/Signup" component={SignupPage} />
-          <Route exact path="/Login" component={LoginPage} />
-          <Route path="" component={NotFoundPage} />
-        </Switch>
-        <GlobalStyle />
-      </>
-    </ThemeProvider>
+    <AuthProvider>
+      <ThemeProvider theme={theme}>
+        <>
+          <Switch>
+            <Route exact path="/" component={HomePage} />
+            <Route exact path="/Signup" component={SignupPage} />
+            <Route exact path="/Login" component={LoginPage} />
+            <Route path="*" component={NotFoundPage} />
+          </Switch>
+          <GlobalStyle />
+        </>
+      </ThemeProvider>
+    </AuthProvider>
   );
 }
