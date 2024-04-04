@@ -183,7 +183,7 @@ export function SignupPage() {
           />
           {invalidBirthdate && (
             <FormHelperText color="danger">
-              Date de naissance invalide
+              Date de naissance invalide (Âge minimum : 12 ans)
             </FormHelperText>
           )}
         </FormControl>

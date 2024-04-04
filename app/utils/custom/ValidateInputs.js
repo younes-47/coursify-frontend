@@ -33,8 +33,12 @@ export const validateDate = (date) => {
   const inputDate = new Date(date);
   const currentDate = new Date();
 
-  // Check if date is in the future or if it's an invalid date
-  if (inputDate > currentDate || Number.isNaN(inputDate)) {
+  // Check if date is in the future, if it's an invalid date, or if it's less than 12 years ago
+  if (
+    inputDate > currentDate ||
+    Number.isNaN(inputDate.getTime()) ||
+    currentDate.getFullYear() - inputDate.getFullYear() < 12
+  ) {
     return false;
   }
 
