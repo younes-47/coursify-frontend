@@ -21,6 +21,7 @@ import {
   Typography,
 } from '@mui/joy';
 import { useDispatch, useSelector } from 'react-redux';
+import { StyledInputEndDecorator } from '@mui/joy/Input/Input';
 import {
   makeSelectBirthdate,
   makeSelectEmail,
@@ -49,6 +50,8 @@ import {
   validateEmail,
   validatePassword,
 } from '../../utils/custom/ValidateInputs';
+import Visibility from '../../components/icons/Visibility';
+import VisibilityOff from '../../components/icons/VisibilityOff';
 
 const mapStateToProps = createStructuredSelector({
   firstName: makeSelectFirstName(),
@@ -63,6 +66,8 @@ export function SignupPage() {
   useInjectSaga({ key: 'signupPage', saga });
 
   const dispatch = useDispatch();
+
+  const [showPassword, setShowPassword] = useState(false);
 
   const [invalidBirthdate, setInvalidBirthdate] = useState(false);
   const [invalidEmail, setInvalidEmail] = useState(false);
@@ -206,8 +211,15 @@ export function SignupPage() {
           <Input
             value={password}
             onChange={handlePasswordChange}
-            type="password"
+            type={showPassword ? 'text' : 'password'}
             placeholder="******"
+            endDecorator={
+              <StyledInputEndDecorator
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? <Visibility /> : <VisibilityOff />}
+              </StyledInputEndDecorator>
+            }
           />
           {invalidPassword && (
             <FormHelperText>
