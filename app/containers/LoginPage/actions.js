@@ -7,6 +7,9 @@
 import {
   CLEANUP_STORE,
   DEFAULT_ACTION,
+  LOGIN,
+  LOGIN_ERROR,
+  LOGIN_SUCCESS,
   SET_EMAIL,
   SET_PASSWORD,
 } from './constants';
@@ -34,5 +37,26 @@ export function setPassword(password) {
 export function cleanupStore() {
   return {
     type: CLEANUP_STORE,
+  };
+}
+
+export function loginAction(form) {
+  return {
+    type: LOGIN,
+    form,
+  };
+}
+
+export function setLoggingInError(error) {
+  return {
+    type: LOGIN_ERROR,
+    error,
+  };
+}
+
+export function setLoggingInSuccess(response) {
+  return {
+    type: LOGIN_SUCCESS,
+    response,
   };
 }

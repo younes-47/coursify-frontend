@@ -19,11 +19,16 @@ import {
   Sheet,
   Typography,
 } from '@mui/joy';
+import Alert from '@mui/joy/Alert';
 import validator from 'validator';
-import AuthContext from '../../utils/custom/context/AuthProvider';
-import makeSelectLoginPage, {
+import { filter } from 'lodash';
+import { StyledInputEndDecorator } from '@mui/joy/Input/Input';
+import {
   makeSelectEmail,
+  makeSelectErrorLoggingIn,
+  makeSelectLoggingIn,
   makeSelectPassword,
+  makeSelectSuccessLoggingIn,
 } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -35,21 +40,26 @@ import {
   validateEmail,
   validatePassword,
 } from '../../utils/custom/ValidateInputs';
-import { cleanupStore, setEmail, setPassword } from './actions';
-import InfoIcon from '../../components/icons/InfoIcon';
-import QuoteIcon from '../../components/icons/QuoteIcon';
+import { cleanupStore, loginAction, setEmail, setPassword } from './actions';
+import Visibility from '../../components/icons/Visibility';
+import VisibilityOff from '../../components/icons/VisibilityOff';
 
 const mapStateToProps = createStructuredSelector({
   email: makeSelectEmail(),
   password: makeSelectPassword(),
+  loggingIn: makeSelectLoggingIn(),
+  errorLoggingIn: makeSelectErrorLoggingIn(),
+  successLoggingIn: makeSelectSuccessLoggingIn(),
 });
 
 export function LoginPage() {
   useInjectReducer({ key: 'loginPage', reducer });
   useInjectSaga({ key: 'loginPage', saga });
-  const { setAuth } = useContext(AuthContext);
   const dispatch = useDispatch();
-  const { email, password } = useSelector(mapStateToProps);
+  const { email, password, errorLoggingIn, loggingIn, successLoggingIn } =
+    useSelector(mapStateToProps);
+
+  const [showPassword, setShowPassword] = useState(false);
 
   const [invalidEmail, setInvalidEmail] = useState(false);
   const [invalidPassword, setInvalidPassword] = useState(false);
@@ -78,6 +88,10 @@ export function LoginPage() {
     dispatch(setPassword(e.target.value));
   };
 
+  const handleOnLoginButtonClick = () => {
+    dispatch(loginAction({ email, password }));
+  };
+
   useEffect(
     () => () => {
       dispatch(cleanupStore());
@@ -100,12 +114,13 @@ export function LoginPage() {
           gap: 2,
           borderRadius: 'sm',
           boxShadow: 'md',
+          filter: loggingIn ? 'blur(2px)' : 'none',
         }}
         variant="soft"
       >
         <div>
           <Typography level="h4" component="h1">
-            Bonjours!
+            Bienvenue!
           </Typography>
         </div>
         <FormControl error={invalidEmail}>
@@ -125,8 +140,15 @@ export function LoginPage() {
           <Input
             value={password}
             onChange={handlePasswordChange}
-            type="password"
+            type={showPassword ? 'text' : 'password'}
             placeholder="******"
+            endDecorator={
+              <StyledInputEndDecorator
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? <Visibility /> : <VisibilityOff />}
+              </StyledInputEndDecorator>
+            }
           />
           {invalidPassword && (
             <FormHelperText>
@@ -134,10 +156,14 @@ export function LoginPage() {
             </FormHelperText>
           )}
         </FormControl>
+        {errorLoggingIn != null && (
+          <Alert color="danger">{errorLoggingIn?.response?.data}</Alert>
+        )}
         <StyledButton
           color="darkPurple"
           style={{ marginTop: '1.5em' }}
           disabled={!isDataValid}
+          onClick={handleOnLoginButtonClick}
         >
           Se connecter
         </StyledButton>
