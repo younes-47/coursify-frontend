@@ -1,44 +1,42 @@
-/**
- * Parses the JSON returned by a network request
- *
- * @param  {object} response A response from a network request
- *
- * @return {object}          The parsed JSON from the request
- */
-function parseJSON(response) {
-  if (response.status === 204 || response.status === 205) {
-    return null;
-  }
-  return response.json();
-}
+import axios from 'axios';
+import backendAdress from './custom/APIConfig';
 
-/**
- * Checks if a network request came back fine, and throws an error if not
- *
- * @param  {object} response   A response from a network request
- *
- * @return {object|undefined} Returns either the response, or throws an error
- */
-function checkStatus(response) {
-  if (response.status >= 200 && response.status < 300) {
-    return response;
-  }
+const request = axios.create({
+  baseURL: backendAdress(), // the base url that u gave to ur backend in the index.js in the server folder in ur case it will probably be /api
+  timeout: 0, // the waiting time for ur request to be sent
+});
 
-  const error = new Error(response.statusText);
-  error.response = response;
-  throw error;
-}
+// request.interceptors.request.use(
+//   async (config) => {
+//     // Do something before request is sent
+//     const requestConfig = { ...config };
+//     const token = localStorage.getItem('token'); // getting the token from local storage
+//     // const token = null; // getting the token from local storage
 
-/**
- * Requests a URL, returning a promise
- *
- * @param  {string} url       The URL we want to request
- * @param  {object} [options] The options we want to pass to "fetch"
- *
- * @return {object}           The response data
- */
-export default function request(url, options) {
-  return fetch(url, options)
-    .then(checkStatus)
-    .then(parseJSON);
-}
+//     if (token != null) {
+//       requestConfig.headers.Authorization = `Bearer ${token}`;
+//     }
+//     return requestConfig;
+//   },
+//   (error) => Promise.reject(error),
+// );
+
+// request.interceptors.response.use(
+//   (res) => res,
+//   (err) => {
+//     const error = { ...err };
+//     if (error.response?.status === 401) {
+//       if (error.response?.data === 'TOKEN-EXPIRED') {
+//         localStorage.clear();
+//         window.location.herf = '/login';
+//       }
+//     }
+//     if (error.response?.status !== 200) {
+//       // error handling
+//       interceptError(error);
+//     }
+//     return Promise.reject(error);
+//   },
+// );
+
+export default request;

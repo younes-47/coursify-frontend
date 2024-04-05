@@ -1,17 +1,17 @@
 const DevConfig = {
-  BACKEND_SERVER_PROTOCOL: 'http',
-  BACKEND_SERVER_IP: 'DI3142DZ3',
-  BACKEND_SERVER_PORT: '5030',
+  BACKEND_SERVER_PROTOCOL: 'https',
+  BACKEND_SERVER_IP: 'localhost',
+  BACKEND_SERVER_PORT: '7142',
 };
 const ProdConfig = {
-  BACKEND_SERVER_PROTOCOL: 'https',
-  BACKEND_SERVER_IP: 'otas.dicastalma.com',
-  BACKEND_SERVER_PORT: '3216',
+  BACKEND_SERVER_PROTOCOL: '',
+  BACKEND_SERVER_IP: '',
+  BACKEND_SERVER_PORT: '',
 };
 const TestConfig = {
-  BACKEND_SERVER_PROTOCOL: 'https',
-  BACKEND_SERVER_IP: 'otastest.dicastalma.com',
-  BACKEND_SERVER_PORT: '3216',
+  BACKEND_SERVER_PROTOCOL: '',
+  BACKEND_SERVER_IP: '',
+  BACKEND_SERVER_PORT: '',
 };
 /// //////////////////////////// ///
 /// /////Change value below///// ///
