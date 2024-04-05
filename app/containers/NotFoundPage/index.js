@@ -7,11 +7,18 @@
 import React from 'react';
 import { Typography } from '@mui/joy';
 import { useTheme } from 'styled-components';
+import { useLocation, useNavigate } from 'react-router-dom/dist';
 import notFoundImg from '../../images/not-found-illustration.jpg';
 import { StyledLink } from '../../components/Styled/StyledLink';
 
 export default function NotFound() {
   const theme = useTheme();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || '/';
+  const handleLinkClick = () => {
+    navigate(from, { replace: true });
+  };
   return (
     <div
       style={{
@@ -41,7 +48,7 @@ export default function NotFound() {
           l'URL ou cliquer sur le bouton ci-dessous pour revenir à la page
           d'accueil.
         </Typography>
-        <StyledLink color="lightBrown" href="/">
+        <StyledLink color="lightBrown" onClick={handleLinkClick}>
           <Typography
             level="title-md"
             sx={{ color: theme.palette.lightBrown, marginTop: '1em' }}
