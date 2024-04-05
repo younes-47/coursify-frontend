@@ -8,13 +8,14 @@
 
 import React from 'react';
 import styled, { ThemeProvider } from 'styled-components';
-import { Switch, Route } from 'react-router-dom';
 import HomePage from 'containers/HomePage/Loadable';
 import SignupPage from 'containers/SignupPage/Loadable';
 import LoginPage from 'containers/LoginPage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 
 import { Helmet } from 'react-helmet';
+
+import { Route, Routes } from 'react-router-dom/dist';
 import GlobalStyle from '../../global-styles';
 import { AuthProvider } from '../../utils/custom/context/AuthProvider';
 
@@ -49,15 +50,14 @@ export default function App() {
   return (
     <AuthProvider>
       <ThemeProvider theme={theme}>
-        <>
-          <Switch>
-            <Route exact path="/" component={HomePage} />
-            <Route exact path="/Signup" component={SignupPage} />
-            <Route exact path="/Login" component={LoginPage} />
-            <Route path="*" component={NotFoundPage} />
-          </Switch>
-          <GlobalStyle />
-        </>
+        <Routes>
+          {/* public routes */}
+          <Route exact path="/" Component={HomePage} />
+          <Route exact path="/Signup" Component={SignupPage} />
+          <Route exact path="/Login" Component={LoginPage} />
+          <Route path="*" Component={NotFoundPage} />
+        </Routes>
+        <GlobalStyle />
       </ThemeProvider>
     </AuthProvider>
   );
