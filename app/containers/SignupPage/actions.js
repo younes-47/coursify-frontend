@@ -12,6 +12,9 @@ import {
   SET_FIRST_NAME,
   SET_LAST_NAME,
   SET_PASSWORD,
+  SIGNUP,
+  SIGNUP_ERROR,
+  SIGNUP_SUCCESS,
 } from './constants';
 
 export function defaultAction() {
@@ -52,6 +55,27 @@ export function setPassword(password) {
   return {
     type: SET_PASSWORD,
     password,
+  };
+}
+
+export function signupAction(form) {
+  return {
+    type: SIGNUP,
+    form,
+  };
+}
+
+export function setSignupError(error) {
+  return {
+    type: SIGNUP_ERROR,
+    error,
+  };
+}
+
+export function setSignupSuccess(response) {
+  return {
+    type: SIGNUP_SUCCESS,
+    response,
   };
 }
 

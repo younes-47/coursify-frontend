@@ -26,6 +26,18 @@ const makeSelectEmail = () =>
 const makeSelectPassword = () =>
   createSelector(selectSignupPageDomain, (substate) => substate.password);
 
+const makeSelectSigningUp = () =>
+  createSelector(selectSignupPageDomain, (substate) => substate.signingUp);
+
+const makeSelectErrorSigningUp = () =>
+  createSelector(selectSignupPageDomain, (substate) => substate.errorSigningUp);
+
+const makeSelectSuccessSigningUp = () =>
+  createSelector(
+    selectSignupPageDomain,
+    (substate) => substate.successSigningUp,
+  );
+
 /**
  * Default selector used by SignupPage
  */
@@ -41,4 +53,7 @@ export {
   makeSelectBirthdate,
   makeSelectEmail,
   makeSelectPassword,
+  makeSelectSigningUp,
+  makeSelectErrorSigningUp,
+  makeSelectSuccessSigningUp,
 };

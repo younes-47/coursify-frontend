@@ -9,7 +9,6 @@ import PropTypes from 'prop-types';
 import { createStructuredSelector } from 'reselect';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
-
 import {
   Alert,
   FormControl,
@@ -22,12 +21,16 @@ import {
 } from '@mui/joy';
 import { useDispatch, useSelector } from 'react-redux';
 import { StyledInputEndDecorator } from '@mui/joy/Input/Input';
+import { useLocation, useNavigate } from 'react-router-dom';
 import {
   makeSelectBirthdate,
   makeSelectEmail,
+  makeSelectErrorSigningUp,
   makeSelectFirstName,
   makeSelectLastName,
   makeSelectPassword,
+  makeSelectSigningUp,
+  makeSelectSuccessSigningUp,
 } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -42,6 +45,7 @@ import {
   setFirstName,
   setLastName,
   setPassword,
+  signupAction,
 } from './actions';
 import { formatName } from '../../utils/custom/stringManipulation';
 import {
@@ -59,6 +63,9 @@ const mapStateToProps = createStructuredSelector({
   birthdate: makeSelectBirthdate(),
   email: makeSelectEmail(),
   password: makeSelectPassword(),
+  signingUp: makeSelectSigningUp(),
+  errorSigningUp: makeSelectErrorSigningUp(),
+  successSigningUp: makeSelectSuccessSigningUp(),
 });
 
 export function SignupPage() {
@@ -66,6 +73,8 @@ export function SignupPage() {
   useInjectSaga({ key: 'signupPage', saga });
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -74,8 +83,16 @@ export function SignupPage() {
   const [invalidPassword, setInvalidPassword] = useState(false);
   const [isDataValid, setIsDataValid] = useState(false);
 
-  const { firstName, lastName, birthdate, email, password } =
-    useSelector(mapStateToProps);
+  const {
+    firstName,
+    lastName,
+    birthdate,
+    email,
+    password,
+    signingUp,
+    errorSigningUp,
+    successSigningUp,
+  } = useSelector(mapStateToProps);
 
   const handleFirstNameChange = (e) => {
     const formattedName = formatName(e.target.value);
@@ -116,6 +133,18 @@ export function SignupPage() {
     dispatch(setPassword(e.target.value));
   };
 
+  const handleOnSignupButtonClick = () => {
+    dispatch(
+      signupAction({
+        firstName,
+        lastName,
+        birthdate,
+        email,
+        password,
+      }),
+    );
+  };
+
   useEffect(() => {
     setIsDataValid(
       validateData({
@@ -128,13 +157,18 @@ export function SignupPage() {
     );
   }, [firstName, lastName, birthdate, email, password]);
 
+  useEffect(() => {
+    if (successSigningUp !== null) {
+      navigate('/Verify', { state: { from: location.pathname } });
+    }
+  }, [successSigningUp]);
+
   useEffect(
     () => () => {
       dispatch(cleanupStore());
     },
     [],
   );
-
   return (
     <>
       <HomePageHeader />
@@ -150,6 +184,7 @@ export function SignupPage() {
           gap: 2,
           borderRadius: 'sm',
           boxShadow: 'md',
+          filter: signingUp ? 'blur(2px)' : 'none',
         }}
         variant="soft"
       >
@@ -166,6 +201,7 @@ export function SignupPage() {
               onChange={handleFirstNameChange}
               type="text"
               placeholder="Prénom"
+              disabled={signingUp}
             />
           </FormControl>
 
@@ -176,6 +212,7 @@ export function SignupPage() {
               value={lastName}
               onChange={handleLastNameChange}
               placeholder="Nom de famille"
+              disabled={signingUp}
             />
           </FormControl>
         </Stack>
@@ -185,6 +222,7 @@ export function SignupPage() {
             value={birthdate}
             onChange={handleBirthdateChange}
             type="date"
+            disabled={signingUp}
           />
           {invalidBirthdate && (
             <FormHelperText color="danger">
@@ -199,6 +237,7 @@ export function SignupPage() {
             onChange={handleEmailChange}
             type="email"
             placeholder="username@email.com"
+            disabled={signingUp}
           />
           {invalidEmail && (
             <FormHelperText color="danger">
@@ -220,6 +259,7 @@ export function SignupPage() {
                 {showPassword ? <Visibility /> : <VisibilityOff />}
               </StyledInputEndDecorator>
             }
+            disabled={signingUp}
           />
           {invalidPassword && (
             <FormHelperText>
@@ -227,16 +267,29 @@ export function SignupPage() {
             </FormHelperText>
           )}
         </FormControl>
+        {errorSigningUp != null && (
+          <Alert color="danger">
+            {errorSigningUp?.response?.data ||
+              'Nous rencontrons des difficultés pour nous connecter au serveur. Veuillez vérifier votre connexion Internet et réessayer.'}
+          </Alert>
+        )}
         <StyledButton
           color="darkPurple"
           style={{ marginTop: '1.5em' }}
-          disabled={!isDataValid}
+          disabled={!isDataValid || signingUp}
+          onClick={handleOnSignupButtonClick}
         >
           S'inscrire
         </StyledButton>
         <Typography level="body-sm" sx={{ alignSelf: 'center' }}>
           Vous avez déjà un compte ?&nbsp;
-          <StyledLink href="/Login" fontSize="small" color="lightBlue">
+          <StyledLink
+            fontSize="small"
+            color="lightBlue"
+            onClick={() =>
+              navigate('/Login', { state: { from: location.pathname } })
+            }
+          >
             Se connecter
           </StyledLink>
         </Typography>
