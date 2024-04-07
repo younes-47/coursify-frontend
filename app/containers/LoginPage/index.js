@@ -21,8 +21,9 @@ import {
 } from '@mui/joy';
 import Alert from '@mui/joy/Alert';
 import validator from 'validator';
-import { filter } from 'lodash';
+import { filter, set } from 'lodash';
 import { StyledInputEndDecorator } from '@mui/joy/Input/Input';
+import { useNavigate, useLocation } from 'react-router-dom';
 import {
   makeSelectEmail,
   makeSelectErrorLoggingIn,
@@ -43,6 +44,8 @@ import {
 import { cleanupStore, loginAction, setEmail, setPassword } from './actions';
 import Visibility from '../../components/icons/Visibility';
 import VisibilityOff from '../../components/icons/VisibilityOff';
+import useAuth from '../../utils/custom/hooks/useAuth';
+import ErrorMessage from './ErrorMessage';
 
 const mapStateToProps = createStructuredSelector({
   email: makeSelectEmail(),
@@ -55,9 +58,14 @@ const mapStateToProps = createStructuredSelector({
 export function LoginPage() {
   useInjectReducer({ key: 'loginPage', reducer });
   useInjectSaga({ key: 'loginPage', saga });
-  const dispatch = useDispatch();
+
   const { email, password, errorLoggingIn, loggingIn, successLoggingIn } =
     useSelector(mapStateToProps);
+  const { setAuth } = useAuth();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from || '/';
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -67,6 +75,20 @@ export function LoginPage() {
   const isDataValid =
     validator.isEmail(email) &&
     validator.isLength(password, { min: 8, max: 24 });
+
+  useEffect(() => {
+    if (successLoggingIn !== null) {
+      setAuth(successLoggingIn);
+      navigate(from, { replace: true });
+    }
+  }, [successLoggingIn]);
+
+  useEffect(
+    () => () => {
+      dispatch(cleanupStore());
+    },
+    [],
+  );
 
   const handleEmailChange = (e) => {
     const restult = validateEmail(e.target.value);
@@ -91,13 +113,6 @@ export function LoginPage() {
   const handleOnLoginButtonClick = () => {
     dispatch(loginAction({ email, password }));
   };
-
-  useEffect(
-    () => () => {
-      dispatch(cleanupStore());
-    },
-    [],
-  );
 
   return (
     <>
@@ -130,6 +145,7 @@ export function LoginPage() {
             onChange={handleEmailChange}
             type="email"
             placeholder="username@email.com"
+            disabled={loggingIn}
           />
           {invalidEmail && (
             <FormHelperText>Addresse e-mail invalide</FormHelperText>
@@ -149,6 +165,7 @@ export function LoginPage() {
                 {showPassword ? <Visibility /> : <VisibilityOff />}
               </StyledInputEndDecorator>
             }
+            disabled={loggingIn}
           />
           {invalidPassword && (
             <FormHelperText>
@@ -156,20 +173,24 @@ export function LoginPage() {
             </FormHelperText>
           )}
         </FormControl>
-        {errorLoggingIn != null && (
-          <Alert color="danger">{errorLoggingIn?.response?.data}</Alert>
-        )}
+        <ErrorMessage error={errorLoggingIn} />
         <StyledButton
           color="darkPurple"
           style={{ marginTop: '1.5em' }}
-          disabled={!isDataValid}
+          disabled={!isDataValid || loggingIn}
           onClick={handleOnLoginButtonClick}
         >
           Se connecter
         </StyledButton>
         <Typography level="body-sm" sx={{ alignSelf: 'center' }}>
           vous n'avez pas de compte ?&nbsp;
-          <StyledLink href="/Signup" fontSize="small" color="lightBlue">
+          <StyledLink
+            fontSize="small"
+            color="lightBlue"
+            onClick={() =>
+              navigate('/Signup', { state: { from: location.pathname } })
+            }
+          >
             S'inscrire
           </StyledLink>
         </Typography>
