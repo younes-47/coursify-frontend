@@ -7,7 +7,7 @@
 import React from 'react';
 import { Typography } from '@mui/joy';
 import { useTheme } from 'styled-components';
-import { useLocation, useNavigate } from 'react-router-dom/dist';
+import { useLocation, useNavigate } from 'react-router-dom';
 import notFoundImg from '../../images/not-found-illustration.jpg';
 import { StyledLink } from '../../components/Styled/StyledLink';
 
@@ -15,10 +15,8 @@ export default function NotFound() {
   const theme = useTheme();
   const navigate = useNavigate();
   const location = useLocation();
-  const from = location.state?.from?.pathname || '/';
-  const handleLinkClick = () => {
-    navigate(from, { replace: true });
-  };
+  const from = location.state?.from || '/';
+
   return (
     <div
       style={{
@@ -45,15 +43,17 @@ export default function NotFound() {
       >
         <Typography level="title-md">
           Désolé, la page que vous avez demandée n'existe pas. Veuillez vérifier
-          l'URL ou cliquer sur le bouton ci-dessous pour revenir à la page
-          d'accueil.
+          l'URL ou cliquer sur le bouton ci-dessous pour revenir.
         </Typography>
-        <StyledLink color="lightBrown" onClick={handleLinkClick}>
+        <StyledLink
+          color="lightBrown"
+          onClick={() => navigate(from, { replace: true })}
+        >
           <Typography
             level="title-md"
             sx={{ color: theme.palette.lightBrown, marginTop: '1em' }}
           >
-            Retour à l'accueil
+            Retourner
           </Typography>
         </StyledLink>
       </div>
