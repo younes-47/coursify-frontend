@@ -6,6 +6,7 @@
 
 import React from 'react';
 import { Typography } from '@mui/joy';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { CenteredContainer } from '../Styled/CenteredContainer';
 import happyStudent from '../../images/happy-student.jpg';
 import { StyledButton } from '../Styled/StyledButton';
@@ -13,6 +14,8 @@ import { StyledButton } from '../Styled/StyledButton';
 // import styled from 'styled-components';
 
 function JoinSection() {
+  const navigate = useNavigate();
+  const location = useLocation();
   return (
     <div
       style={{
@@ -35,9 +38,15 @@ function JoinSection() {
             Inscrivez-vous dès maintenant pour accéder à des centaines de cours
             de qualité, et ce, gratuitement !
           </Typography>
-          <a href="/Signup">
-            <StyledButton color="darkPurple">S&apos;inscrire</StyledButton>
-          </a>
+
+          <StyledButton
+            color="darkPurple"
+            onClick={() =>
+              navigate('/Signup', { state: { from: location.pathname } })
+            }
+          >
+            S&apos;inscrire
+          </StyledButton>
         </div>
       </CenteredContainer>
     </div>

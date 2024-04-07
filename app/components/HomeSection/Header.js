@@ -5,6 +5,7 @@
  */
 
 import React from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { StyledHeader } from '../Styled/StyledHeader';
 import appLogo from '../../images/app-logo.svg';
 import { StyledLogo } from '../Styled/StyledLogo';
@@ -15,19 +16,33 @@ import { StyledLink } from '../Styled/StyledLink';
 // import styled from 'styled-components';
 
 function HomePageHeader() {
+  const navigate = useNavigate();
+  const location = useLocation();
   return (
     <StyledHeader>
-      <a href="/">
-        <StyledLogo src={appLogo} />
-      </a>
+      <StyledLogo
+        src={appLogo}
+        onClick={() => navigate('/', { state: { from: location.pathname } })}
+      />
+
       <StyledContainer>
-        <StyledLink href="/Signup" color="darkPurple">
+        <StyledLink
+          color="darkPurple"
+          onClick={() =>
+            navigate('/Signup', { state: { from: location.pathname } })
+          }
+        >
           S&apos;inscrire
         </StyledLink>
 
-        <a href="/Login">
-          <StyledButton color="darkPurple">Se connecter</StyledButton>
-        </a>
+        <StyledButton
+          color="darkPurple"
+          onClick={() =>
+            navigate('/Login', { state: { from: location.pathname } })
+          }
+        >
+          Se connecter
+        </StyledButton>
       </StyledContainer>
     </StyledHeader>
   );
