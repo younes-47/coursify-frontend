@@ -251,7 +251,7 @@ export function SignupPage() {
             value={password}
             onChange={handlePasswordChange}
             type={showPassword ? 'text' : 'password'}
-            placeholder="******"
+            placeholder="********"
             endDecorator={
               <StyledInputEndDecorator
                 onClick={() => setShowPassword(!showPassword)}
