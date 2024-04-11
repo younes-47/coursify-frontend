@@ -43,10 +43,12 @@ const verificationPageReducer = (state = initialState, action) =>
       case SEND_VERIFICATION_EMAIL_ERROR:
         draft.sendingVerification = false;
         draft.errorSendingVerification = action.error;
+        draft.successSendingVerification = null;
         break;
       case SEND_VERIFICATION_EMAIL_SUCCESS:
         draft.sendingVerification = false;
         draft.successSendingVerification = action.data;
+        draft.errorSendingVerification = null;
         break;
       case VERIFY_EMAIL:
         draft.verifying = true;

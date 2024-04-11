@@ -108,9 +108,6 @@ export function VerificationPage() {
     dispatch(sendVerificationEmailAction(email));
   };
 
-  console.log('successVerifying', successVerifying);
-  console.log('errorVerifying', errorVerifying);
-
   return (
     <>
       <HomePageHeader />

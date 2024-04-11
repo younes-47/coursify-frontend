@@ -1,6 +1,5 @@
 import { take, call, put, select, takeLatest } from 'redux-saga/effects';
 
-import request from '../../utils/request';
 import { SEND_VERIFICATION_EMAIL, VERIFY_EMAIL, WebService } from './constants';
 import {
   setSendVerificationEmailError,
@@ -8,18 +7,14 @@ import {
   setVerifyEmailError,
   setVerifyEmailSuccess,
 } from './actions';
+import { axiosPublic } from '../../utils/custom/api/axios';
 
 export function* SendVerificationEmail({ email }) {
   try {
     const { data } = yield call(
-      request.post,
+      axiosPublic.post,
       WebService.SEND_VERIFICATION_EMAIL_ENDPOINT,
       email,
-      {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      },
     );
     yield put(setSendVerificationEmailSuccess(data));
   } catch (error) {
@@ -30,14 +25,9 @@ export function* SendVerificationEmail({ email }) {
 export function* VerifyEmail({ form }) {
   try {
     const { data } = yield call(
-      request.post,
+      axiosPublic.post,
       WebService.VERIFY_EMAIL_ENDPOINT,
       form,
-      {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      },
     );
     yield put(setVerifyEmailSuccess(data));
   } catch (error) {
