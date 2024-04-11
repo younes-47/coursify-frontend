@@ -13,10 +13,12 @@ import SignupPage from 'containers/SignupPage/Loadable';
 import LoginPage from 'containers/LoginPage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import { Route, Routes } from 'react-router-dom/dist';
+import PasswordResetPage from 'containers/PasswordResetPage/Loadable';
 import GlobalStyle from '../../global-styles';
 import { AuthProvider } from '../../utils/custom/context/AuthProvider';
 import RequireAuth from '../../utils/custom/RequireAuth';
 import VerificationPage from '../VerificationPage/Loadable';
+import UserHomePage from '../UserHomePage/Loadable';
 
 const AppWrapper = styled.div`
   max-width: calc(768px + 16px * 2);
@@ -59,11 +61,16 @@ export default function App() {
             element={<VerificationPage />}
           />
           <Route path="/Verify" element={<VerificationPage />} />
+          <Route
+            path="/Password-reset/token/:token/email/:email"
+            element={<PasswordResetPage />}
+          />
+          <Route path="/Password-reset" element={<PasswordResetPage />} />
 
           <Route path="*" element={<NotFoundPage />} />
           {/* user routes */}
           <Route element={<RequireAuth allowedRole="user" />}>
-            <Route path="/home" element={<HomePage />} />
+            <Route path="/home" element={<UserHomePage />} />
           </Route>
         </Routes>
         <GlobalStyle />

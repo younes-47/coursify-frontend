@@ -16,6 +16,7 @@ import {
   FormHelperText,
   FormLabel,
   Input,
+  Stack,
   Sheet,
   Typography,
 } from '@mui/joy';
@@ -79,7 +80,7 @@ export function LoginPage() {
   useEffect(() => {
     if (successLoggingIn !== null) {
       setAuth(successLoggingIn);
-      navigate(from, { replace: true });
+      navigate('/home', { replace: true, state: { from: location.pathname } });
     }
   }, [successLoggingIn]);
 
@@ -157,7 +158,7 @@ export function LoginPage() {
             value={password}
             onChange={handlePasswordChange}
             type={showPassword ? 'text' : 'password'}
-            placeholder="******"
+            placeholder="********"
             endDecorator={
               <StyledInputEndDecorator
                 onClick={() => setShowPassword(!showPassword)}
@@ -182,18 +183,34 @@ export function LoginPage() {
         >
           Se connecter
         </StyledButton>
-        <Typography level="body-sm" sx={{ alignSelf: 'center' }}>
-          vous n'avez pas de compte ?&nbsp;
-          <StyledLink
-            fontSize="small"
-            color="lightBlue"
-            onClick={() =>
-              navigate('/Signup', { state: { from: location.pathname } })
-            }
-          >
-            S'inscrire
-          </StyledLink>
-        </Typography>
+        <Stack spacing={1}>
+          <Typography level="body-sm" sx={{ alignSelf: 'center' }}>
+            vous n'avez pas de compte ?&nbsp;
+            <StyledLink
+              fontSize="small"
+              color="lightBlue"
+              onClick={() =>
+                navigate('/Signup', { state: { from: location.pathname } })
+              }
+            >
+              S'inscrire
+            </StyledLink>
+          </Typography>
+          <Typography level="body-sm" sx={{ alignSelf: 'center' }}>
+            mot de passe oublié ?&nbsp;
+            <StyledLink
+              fontSize="small"
+              color="lightBlue"
+              onClick={() =>
+                navigate('/Password-reset', {
+                  state: { from: location.pathname },
+                })
+              }
+            >
+              Réinitialiser
+            </StyledLink>
+          </Typography>
+        </Stack>
       </Sheet>
       <section style={{ position: 'absolute', bottom: 0, width: '100%' }}>
         <Footer />
