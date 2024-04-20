@@ -8,7 +8,7 @@ export const axiosPublic = axios.create({
   headers: { 'Content-Type': 'application/json' },
 });
 
-// This axios instance is used with private routes (with interceptors and cookies)
+// This axios instance is used with private routes (with interceptors no cookies)
 export const axiosPrivate = axios.create({
   baseURL: BASE_URL,
   headers: { 'Content-Type': 'application/json' },
