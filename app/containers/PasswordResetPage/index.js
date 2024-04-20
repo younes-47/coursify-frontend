@@ -16,6 +16,7 @@ import {
   Input,
   FormControl,
   FormHelperText,
+  IconButton,
 } from '@mui/joy';
 import LockResetIcon from '@mui/icons-material/LockReset';
 import MarkEmailReadIcon from '@mui/icons-material/MarkEmailRead';
@@ -28,7 +29,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import Footer from 'components/HomeSection/Footer';
 import HomePageHeader from 'components/HomeSection/Header';
 import ErrorIcon from '@mui/icons-material/Error';
-import { StyledInputEndDecorator } from '@mui/joy/Input/Input';
 import reducer from './reducer';
 import saga from './saga';
 import {
@@ -101,6 +101,8 @@ export function PasswordResetPage() {
   const [passwordMatch, setPasswordMatch] = useState(false);
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [showPasswordConfirmation, setShowPasswordConfirmation] =
+    useState(false);
 
   useEffect(() => {
     if (location.state == null) {
@@ -257,11 +259,9 @@ export function PasswordResetPage() {
               placeholder="********"
               disabled={resettingPassword}
               endDecorator={
-                <StyledInputEndDecorator
-                  onClick={() => setShowPassword(!showPassword)}
-                >
+                <IconButton onClick={() => setShowPassword(!showPassword)}>
                   {showPassword ? <Visibility /> : <VisibilityOff />}
-                </StyledInputEndDecorator>
+                </IconButton>
               }
             />
             {invalidPassword && (
@@ -275,15 +275,21 @@ export function PasswordResetPage() {
             <Input
               value={passwordConfirmation}
               onChange={handlePasswordConfirmationChange}
-              type={showPassword ? 'text' : 'password'}
+              type={showPasswordConfirmation ? 'text' : 'password'}
               placeholder="********"
               disabled={resettingPassword}
               endDecorator={
-                <StyledInputEndDecorator
-                  onClick={() => setShowPassword(!showPassword)}
+                <IconButton
+                  onClick={() =>
+                    setShowPasswordConfirmation(!showPasswordConfirmation)
+                  }
                 >
-                  {showPassword ? <Visibility /> : <VisibilityOff />}
-                </StyledInputEndDecorator>
+                  {showPasswordConfirmation ? (
+                    <Visibility />
+                  ) : (
+                    <VisibilityOff />
+                  )}
+                </IconButton>
               }
             />
             {!passwordMatch && passwordConfirmation !== '' && (

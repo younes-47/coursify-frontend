@@ -27,7 +27,8 @@ function ErrorMessage({ error = null }) {
     if ('response' in error) {
       return (
         <Alert color="warning" startDecorator={<InfoIcon />}>
-          {errorMessages[error?.response?.data] || error?.response?.data}
+          {errorMessages[error?.response?.data] ||
+            JSON.stringify(error?.response?.data)}
         </Alert>
       );
     }
