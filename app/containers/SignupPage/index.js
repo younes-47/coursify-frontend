@@ -14,13 +14,13 @@ import {
   FormControl,
   FormHelperText,
   FormLabel,
+  IconButton,
   Input,
   Sheet,
   Stack,
   Typography,
 } from '@mui/joy';
 import { useDispatch, useSelector } from 'react-redux';
-import { StyledInputEndDecorator } from '@mui/joy/Input/Input';
 import { useLocation, useNavigate } from 'react-router-dom';
 import {
   makeSelectBirthdate,
@@ -47,7 +47,10 @@ import {
   setPassword,
   signupAction,
 } from './actions';
-import { formatName } from '../../utils/custom/stringManipulation';
+import {
+  formatName,
+  formatNumberToDate,
+} from '../../utils/custom/stringManipulation';
 import {
   validateData,
   validateDate,
@@ -56,7 +59,6 @@ import {
 } from '../../utils/custom/ValidateInputs';
 import Visibility from '../../components/icons/Visibility';
 import VisibilityOff from '../../components/icons/VisibilityOff';
-
 const mapStateToProps = createStructuredSelector({
   firstName: makeSelectFirstName(),
   lastName: makeSelectLastName(),
@@ -253,11 +255,9 @@ export function SignupPage() {
             type={showPassword ? 'text' : 'password'}
             placeholder="********"
             endDecorator={
-              <StyledInputEndDecorator
-                onClick={() => setShowPassword(!showPassword)}
-              >
+              <IconButton onClick={() => setShowPassword(!showPassword)}>
                 {showPassword ? <Visibility /> : <VisibilityOff />}
-              </StyledInputEndDecorator>
+              </IconButton>
             }
             disabled={signingUp}
           />
