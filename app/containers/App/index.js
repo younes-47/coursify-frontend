@@ -5,29 +5,30 @@
  * This component is the skeleton around the actual pages, and should only
  * contain code that should be seen on all pages. (e.g. navigation bar)
  */
-
+/* eslint-disable prettier/prettier */
 import React from 'react';
 import styled, { ThemeProvider } from 'styled-components';
+import { Route, Routes } from 'react-router-dom';
+
 import HomePage from 'containers/HomePage/Loadable';
 import SignupPage from 'containers/SignupPage/Loadable';
 import LoginPage from 'containers/LoginPage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
-import { Route, Routes } from 'react-router-dom/dist';
 import PasswordResetPage from 'containers/PasswordResetPage/Loadable';
+import UserHomePage from 'containers/UserHomePage/Loadable';
+import AdminSectionLayout from 'containers/AdminSectionLayout/Loadable';
+import UserSectionLayout from 'containers/UserSectionLayout/Loadable';
+import UserMyCoursesPage from 'containers/UserMyCoursesPage/Loadable';
+import UserProfilePage from 'containers/UserProfilePage/Loadable';
+import AdminDashboard  from 'containers/AdminDashboard';
+import VerificationPage from 'containers/VerificationPage/Loadable';
+
 import GlobalStyle from '../../global-styles';
 import { AuthProvider } from '../../utils/custom/context/AuthProvider';
 import RequireAuth from '../../utils/custom/RequireAuth';
-import VerificationPage from '../VerificationPage/Loadable';
-import UserHomePage from '../UserHomePage/Loadable';
 
-const AppWrapper = styled.div`
-  max-width: calc(768px + 16px * 2);
-  margin: 0 auto;
-  display: flex;
-  min-height: 100%;
-  padding: 0 16px;
-  flex-direction: column;
-`;
+import PersistLogin from '../../utils/custom/PersistLogin';
+import HomeRedirector from '../../utils/custom/HomeRedirector';
 
 const theme = {
   palette: {
@@ -43,6 +44,7 @@ const theme = {
     lightPurple: '#B185A7',
     darkOrange: '#FF8C42',
     lightOrange: '#F9C784',
+    darkRed: '#CA3C25',
     lightGray: '#E7EFE9',
   },
 };
@@ -52,26 +54,44 @@ export default function App() {
     <AuthProvider>
       <ThemeProvider theme={theme}>
         <Routes>
+          
           {/*  public routes */}
-          <Route path="/" element={<HomePage />} />
-          <Route path="/Signup" element={<SignupPage />} />
-          <Route path="/Login" element={<LoginPage />} />
-          <Route
-            path="/Verify/token/:token/email/:email"
-            element={<VerificationPage />}
-          />
-          <Route path="/Verify" element={<VerificationPage />} />
-          <Route
-            path="/Password-reset/token/:token/email/:email"
-            element={<PasswordResetPage />}
-          />
-          <Route path="/Password-reset" element={<PasswordResetPage />} />
-
-          <Route path="*" element={<NotFoundPage />} />
-          {/* user routes */}
-          <Route element={<RequireAuth allowedRole="user" />}>
-            <Route path="/home" element={<UserHomePage />} />
+          <Route element={<PersistLogin />}>
+            <Route element={<HomeRedirector />}>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/Signup" element={<SignupPage />} />
+              <Route path="/Login" element={<LoginPage />} />
+              <Route path="/Verify" element={<VerificationPage />} />
+              <Route path="/Verify/token/:token/email/:email" element={<VerificationPage />} />
+              <Route path="/Password-reset" element={<PasswordResetPage />} />
+              <Route path="/Password-reset/token/:token/email/:email" element={<PasswordResetPage />} />
+            </Route>
           </Route>
+            
+
+          {/* user routes */}
+          <Route element={<PersistLogin />}>
+            <Route element={<RequireAuth allowedRole="user" />}>
+              <Route element={<UserSectionLayout />}>
+                <Route path="/home" element={<UserHomePage />} />
+                <Route path="/mycourses" element={<UserMyCoursesPage />} />
+                <Route path="/myprofile" element={<UserProfilePage />} />
+              </Route>
+            </Route>
+          </Route>
+
+          {/* admin routes */}
+          <Route element={<PersistLogin />}>
+            <Route element={<RequireAuth allowedRole="admin" />}>
+              <Route element={<AdminSectionLayout />}>
+                <Route path="/admin/dashboard" element={<AdminDashboard />} />
+              </Route>
+            </Route>
+          </Route>
+          
+          {/* 404 */}
+          <Route path="*" element={<NotFoundPage />} />
+
         </Routes>
         <GlobalStyle />
       </ThemeProvider>
