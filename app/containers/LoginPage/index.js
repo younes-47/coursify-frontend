@@ -11,6 +11,7 @@ import { createStructuredSelector } from 'reselect';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
 import {
+  Checkbox,
   Button,
   FormControl,
   FormHelperText,
@@ -19,6 +20,7 @@ import {
   Stack,
   Sheet,
   Typography,
+  IconButton,
 } from '@mui/joy';
 import Alert from '@mui/joy/Alert';
 import validator from 'validator';
@@ -62,7 +64,7 @@ export function LoginPage() {
 
   const { email, password, errorLoggingIn, loggingIn, successLoggingIn } =
     useSelector(mapStateToProps);
-  const { setAuth } = useAuth();
+  const { setAuth, persist, setPersist } = useAuth();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
@@ -80,7 +82,17 @@ export function LoginPage() {
   useEffect(() => {
     if (successLoggingIn !== null) {
       setAuth(successLoggingIn);
-      navigate('/home', { replace: true, state: { from: location.pathname } });
+      if (successLoggingIn.role === 'user') {
+        navigate('/home', {
+          replace: true,
+          state: { from: location.pathname },
+        });
+      } else {
+        navigate('/admin/dashboard', {
+          replace: true,
+          state: { from: location.pathname },
+        });
+      }
     }
   }, [successLoggingIn]);
 
@@ -114,6 +126,14 @@ export function LoginPage() {
   const handleOnLoginButtonClick = () => {
     dispatch(loginAction({ email, password }));
   };
+
+  const togglePersist = () => {
+    setPersist((prev) => !prev);
+  };
+
+  useEffect(() => {
+    localStorage.setItem('persist', persist);
+  }, [persist]);
 
   return (
     <>
@@ -160,11 +180,9 @@ export function LoginPage() {
             type={showPassword ? 'text' : 'password'}
             placeholder="********"
             endDecorator={
-              <StyledInputEndDecorator
-                onClick={() => setShowPassword(!showPassword)}
-              >
+              <IconButton onClick={() => setShowPassword(!showPassword)}>
                 {showPassword ? <Visibility /> : <VisibilityOff />}
-              </StyledInputEndDecorator>
+              </IconButton>
             }
             disabled={loggingIn}
           />
@@ -175,6 +193,11 @@ export function LoginPage() {
           )}
         </FormControl>
         <ErrorMessage error={errorLoggingIn} />
+        <Checkbox
+          checked={persist}
+          label="Rester connecté"
+          onChange={togglePersist}
+        />
         <StyledButton
           color="darkPurple"
           style={{ marginTop: '1.5em' }}

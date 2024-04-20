@@ -54,7 +54,8 @@ function ErrorMessage({ error = null }) {
       }
       return (
         <Alert color={alertColor}>
-          {errorMessages[error?.response?.data] || error?.response?.data}
+          {errorMessages[error?.response?.data] ||
+            JSON.stringify(error?.response?.data)}
         </Alert>
       );
     }
