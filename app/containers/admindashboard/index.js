@@ -22,7 +22,7 @@ export function AdminDashboard() {
   useInjectReducer({ key: 'adminDashboard', reducer });
   useInjectSaga({ key: 'adminDashboard', saga });
 
-  return <h1>This is the admin dashboard</h1>;
+  return <h1>Dashboard</h1>;
 }
 
 AdminDashboard.propTypes = {};

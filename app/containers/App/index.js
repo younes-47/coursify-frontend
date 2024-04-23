@@ -22,6 +22,8 @@ import UserMyCoursesPage from 'containers/UserMyCoursesPage/Loadable';
 import UserProfilePage from 'containers/UserProfilePage/Loadable';
 import AdminDashboard  from 'containers/AdminDashboard';
 import VerificationPage from 'containers/VerificationPage/Loadable';
+import AdminSettings from '../AdminSettings/Loadable';
+import AdminCourses from '../AdminCourses/Loadable';
 
 import GlobalStyle from '../../global-styles';
 import { AuthProvider } from '../../utils/custom/context/AuthProvider';
@@ -85,6 +87,8 @@ export default function App() {
             <Route element={<RequireAuth allowedRole="admin" />}>
               <Route element={<AdminSectionLayout />}>
                 <Route path="/admin/dashboard" element={<AdminDashboard />} />
+                <Route path="/admin/settings" element={<AdminSettings />} />
+                <Route path="/admin/courses" element={<AdminCourses />} />
               </Route>
             </Route>
           </Route>

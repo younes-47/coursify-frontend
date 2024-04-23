@@ -16,11 +16,13 @@ import SpeedSharpIcon from '@mui/icons-material/SpeedSharp';
 import AutoAwesomeSharpIcon from '@mui/icons-material/AutoAwesomeSharp';
 import LibraryBooksSharpIcon from '@mui/icons-material/LibraryBooksSharp';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { Chip } from '@mui/joy';
 import { closeSidebar } from './utils';
 import { StyledLogo } from '../Styled/StyledLogo';
 import appLogo from '../../images/app-logo.svg';
 import useAuth from '../../utils/custom/hooks/useAuth';
 import useLogout from '../../utils/custom/hooks/useLogout';
+import { CenteredContainer } from '../Styled/CenteredContainer';
 
 export default function Sidebar() {
   const navigate = useNavigate();
@@ -79,8 +81,18 @@ export default function Sidebar() {
         }}
         onClick={() => closeSidebar()}
       />
-
-      <StyledLogo src={appLogo} onClick={() => navigate('/admin/dashboard')} />
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
+      >
+        <StyledLogo
+          src={appLogo}
+          onClick={() => navigate('/admin/dashboard')}
+        />
+      </Box>
 
       <Box
         sx={{

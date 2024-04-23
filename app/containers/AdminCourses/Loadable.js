@@ -1,9 +1,8 @@
 /**
  *
- * Asynchronously loads the component for AdminDashboard
+ * Asynchronously loads the component for AdminCourses
  *
  */
-
 import React from 'react';
 import loadable from 'utils/loadable';
 import LoadingIndicator from '../../components/LoadingIndicator';

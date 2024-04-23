@@ -1,87 +1,76 @@
 /**
  *
- * UserProfilePage
+ * AdminSettings
  *
  */
 
 import React, { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
-import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
 import {
-  AspectRatio,
   Box,
   Card,
   CardActions,
   CardOverflow,
-  DialogContent,
-  DialogTitle,
   Divider,
   FormControl,
   FormHelperText,
   FormLabel,
   IconButton,
   Input,
-  Modal,
-  ModalClose,
-  ModalDialog,
   Stack,
   Typography,
 } from '@mui/joy';
-import Visibility from '../../components/icons/Visibility';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import VisibilityOff from '../../components/icons/VisibilityOff';
+import Visibility from '../../components/icons/Visibility';
 import reducer from './reducer';
 import saga from './saga';
+import MySnackbar from '../../components/MySnackbar';
 import { StyledButton } from '../../components/Styled/StyledButton';
-import * as selectors from './selectors';
+import ErrorMessage from './ErrorMessage';
 import {
   validateData,
   validateDate,
   validatePassword,
 } from '../../utils/custom/ValidateInputs';
+import { formatName } from '../../utils/custom/stringManipulation';
+import * as selectors from './selectors';
+import useAuth from '../../utils/custom/hooks/useAuth';
 import {
-  changeAvatarAction,
   changeBirthdateAction,
   changeCurrentPasswordAction,
   changeFirstNameAction,
   changeLastNameAction,
   changeNewPasswordAction,
   cleanupStore,
+  updateAdminInfoAction,
   updatePasswordAction,
-  updateUserInfoAction,
 } from './actions';
-import { formatName } from '../../utils/custom/stringManipulation';
-import useAuth from '../../utils/custom/hooks/useAuth';
-import ErrorMessage from './ErrorMessage';
-import Avatars, { avatarsPaths } from './Avatars';
-import MySnackbar from '../../components/MySnackbar';
 
 const mapStateToProps = createStructuredSelector({
   firstName: selectors.makeSelectFirstName(),
   lastName: selectors.makeSelectLastName(),
   birthdate: selectors.makeSelectBirthdate(),
-  avatar: selectors.makeSelectAvatar(),
   newPassword: selectors.makeSelectNewPassword(),
   currentPassword: selectors.makeSelectCurrentPassword(),
-  updatingUserInfo: selectors.makeSelectUpdatingUserInfo(),
-  errorUpdatingUserInfo: selectors.makeSelectErrorUpdatingUserInfo(),
-  successUpdatingUserInfo: selectors.makeSelectSuccessUpdatingUserInfo(),
+  updatingAdminInfo: selectors.makeSelectUpdatingAdminInfo(),
+  errorUpdatingAdminInfo: selectors.makeSelectErrorUpdatingAdminInfo(),
+  successUpdatingAdminInfo: selectors.makeSelectSuccessUpdatingAdminInfo(),
   updatingPassword: selectors.makeSelectUpdatingPassword(),
   errorUpdatingPassword: selectors.makeSelectErrorUpdatingPassword(),
   successUpdatingPassword: selectors.makeSelectSuccessUpdatingPassword(),
 });
 
-export function UserProfilePage() {
-  useInjectReducer({ key: 'userProfilePage', reducer });
-  useInjectSaga({ key: 'userProfilePage', saga });
+export function AdminSettings() {
+  useInjectReducer({ key: 'adminSettings', reducer });
+  useInjectSaga({ key: 'adminSettings', saga });
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const location = useLocation();
 
   const { userInfo } = useAuth();
 
@@ -89,12 +78,11 @@ export function UserProfilePage() {
     firstName,
     lastName,
     birthdate,
-    avatar,
     newPassword,
     currentPassword,
-    updatingUserInfo,
-    errorUpdatingUserInfo,
-    successUpdatingUserInfo,
+    updatingAdminInfo,
+    errorUpdatingAdminInfo,
+    successUpdatingAdminInfo,
     updatingPassword,
     errorUpdatingPassword,
     successUpdatingPassword,
@@ -112,30 +100,26 @@ export function UserProfilePage() {
   const [invalidBirthdate, setInvalidBirthdate] = useState(false);
   const [isDataValid, setIsDataValid] = useState(false);
 
-  const [modalVisible, setModalVisible] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
 
   const newUserData = {
     firstName,
     lastName,
     birthdate,
-    avatar,
   };
+
+  const newPasswordData = { currentPassword, newPassword };
 
   const isSameData =
     userInfo?.firstName === newUserData.firstName &&
     userInfo?.lastName === newUserData.lastName &&
-    userInfo?.birthdate === newUserData.birthdate &&
-    userInfo?.avatar === newUserData.avatar;
-
-  const newPasswordData = { currentPassword, newPassword };
+    userInfo?.birthdate === newUserData.birthdate;
 
   useEffect(() => {
     if (userInfo) {
       dispatch(changeFirstNameAction(userInfo.firstName));
       dispatch(changeLastNameAction(userInfo.lastName));
       dispatch(changeBirthdateAction(userInfo.birthdate));
-      dispatch(changeAvatarAction(userInfo.avatar));
     }
   }, [userInfo]);
 
@@ -152,8 +136,8 @@ export function UserProfilePage() {
   }, [firstName, lastName, birthdate]);
 
   useEffect(() => {
-    if (successUpdatingUserInfo !== null) navigate(0);
-  }, [successUpdatingUserInfo]);
+    if (successUpdatingAdminInfo !== null) navigate(0);
+  }, [successUpdatingAdminInfo]);
 
   useEffect(() => {
     if (successUpdatingPassword !== null) {
@@ -208,7 +192,7 @@ export function UserProfilePage() {
 
   // dispatchers
   const handleOnSaveUserInfoChanges = () => {
-    dispatch(updateUserInfoAction(newUserData));
+    dispatch(updateAdminInfoAction(newUserData));
   };
 
   const handleOnPasswordChangeButtonClick = () => {
@@ -221,13 +205,13 @@ export function UserProfilePage() {
         spacing={4}
         sx={{
           display: 'flex',
-          maxWidth: '800px',
+          maxWidth: '700px',
           mx: 'auto',
           px: { xs: 2, md: 6 },
           py: { xs: 2, md: 3 },
         }}
       >
-        <Card sx={{ filter: updatingUserInfo ? 'blur(2px)' : 'none' }}>
+        <Card sx={{ filter: updatingAdminInfo ? 'blur(2px)' : 'none' }}>
           <Box sx={{ mb: 1 }}>
             <Typography level="title-md">Informations personnelles</Typography>
           </Box>
@@ -235,147 +219,13 @@ export function UserProfilePage() {
 
           {/* WIDE SCREEN */}
           <Stack
-            direction="row"
+            direction="column"
             spacing={3}
             sx={{
               display: { xs: 'none', md: 'flex' },
               my: 1,
-              justifyContent: 'space-between',
             }}
           >
-            <Stack direction="column" spacing={1}>
-              <AspectRatio
-                ratio="1"
-                maxHeight={200}
-                sx={{ flex: 1, minWidth: 150, borderRadius: '100%' }}
-              >
-                <img src={avatarsPaths[avatar]} loading="lazy" alt="avatar" />
-              </AspectRatio>
-
-              <IconButton
-                aria-label="upload new picture"
-                size="sm"
-                variant="outlined"
-                color="neutral"
-                sx={{
-                  bgcolor: 'background.body',
-                  position: 'absolute',
-                  zIndex: 2,
-                  borderRadius: '50%',
-                  left: 135,
-                  top: 175,
-                  boxShadow: 'sm',
-                }}
-                onClick={() => setModalVisible(true)}
-              >
-                <EditRoundedIcon />
-              </IconButton>
-            </Stack>
-            <Stack spacing={2}>
-              <Stack direction="row" spacing={2}>
-                <FormControl>
-                  <FormLabel>Prénom</FormLabel>
-                  <Input
-                    value={firstName}
-                    onChange={handleFirstNameChange}
-                    size="sm"
-                    placeholder="Prénom"
-                  />
-                </FormControl>
-
-                <FormControl>
-                  <FormLabel>Nom</FormLabel>
-                  <Input
-                    value={lastName}
-                    onChange={handleLastNameChange}
-                    size="sm"
-                    placeholder="Nom"
-                  />
-                </FormControl>
-              </Stack>
-
-              <FormControl error={invalidBirthdate}>
-                <FormLabel>Date de naissance</FormLabel>
-                <Input
-                  value={birthdate}
-                  onChange={handleBirthdateChange}
-                  size="sm"
-                  type="date"
-                />
-                {invalidBirthdate && (
-                  <FormHelperText color="danger">
-                    Date de naissance invalide (Âge minimum : 12 ans)
-                  </FormHelperText>
-                )}
-              </FormControl>
-
-              <FormControl>
-                <FormLabel>Email</FormLabel>
-                <Input
-                  value={userInfo?.email || ''}
-                  size="sm"
-                  type="email"
-                  startDecorator={<EmailRoundedIcon />}
-                  placeholder="email"
-                  disabled
-                />
-              </FormControl>
-            </Stack>
-          </Stack>
-
-          {/* MOBILE SCREEN */}
-          <Stack
-            direction="column"
-            spacing={2}
-            sx={{
-              display: { xs: 'flex', md: 'none' },
-              my: 1,
-            }}
-          >
-            <Stack direction="column" spacing={1} alignItems="center">
-              <AspectRatio
-                ratio="1"
-                maxHeight={200}
-                sx={{
-                  flex: 1,
-                  minWidth: 150,
-                  borderRadius: '50%',
-                  overflow: 'hidden',
-                  position: 'relative',
-                }}
-              >
-                <img
-                  src={avatarsPaths[avatar]}
-                  loading="lazy"
-                  alt="avatar"
-                  style={{
-                    width: '100%',
-                    height: 'auto',
-                    display: 'block',
-                    borderRadius: '50%',
-                    position: 'absolute',
-                    top: '50%',
-                    left: '50%',
-                    transform: 'translate(-50%, -50%)',
-                  }}
-                />
-              </AspectRatio>
-              <IconButton
-                aria-label="upload new picture"
-                size="sm"
-                variant="outlined"
-                color="neutral"
-                sx={{
-                  bgcolor: 'background.body',
-                  boxShadow: 'sm',
-                  borderRadius: '50%',
-                }}
-                onClick={() => setModalVisible(true)}
-              >
-                <EditRoundedIcon />
-              </IconButton>
-            </Stack>
-
             <Stack direction="column" spacing={2}>
               <Stack direction="row" spacing={2}>
                 <FormControl sx={{ flexGrow: 1 }}>
@@ -428,13 +278,74 @@ export function UserProfilePage() {
             </Stack>
           </Stack>
 
-          <ErrorMessage error={errorUpdatingUserInfo} />
+          {/* MOBILE SCREEN */}
+          <Stack
+            direction="column"
+            spacing={2}
+            sx={{
+              display: { xs: 'flex', md: 'none' },
+              my: 1,
+            }}
+          >
+            <Stack direction="column" spacing={2}>
+              <Stack direction="row" spacing={2}>
+                <FormControl sx={{ flexGrow: 1 }}>
+                  <FormLabel>Prénom</FormLabel>
+                  <Input
+                    value={firstName}
+                    onChange={handleFirstNameChange}
+                    size="sm"
+                    placeholder="Prénom"
+                  />
+                </FormControl>
+
+                <FormControl sx={{ flexGrow: 1 }}>
+                  <FormLabel>Nom</FormLabel>
+                  <Input
+                    value={lastName}
+                    onChange={handleLastNameChange}
+                    size="sm"
+                    placeholder="Nom"
+                  />
+                </FormControl>
+              </Stack>
+
+              <FormControl error={invalidBirthdate}>
+                <FormLabel>Date de naissance</FormLabel>
+                <Input
+                  value={birthdate}
+                  onChange={handleBirthdateChange}
+                  size="sm"
+                  type="date"
+                />
+                {invalidBirthdate && (
+                  <FormHelperText color="danger">
+                    Date de naissance invalide (Âge minimum : 12 ans)
+                  </FormHelperText>
+                )}
+              </FormControl>
+
+              <FormControl>
+                <FormLabel>Email</FormLabel>
+                <Input
+                  value={userInfo?.email || ''}
+                  size="sm"
+                  type="email"
+                  startDecorator={<EmailRoundedIcon />}
+                  placeholder="email"
+                  disabled
+                />
+              </FormControl>
+            </Stack>
+          </Stack>
+
+          <ErrorMessage error={errorUpdatingAdminInfo} />
 
           <CardOverflow sx={{ borderTop: '1px solid', borderColor: 'divider' }}>
             <CardActions sx={{ alignSelf: 'flex-end', pt: 2 }}>
               <StyledButton
                 color="darkGreen"
-                disabled={!isDataValid || updatingUserInfo || isSameData}
+                disabled={!isDataValid || updatingAdminInfo || isSameData}
                 onClick={handleOnSaveUserInfoChanges}
               >
                 Enregistrer
@@ -542,16 +453,6 @@ export function UserProfilePage() {
         </Card>
       </Stack>
 
-      <Modal open={modalVisible} onClose={() => setModalVisible(false)}>
-        <ModalDialog variant="plain">
-          <ModalClose />
-          <DialogTitle>Choisissez une avatar</DialogTitle>
-          <DialogContent>
-            <Avatars setModalVisible={setModalVisible} />
-          </DialogContent>
-        </ModalDialog>
-      </Modal>
-
       <MySnackbar
         message="Mot de passe modifié avec succès !"
         open={snackbarOpen}
@@ -562,6 +463,6 @@ export function UserProfilePage() {
   );
 }
 
-UserProfilePage.propTypes = {};
+AdminSettings.propTypes = {};
 
-export default UserProfilePage;
+export default AdminSettings;

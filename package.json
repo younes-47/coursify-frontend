@@ -67,6 +67,7 @@
     "@mui/icons-material": "^5.15.15",
     "@mui/joy": "^5.0.0-beta.32",
     "@mui/material": "^5.15.15",
+    "@mui/x-data-grid": "^7.3.0",
     "animate.css": "^4.1.1",
     "axios": "^1.6.8",
     "chalk": "4.1.1",
