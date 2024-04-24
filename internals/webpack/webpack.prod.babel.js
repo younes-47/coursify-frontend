@@ -23,6 +23,7 @@ module.exports = require('./webpack.base.babel')({
   },
 
   optimization: {
+    moduleIds: 'deterministic',
     minimize: true,
     minimizer: [
       new TerserPlugin({
@@ -136,15 +137,15 @@ module.exports = require('./webpack.base.babel')({
       ],
     }),
 
-    new HashedModuleIdsPlugin({
-      hashFunction: 'sha256',
-      hashDigest: 'hex',
-      hashDigestLength: 20,
-    }),
+    // new HashedModuleIdsPlugin({
+    //   hashFunction: 'sha256',
+    //   hashDigest: 'hex',
+    //   hashDigestLength: 20,
+    // }),
   ],
 
   performance: {
-    assetFilter: assetFilename =>
+    assetFilter: (assetFilename) =>
       !/(\.map$)|(^(main\.|favicon\.))/.test(assetFilename),
   },
 });

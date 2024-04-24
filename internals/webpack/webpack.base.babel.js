@@ -83,7 +83,7 @@ module.exports = (options) => ({
                 optimizationLevel: 7,
               },
               pngquant: {
-                quality: '65-90',
+                quality: [0.65, 0.9],
                 speed: 4,
               },
             },
@@ -115,7 +115,7 @@ module.exports = (options) => ({
   ]),
   resolve: {
     modules: ['node_modules', 'app'],
-    extensions: ['.js', '.jsx', '.react.js'],
+    extensions: ['.js', '.jsx', '.react.js', '.mjs', '.json'],
     mainFields: ['browser', 'jsnext:main', 'main'],
   },
   devtool: options.devtool,
