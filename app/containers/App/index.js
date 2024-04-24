@@ -24,6 +24,8 @@ import AdminDashboard  from 'containers/AdminDashboard';
 import VerificationPage from 'containers/VerificationPage/Loadable';
 import AdminSettings from '../AdminSettings/Loadable';
 import AdminCourses from '../AdminCourses/Loadable';
+import AdminCoursesAdd from '../AdminCoursesAdd/Loadable';
+
 
 import GlobalStyle from '../../global-styles';
 import { AuthProvider } from '../../utils/custom/context/AuthProvider';
@@ -89,6 +91,7 @@ export default function App() {
                 <Route path="/admin/dashboard" element={<AdminDashboard />} />
                 <Route path="/admin/settings" element={<AdminSettings />} />
                 <Route path="/admin/courses" element={<AdminCourses />} />
+                <Route path="/admin/courses/add" element={<AdminCoursesAdd />} />
               </Route>
             </Route>
           </Route>
