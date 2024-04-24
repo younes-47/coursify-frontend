@@ -11,11 +11,13 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
-import { Sheet, Table, Typography } from '@mui/joy';
+import { Button, IconButton, Sheet, Table, Typography } from '@mui/joy';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import { StyledButton } from 'components/Styled/StyledButton';
+import { useLocation, useNavigate } from 'react-router-dom';
 import makeSelectAdminCourses from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-
 AdminCourses.propTypes = {};
 
 function createData(name, calories, fat, carbs, protein) {
@@ -38,15 +40,30 @@ export function AdminCourses() {
   useInjectReducer({ key: 'adminCourses', reducer });
   useInjectSaga({ key: 'adminCourses', saga });
 
+  const navigate = useNavigate();
+  const location = useLocation();
+
   return (
     <>
       <Typography level="h2" gutterBottom fontWeight={600}>
         Courses
       </Typography>
+
+      <IconButton
+        color="success"
+        variant="solid"
+        sx={{ width: '110px', gap: 1 }}
+        onClick={() =>
+          navigate('/admin/courses/add', { state: { from: location.pathname } })
+        }
+      >
+        <AddCircleIcon />
+        Ajouter
+      </IconButton>
       <Sheet
         variant="outlined"
         sx={{
-          display: { xs: 'none', sm: 'initial' },
+          display: { xs: 'initial', sm: 'initial' },
           width: '100%',
           borderRadius: 'sm',
           flexShrink: 1,
