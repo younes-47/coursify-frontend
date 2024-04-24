@@ -10,13 +10,15 @@ const LoadingIndicator = () => (
   <Wrapper>
     {/* <CircularProgress color="neutral" size="md" variant="soft" /> */}
     <img
-      height="35px"
-      width="35px"
+      height="60px"
+      width="60px"
       src={brainLogo}
       alt="coursify-logo-brain-variant"
       className="animate__heartBeat"
     />
-    <Typography level="title-lg">En cours...</Typography>
+    <Typography level="title-lg" fontSize={35} fontWeight={500}>
+      En cours...
+    </Typography>
   </Wrapper>
 );
 

@@ -4,10 +4,10 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 1em;
-  margin: 2em auto;
+  gap: 2.5em;
   height: 40px;
   position: relative;
+  height: 100vh;
 `;
 
 export default Wrapper;
