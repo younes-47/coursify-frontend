@@ -8,12 +8,53 @@ import { List, ListItem, Sheet, Typography } from '@mui/joy';
 import React, { useState } from 'react';
 import Dropzone from 'react-dropzone';
 import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
 // import styled from 'styled-components';
 
-function MyDropZone({ accept = '' }) {
-  const [files, setFiles] = useState([]);
+function MyDropZone({ color = 'neutral', type, update, id }) {
+  const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
+  const [selectedFiles, setSelectedFiles] = useState([]);
 
-  const selectedFiles = files.map((file) => (
+  const handleFile = async (acceptedFiles) => {
+    setLoading(true);
+
+    const promises = acceptedFiles.map(
+      (acceptedFile) =>
+        new Promise((resolve, reject) => {
+          const reader = new FileReader();
+
+          reader.onload = (event) => {
+            resolve(event.target.result);
+          };
+
+          reader.onerror = (err) => {
+            reject(err);
+          };
+
+          reader.readAsDataURL(acceptedFile);
+        }),
+    );
+
+    const responses = await Promise.all(promises); // Wait for all promises to resolve
+
+    setSelectedFiles([]);
+    const filesArray = [];
+    responses.forEach((response, index) => {
+      const base64data = response.split(',')[1];
+      filesArray.push(base64data);
+      setSelectedFiles((selectedFile) => [
+        ...selectedFile,
+        acceptedFiles[index],
+      ]);
+    });
+
+    dispatch(update(id, type, filesArray));
+
+    setLoading(false);
+  };
+
+  const uploadedFiles = selectedFiles?.map((file) => (
     <ListItem key={file.path}>
       <Typography level="body-xs">
         {file.path} - {(file.size / 1048576).toFixed(2)} MB
@@ -21,7 +62,11 @@ function MyDropZone({ accept = '' }) {
     </ListItem>
   ));
   return (
-    <Dropzone onDrop={(acceptedFiles) => setFiles(acceptedFiles)} maxFiles={10}>
+    <Dropzone
+      onDrop={(acceptedFiles) => handleFile(acceptedFiles)}
+      maxFiles={10}
+      disabled={loading}
+    >
       {({ getRootProps, getInputProps }) => (
         <Sheet
           sx={{
@@ -29,8 +74,10 @@ function MyDropZone({ accept = '' }) {
             px: 2, // padding left & right
             display: 'flex',
             flexDirection: 'column',
+            filter: loading ? 'blur(2px)' : 'none',
           }}
           variant="soft"
+          color={color}
         >
           <Sheet
             sx={{
@@ -40,7 +87,7 @@ function MyDropZone({ accept = '' }) {
               border: '2px dashed',
             }}
             variant="outlined"
-            color="primary"
+            color={color}
           >
             <div {...getRootProps()} style={{ padding: '1.5em 1em' }}>
               <input {...getInputProps()} />
@@ -48,20 +95,15 @@ function MyDropZone({ accept = '' }) {
                 Faites glisser et déposez des fichiers ici, ou cliquez pour
                 sélectionner des fichiers
               </Typography>
-              {accept && (
-                <Typography variant="body-md" textAlign="center">
-                  (Seuls les fichiers de type {accept} sont acceptés)
-                </Typography>
-              )}
             </div>
           </Sheet>
 
-          {selectedFiles.length ? (
+          {uploadedFiles?.length ? (
             <>
               <Typography level="body-md" fontWeight="lg">
                 Fichiers sélectionnés :
               </Typography>
-              <List>{selectedFiles}</List>
+              <List>{uploadedFiles}</List>
             </>
           ) : (
             <Typography level="body-xs">Aucun fichier sélectionné</Typography>
@@ -73,7 +115,11 @@ function MyDropZone({ accept = '' }) {
 }
 
 MyDropZone.propTypes = {
-  accept: PropTypes.string,
+  color: PropTypes.string,
+  update: PropTypes.func,
+  type: PropTypes.string,
+  id: PropTypes.any,
+  files: PropTypes.array,
 };
 
 export default MyDropZone;
