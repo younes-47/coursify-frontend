@@ -50,6 +50,8 @@ export default function Sidebar() {
         gap: 2,
         borderRight: '1px solid',
         borderColor: 'divider',
+        backgroundImage:
+          'linear-gradient(to left bottom, #e7efe9, #dbead2, #dce2b6, #e7d79a, #f9c784);',
       }}
     >
       <GlobalStyles
