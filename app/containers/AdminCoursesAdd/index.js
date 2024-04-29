@@ -4,48 +4,96 @@
  *
  */
 
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import React, { useEffect, useState } from 'react';
 import { createStructuredSelector } from 'reselect';
-import { compose } from 'redux';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import { v4 as uuidv4 } from 'uuid';
 import {
+  AccordionGroup,
   Box,
   Button,
-  FormControl,
-  FormLabel,
   IconButton,
-  Input,
-  Option,
-  Select,
-  Sheet,
   Stack,
   Tab,
   TabList,
   Tabs,
-  Textarea,
   Typography,
   tabClasses,
 } from '@mui/joy';
-import Dropzone from 'react-dropzone';
-import makeSelectAdminCoursesAdd from './selectors';
+import { useDispatch, useSelector } from 'react-redux';
 import reducer from './reducer';
 import saga from './saga';
-import { CenteredContainer } from '../../components/Styled/CenteredContainer';
+import Section from '../../components/AdminSection/AddCourse/Section';
+import Informations from '../../components/AdminSection/AddCourse/Information';
+import NavigartionButtons from '../../components/AdminSection/AddCourse/NavigationButtons';
 import { StyledButton } from '../../components/Styled/StyledButton';
-import MyDropZone from '../../components/MyDropZone';
+import QuestionForm from '../../components/AdminSection/AddCourse/QuestionForm';
+
+import * as selectors from './selectors';
+import * as actions from './actions';
+import Confirmation from '../../components/AdminSection/AddCourse/Confirmation';
+
+const mapStateToProps = createStructuredSelector({
+  courseInfo: selectors.makeSelectCourseInfo(),
+
+  sections: selectors.makeSelectSections(),
+  evaluationQuestions: selectors.makeSelectEvaluationQuestions(),
+  quizQuestions: selectors.makeSelectQuizQuestions(),
+
+  addingCourse: selectors.makeSelectAddingCourse(),
+  addCourseError: selectors.makeSelectAddCourseError(),
+  addCourseSuccess: selectors.makeSelectAddCourseSuccess(),
+
+  gettingCourseCategories: selectors.makeSelectGettingCourseCategories(),
+  courseCategories: selectors.makeSelectCourseCategories(),
+  getCourseCategoriesError: selectors.makeSelectGetCourseCategoriesError(),
+});
 
 export function AdminCoursesAdd() {
   useInjectReducer({ key: 'adminCoursesAdd', reducer });
   useInjectSaga({ key: 'adminCoursesAdd', saga });
 
-  const [currentTab, setCurrentTab] = useState(1);
+  const dispatch = useDispatch();
+  const [currentTab, setCurrentTab] = useState(0);
+  const {
+    sections,
+    evaluationQuestions,
+    courseInfo,
+    quizQuestions,
+    addingCourse,
+    addCourseError,
+    addCourseSuccess,
+    gettingCourseCategories,
+    courseCategories,
+    getCourseCategoriesError,
+  } = useSelector(mapStateToProps);
+
+  const data = {
+    courseInfo,
+    sections,
+    evaluationQuestions,
+    quizQuestions,
+  };
+
   const handleTabChange = (event, newValue) => {
     setCurrentTab(newValue);
   };
+
+  useEffect(() => {
+    if (courseCategories === null) {
+      dispatch(actions.getCourseCategories());
+    }
+  }, [courseCategories]);
+
+  useEffect(
+    () => () => {
+      dispatch(actions.cleanupStore());
+    },
+    [],
+  );
+
   return (
     <>
       <Box
@@ -102,75 +150,136 @@ export function AdminCoursesAdd() {
             <Tab sx={{ borderRadius: '6px 6px 0 0' }} indicatorInset value={3}>
               Quiz
             </Tab>
+            <Tab sx={{ borderRadius: '6px 6px 0 0' }} indicatorInset value={4}>
+              Confirmation
+            </Tab>
           </TabList>
         </Tabs>
       </Box>
       <Box>
+        {/* Informations  */}
         {currentTab === 0 && (
-          <Stack spacing={4} sx={{ p: { xs: 2, md: 6 } }}>
-            <FormControl>
-              <FormLabel required>
-                <Typography level="title-lg">Titre de course</Typography>
-              </FormLabel>
-              <Input type="text" placeholder="Titre de course..." />
-            </FormControl>
-            <FormControl required>
-              <FormLabel>
-                <Typography level="title-lg">Categorie de course</Typography>
-              </FormLabel>
-              <Select placeholder="Séléctionner..." variant="outlined">
-                <Option>Technologie et informatique</Option>
-                <Option>Language and Communication</Option>
-                <Option>Arts et Cultures</Option>
-                <Option>Principes de la cuisine</Option>
-                <Option>Business et entrepreneuriat</Option>
-                <Option>Science et mathématiques</Option>
-              </Select>
-            </FormControl>
-            <FormControl>
-              <FormLabel>
-                <Typography level="title-lg">Description</Typography>
-              </FormLabel>
-              <Textarea placeholder="Description..." minRows={3} maxRows={8} />
-            </FormControl>
-            <CenteredContainer>
-              <StyledButton color="darkBlue" onClick={() => setCurrentTab(1)}>
-                Suivant
-              </StyledButton>
-            </CenteredContainer>
-          </Stack>
+          <>
+            <Informations
+              data={courseInfo}
+              update={actions.updateCourseInfo}
+              categories={courseCategories}
+            />
+            <NavigartionButtons
+              setCurrentTab={setCurrentTab}
+              CurrentTab={currentTab}
+            />
+          </>
         )}
+
+        {/* Sections */}
         {currentTab === 1 && (
-          <Stack spacing={4} sx={{ p: { xs: 2, md: 6 } }}>
-            <FormControl required>
-              <FormLabel>
-                <Typography level="title-lg">Titre de la section</Typography>
-              </FormLabel>
-              <Input type="text" placeholder="Titre de la section..." />
-            </FormControl>
-            <FormControl required>
-              <FormLabel>
-                <Typography level="title-lg">Slides</Typography>
-              </FormLabel>
-              <MyDropZone />
-            </FormControl>
-            <FormControl>
-              <FormLabel>
-                <Typography level="title-lg">Documents</Typography>
-              </FormLabel>
-              <MyDropZone />
-            </FormControl>
-            <CenteredContainer>
-              <Stack direction="row" spacing={2}>
-                <StyledButton color="darkBlue" onClick={() => setCurrentTab(0)}>
-                  Précedent
-                </StyledButton>
-                <StyledButton color="darkBlue" onClick={() => setCurrentTab(2)}>
-                  Suivant
-                </StyledButton>
-              </Stack>
-            </CenteredContainer>
-          </Stack>
+          <>
+            <Stack spacing={2} sx={{ p: { xs: 2, md: 3 } }}>
+              <IconButton
+                color="success"
+                variant="solid"
+                sx={{ width: '110px', gap: 1 }}
+                onClick={() => dispatch(actions.addSection())}
+              >
+                <AddCircleIcon />
+                Ajouter
+              </IconButton>
+              <AccordionGroup size="lg">
+                {sections.map((section) => (
+                  <Section
+                    data={section}
+                    remove={actions.removeSection}
+                    update={actions.updateSection}
+                    key={section.id}
+                  />
+                ))}
+              </AccordionGroup>
+            </Stack>
+            <NavigartionButtons
+              setCurrentTab={setCurrentTab}
+              CurrentTab={currentTab}
+            />
+          </>
+        )}
+
+        {/* Evaluation */}
+        {currentTab === 2 && (
+          <>
+            <Stack spacing={2} sx={{ p: { xs: 2, md: 3 } }}>
+              <IconButton
+                color="success"
+                variant="solid"
+                sx={{ width: '110px', gap: 1 }}
+                onClick={() => dispatch(actions.addEvaluationQuestion())}
+              >
+                <AddCircleIcon />
+                Ajouter
+              </IconButton>
+              <AccordionGroup size="lg">
+                {evaluationQuestions.map((evaluationQuestion) => (
+                  <QuestionForm
+                    data={evaluationQuestion}
+                    remove={actions.removeEvaluationQuestion}
+                    update={actions.updateEvaluationQuestion}
+                    key={evaluationQuestion.id}
+                  />
+                ))}
+              </AccordionGroup>
+            </Stack>
+            <NavigartionButtons
+              setCurrentTab={setCurrentTab}
+              CurrentTab={currentTab}
+            />
+          </>
+        )}
+
+        {/* Quiz */}
+
+        {currentTab === 3 && (
+          <>
+            <Stack spacing={2} sx={{ p: { xs: 2, md: 3 } }}>
+              <IconButton
+                color="success"
+                variant="solid"
+                sx={{ width: '110px', gap: 1 }}
+                onClick={() => dispatch(actions.addQuizQuestion())}
+              >
+                <AddCircleIcon />
+                Ajouter
+              </IconButton>
+              <AccordionGroup size="lg">
+                {quizQuestions.map((quizQuestion) => (
+                  <QuestionForm
+                    data={quizQuestion}
+                    remove={actions.removeQuizQuestion}
+                    update={actions.updateQuizQuestion}
+                    key={quizQuestion.id}
+                  />
+                ))}
+              </AccordionGroup>
+            </Stack>
+            <NavigartionButtons
+              setCurrentTab={setCurrentTab}
+              CurrentTab={currentTab}
+            />
+          </>
+        )}
+
+        {/* Confirmation */}
+        {currentTab === 4 && (
+          <>
+            <Confirmation
+              add={actions.addCourse}
+              error={addCourseError}
+              adding={addingCourse}
+              data={data}
+            />
+            <NavigartionButtons
+              setCurrentTab={setCurrentTab}
+              CurrentTab={currentTab}
+            />
+          </>
         )}
       </Box>
     </>
@@ -178,7 +287,5 @@ export function AdminCoursesAdd() {
 }
 
 AdminCoursesAdd.propTypes = {};
-
-const mapStateToProps = createStructuredSelector({});
 
 export default AdminCoursesAdd;
