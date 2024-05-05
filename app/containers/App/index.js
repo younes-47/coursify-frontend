@@ -25,6 +25,11 @@ import VerificationPage from 'containers/VerificationPage/Loadable';
 import AdminSettings from '../AdminSettings/Loadable';
 import AdminCourses from '../AdminCourses/Loadable';
 import AdminCoursesAdd from '../AdminCoursesAdd/Loadable';
+import UserEnrollPage from '../UserEnrollPage/Loadable';
+import UserCourseDetailsPage from '../UserCourseDetailsPage/Loadable';
+import UserEvaluationPage from '../UserEvaluationPage/Loadable';
+import UserEvaluationResult from '../UserEvaluationResult/Loadable';
+import UserCourseContent from '../UserCourseContent/Loadable';
 
 
 import GlobalStyle from '../../global-styles';
@@ -50,6 +55,8 @@ const theme = {
     lightOrange: '#F9C784',
     darkRed: '#CA3C25',
     lightGray: '#E7EFE9',
+    darkGray: '#D6D1C2',
+    cream: '#f5ebe0',
   },
 };
 
@@ -80,6 +87,11 @@ export default function App() {
                 <Route path="/home" element={<UserHomePage />} />
                 <Route path="/mycourses" element={<UserMyCoursesPage />} />
                 <Route path="/myprofile" element={<UserProfilePage />} />
+                <Route path='/enroll' element={<UserEnrollPage />} />
+                <Route path='/enroll/:courseId' element={<UserCourseDetailsPage />} />
+                <Route path='/evaluate/:courseId' element={<UserEvaluationPage />} />
+                <Route path='/evaluation/result' element={<UserEvaluationResult />} />
+                <Route path='/course/content/:courseId' element={<UserCourseContent />} />
               </Route>
             </Route>
           </Route>
