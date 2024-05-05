@@ -12,6 +12,21 @@ const selectAdminDashboardDomain = (state) =>
  * Other specific selectors
  */
 
+const makeSelectGettingInsights = () =>
+  createSelector(
+    selectAdminDashboardDomain,
+    (substate) => substate.gettingInsights,
+  );
+
+const makeSelectGettingInsightsError = () =>
+  createSelector(
+    selectAdminDashboardDomain,
+    (substate) => substate.gettingInsightsError,
+  );
+
+const makeSelectInsights = () =>
+  createSelector(selectAdminDashboardDomain, (substate) => substate.insights);
+
 /**
  * Default selector used by AdminDashboard
  */
@@ -20,4 +35,9 @@ const makeSelectAdminDashboard = () =>
   createSelector(selectAdminDashboardDomain, (substate) => substate);
 
 export default makeSelectAdminDashboard;
-export { selectAdminDashboardDomain };
+export {
+  selectAdminDashboardDomain,
+  makeSelectGettingInsights,
+  makeSelectGettingInsightsError,
+  makeSelectInsights,
+};
