@@ -124,6 +124,12 @@ export default function Sidebar() {
                   state: { from: location.pathname },
                 })
               }
+              sx={{
+                bgcolor:
+                  location.pathname.toLowerCase() === '/admin/dashboard'
+                    ? '#fff'
+                    : 'transparent',
+              }}
             >
               <DashboardRoundedIcon />
               <ListItemContent>
@@ -146,7 +152,7 @@ export default function Sidebar() {
               </ListItemContent>
             </ListItemButton>
           </ListItem>
-          <ListItem>
+          {/* <ListItem>
             <ListItemButton
               selected={location.pathname.toLowerCase() === '/admin/evaluation'}
               onClick={() =>
@@ -173,7 +179,7 @@ export default function Sidebar() {
                 <Typography level="title-sm">Quiz</Typography>
               </ListItemContent>
             </ListItemButton>
-          </ListItem>
+          </ListItem> */}
 
           <ListItem>
             <ListItemButton

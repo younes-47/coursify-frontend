@@ -12,6 +12,7 @@ import {
   Typography,
 } from '@mui/joy';
 import { useDispatch } from 'react-redux';
+import FileDropzone from '../../FileDropzone';
 
 const Informations = ({ data, update, categories }) => {
   const dispatch = useDispatch();
@@ -64,6 +65,16 @@ const Informations = ({ data, update, categories }) => {
           onChange={(e) =>
             dispatch(update('courseDescription', e?.target?.value))
           }
+        />
+      </FormControl>
+      <FormControl>
+        <FormLabel>
+          <Typography level="title-lg">Couverture</Typography>
+        </FormLabel>
+        <FileDropzone
+          update={update}
+          files={data.courseCover}
+          field="courseCover"
         />
       </FormControl>
     </Stack>

@@ -15,7 +15,7 @@ import {
 } from '@mui/joy';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import { useDispatch } from 'react-redux';
-import MyDropZone from '../../MyDropZone';
+import SectionDropZone from './SectionDropZone';
 
 const Section = ({ data, update, remove }) => {
   const dispatch = useDispatch();
@@ -44,7 +44,7 @@ const Section = ({ data, update, remove }) => {
                 <FormLabel>
                   <Typography level="title-lg">Slides</Typography>
                 </FormLabel>
-                <MyDropZone
+                <SectionDropZone
                   color="primary"
                   type="slides"
                   update={update}
@@ -56,7 +56,7 @@ const Section = ({ data, update, remove }) => {
                 <FormLabel>
                   <Typography level="title-lg">Documents</Typography>
                 </FormLabel>
-                <MyDropZone
+                <SectionDropZone
                   color="warning"
                   type="documents"
                   update={update}

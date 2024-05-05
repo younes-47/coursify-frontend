@@ -1,6 +1,6 @@
 /**
  *
- * MyDropZone
+ * SectionDropZone
  *
  */
 
@@ -11,7 +11,7 @@ import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 // import styled from 'styled-components';
 
-function MyDropZone({ color = 'neutral', type, update, id }) {
+function SectionDropZone({ color = 'neutral', type, update, id, files }) {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [selectedFiles, setSelectedFiles] = useState([]);
@@ -98,12 +98,17 @@ function MyDropZone({ color = 'neutral', type, update, id }) {
             </div>
           </Sheet>
 
-          {uploadedFiles?.length ? (
+          {uploadedFiles?.length > 0 || files?.length > 0 ? (
             <>
               <Typography level="body-md" fontWeight="lg">
                 Fichiers sélectionnés :
               </Typography>
-              <List>{uploadedFiles}</List>
+              {uploadedFiles?.length > 0 && <List>{uploadedFiles}</List>}
+              {files?.length > 0 && uploadedFiles?.length === 0 && (
+                <Typography level="body-md" fontWeight="lg">
+                  {files?.length}
+                </Typography>
+              )}
             </>
           ) : (
             <Typography level="body-xs">Aucun fichier sélectionné</Typography>
@@ -114,7 +119,7 @@ function MyDropZone({ color = 'neutral', type, update, id }) {
   );
 }
 
-MyDropZone.propTypes = {
+SectionDropZone.propTypes = {
   color: PropTypes.string,
   update: PropTypes.func,
   type: PropTypes.string,
@@ -122,4 +127,4 @@ MyDropZone.propTypes = {
   files: PropTypes.array,
 };
 
-export default MyDropZone;
+export default SectionDropZone;

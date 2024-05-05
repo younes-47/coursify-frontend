@@ -7,7 +7,7 @@ const Wrapper = styled.div`
   gap: 2.5em;
   height: 40px;
   position: relative;
-  height: 100vh;
+  height: 50vh;
 `;
 
 export default Wrapper;

@@ -14,7 +14,7 @@ import CloseSharpIcon from '@mui/icons-material/CloseSharp';
 import IconButton from '@mui/joy/IconButton';
 // import styled from 'styled-components';
 
-function MySnackbar({ message, open, setOpen, color }) {
+function MySnackbar({ message, open, setOpen, color = 'neutral' }) {
   const startIcon = () => {
     if (color === 'success') {
       return <CheckCircleIcon />;

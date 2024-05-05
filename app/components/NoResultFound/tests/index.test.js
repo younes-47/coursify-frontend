@@ -1,6 +1,6 @@
 /**
  *
- * Tests for MyDropZone
+ * Tests for NoResultFound
  *
  * @see https://github.com/react-boilerplate/react-boilerplate/tree/master/docs/testing
  *
@@ -10,12 +10,12 @@ import React from 'react';
 import { render } from 'react-testing-library';
 // import 'jest-dom/extend-expect'; // add some helpful assertions
 
-import MyDropZone from '../index';
+import NoResultFound from '../index';
 
-describe('<MyDropZone />', () => {
+describe('<NoResultFound />', () => {
   it('Expect to not log errors in console', () => {
     const spy = jest.spyOn(global.console, 'error');
-    render(<MyDropZone />);
+    render(<NoResultFound />);
     expect(spy).not.toHaveBeenCalled();
   });
 
@@ -31,7 +31,7 @@ describe('<MyDropZone />', () => {
   it.skip('Should render and match the snapshot', () => {
     const {
       container: { firstChild },
-    } = render(<MyDropZone />);
+    } = render(<NoResultFound />);
     expect(firstChild).toMatchSnapshot();
   });
 });
