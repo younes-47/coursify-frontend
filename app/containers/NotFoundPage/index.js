@@ -5,7 +5,7 @@
  */
 
 import React from 'react';
-import { Typography } from '@mui/joy';
+import { Stack, Typography } from '@mui/joy';
 import { useTheme } from 'styled-components';
 import { useLocation, useNavigate } from 'react-router-dom';
 import notFoundImg from '../../images/not-found-illustration.jpg';
@@ -18,45 +18,40 @@ export default function NotFound() {
   const from = location.state?.from || '/';
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        marginTop: '2em',
-      }}
+    <Stack
+      direction="column"
+      alignItems="center"
+      justifyContent="center"
+      spacing={2}
+      sx={{ height: '100%' }}
+      p={{ xs: 2, md: 4 }}
     >
       <img
         src={notFoundImg}
         alt="Page introuvable"
-        style={{ height: '20em' }}
+        style={{ height: 'auto', width: '100%', maxWidth: '400px' }}
       />
-      <h2>Page introuvable!</h2>
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          textAlign: 'center',
-          width: '40%',
-        }}
-      >
+      <Typography level="h2">Page introuvable!</Typography>
+      <Stack direction="column" alignItems="center" textAlign="center">
         <Typography level="title-md">
-          Désolé, la page que vous avez demandée n'existe pas. Veuillez vérifier
-          l'URL ou cliquer sur le bouton ci-dessous pour revenir.
+          Désolé, la page que vous avez demandée n'existe pas.
         </Typography>
-        <StyledLink
-          color="lightBrown"
-          onClick={() => navigate(from, { replace: true })}
+        <Typography level="title-md">
+          Veuillez vérifier l'URL ou cliquer sur le bouton ci-dessous pour
+          revenir.
+        </Typography>
+      </Stack>
+      <StyledLink
+        color="lightBrown"
+        onClick={() => navigate(from, { replace: true })}
+      >
+        <Typography
+          level="title-md"
+          sx={{ color: theme.palette.lightBrown, marginTop: '1em' }}
         >
-          <Typography
-            level="title-md"
-            sx={{ color: theme.palette.lightBrown, marginTop: '1em' }}
-          >
-            Retourner
-          </Typography>
-        </StyledLink>
-      </div>
-    </div>
+          Retourner
+        </Typography>
+      </StyledLink>
+    </Stack>
   );
 }
