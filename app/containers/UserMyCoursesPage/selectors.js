@@ -12,6 +12,24 @@ const selectUserMyCoursesPageDomain = (state) =>
  * Other specific selectors
  */
 
+const makeSelectGettingEnrolledCourses = () =>
+  createSelector(
+    selectUserMyCoursesPageDomain,
+    (substate) => substate.gettingEnrolledCourses,
+  );
+
+const makeSelectEnrolledCourses = () =>
+  createSelector(
+    selectUserMyCoursesPageDomain,
+    (substate) => substate.enrolledCourses,
+  );
+
+const makeSelectErrorGettingEnrolledCourses = () =>
+  createSelector(
+    selectUserMyCoursesPageDomain,
+    (substate) => substate.errorGettingEnrolledCourses,
+  );
+
 /**
  * Default selector used by UserMyCoursesPage
  */
@@ -20,4 +38,9 @@ const makeSelectUserMyCoursesPage = () =>
   createSelector(selectUserMyCoursesPageDomain, (substate) => substate);
 
 export default makeSelectUserMyCoursesPage;
-export { selectUserMyCoursesPageDomain };
+export {
+  selectUserMyCoursesPageDomain,
+  makeSelectGettingEnrolledCourses,
+  makeSelectEnrolledCourses,
+  makeSelectErrorGettingEnrolledCourses,
+};

@@ -1,13 +1,38 @@
 /*
  *
- * UserMyCoursesPage actions
+ * EnrolledMyCoursesPage actions
  *
  */
 
-import { DEFAULT_ACTION } from './constants';
+import {
+  GET_ENROLLED_COURSES,
+  GET_ENROLLED_COURSES_SUCCESS,
+  GET_ENROLLED_COURSES_ERROR,
+  CLEANUP_STORE,
+} from './constants';
 
-export function defaultAction() {
+export function getEnrolledCourses() {
   return {
-    type: DEFAULT_ACTION,
+    type: GET_ENROLLED_COURSES,
+  };
+}
+
+export function getEnrolledCoursesSuccess(data) {
+  return {
+    type: GET_ENROLLED_COURSES_SUCCESS,
+    data,
+  };
+}
+
+export function getEnrolledCoursesError(error) {
+  return {
+    type: GET_ENROLLED_COURSES_ERROR,
+    error,
+  };
+}
+
+export function cleanupStore() {
+  return {
+    type: CLEANUP_STORE,
   };
 }

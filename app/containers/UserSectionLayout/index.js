@@ -14,7 +14,7 @@ import BookmarkIcon from '@mui/icons-material/Bookmark';
 import StarsIcon from '@mui/icons-material/Stars';
 
 import { createStructuredSelector } from 'reselect';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
@@ -42,9 +42,10 @@ const mapStateToProps = createStructuredSelector({
 export function UserSectionLayout() {
   useInjectReducer({ key: 'userSectionLayout', reducer });
   useInjectSaga({ key: 'userSectionLayout', saga });
+  useAxiosPrivate();
 
-  // DO NOT REMOVE THIS LINE AS IT INITIALIZES THE AXIOS INSTANCE
-  const axios = useAxiosPrivate();
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const { userData } = useSelector(mapStateToProps);
 
@@ -84,7 +85,7 @@ export function UserSectionLayout() {
           zIndex: '999',
           bottom: 0,
           position: 'fixed',
-          width: '100dvw',
+          width: '100%',
           py: 2,
           backgroundColor: 'background.body',
           borderTop: '1px solid',
@@ -98,6 +99,9 @@ export function UserSectionLayout() {
           size="sm"
           startDecorator={<HomeIcon />}
           sx={{ flexDirection: 'column', '--Button-gap': 0 }}
+          onClick={() =>
+            navigate('/home', { state: { from: location.pathname } })
+          }
         >
           Acceuil
         </Button>
@@ -108,6 +112,9 @@ export function UserSectionLayout() {
           size="sm"
           startDecorator={<BookmarkIcon />}
           sx={{ flexDirection: 'column', '--Button-gap': 0 }}
+          onClick={() =>
+            navigate('/mycourses', { state: { from: location.pathname } })
+          }
         >
           Mes Courses
         </Button>
@@ -118,8 +125,11 @@ export function UserSectionLayout() {
           size="sm"
           startDecorator={<StarsIcon />}
           sx={{ flexDirection: 'column', '--Button-gap': 0 }}
+          onClick={() =>
+            navigate('/enroll', { state: { from: location.pathname } })
+          }
         >
-          Nouvelles Courses
+          S&apos;inscrire
         </Button>
       </Stack>
       <Layout.Root

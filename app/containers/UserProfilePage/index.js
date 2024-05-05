@@ -59,6 +59,7 @@ import useAuth from '../../utils/custom/hooks/useAuth';
 import ErrorMessage from './ErrorMessage';
 import Avatars, { avatarsPaths } from './Avatars';
 import MySnackbar from '../../components/MySnackbar';
+import useAxiosPrivate from '../../utils/custom/hooks/useAxiosPrivate';
 
 const mapStateToProps = createStructuredSelector({
   firstName: selectors.makeSelectFirstName(),
@@ -78,6 +79,7 @@ const mapStateToProps = createStructuredSelector({
 export function UserProfilePage() {
   useInjectReducer({ key: 'userProfilePage', reducer });
   useInjectSaga({ key: 'userProfilePage', saga });
+  useAxiosPrivate();
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
