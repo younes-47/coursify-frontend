@@ -50,6 +50,7 @@ import {
   updateAdminInfoAction,
   updatePasswordAction,
 } from './actions';
+import useAxiosPrivate from '../../utils/custom/hooks/useAxiosPrivate';
 
 const mapStateToProps = createStructuredSelector({
   firstName: selectors.makeSelectFirstName(),
@@ -68,6 +69,7 @@ const mapStateToProps = createStructuredSelector({
 export function AdminSettings() {
   useInjectReducer({ key: 'adminSettings', reducer });
   useInjectSaga({ key: 'adminSettings', saga });
+  useAxiosPrivate();
 
   const dispatch = useDispatch();
   const navigate = useNavigate();

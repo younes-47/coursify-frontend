@@ -37,9 +37,7 @@ const mapStateToProps = createStructuredSelector({
 export function AdminSectionLayout() {
   useInjectReducer({ key: 'adminSectionLayout', reducer });
   useInjectSaga({ key: 'adminSectionLayout', saga });
-
-  // DO NOT REMOVE THIS LINE AS IT INITIALIZES THE AXIOS INSTANCE
-  const axios = useAxiosPrivate();
+  useAxiosPrivate();
 
   const { adminData } = useSelector(mapStateToProps);
   const { userInfo, setUserInfo } = useAuth();

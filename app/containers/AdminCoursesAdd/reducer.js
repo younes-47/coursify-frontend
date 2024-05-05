@@ -31,6 +31,7 @@ export const initialState = {
     courseTitle: '',
     courseCategoryId: null,
     courseDescription: '',
+    courseCover: null,
   },
   sections: [
     {

@@ -24,8 +24,6 @@ import SubjectSection from '../../components/HomeSection/SubjectSection';
 import Footer from '../../components/HomeSection/Footer';
 import JoinSection from '../../components/HomeSection/JoinSection';
 
-const key = 'home';
-
 const mapStateToProps = createStructuredSelector({});
 
 export function HomePage() {

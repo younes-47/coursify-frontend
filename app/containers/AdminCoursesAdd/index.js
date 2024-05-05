@@ -23,6 +23,7 @@ import {
   tabClasses,
 } from '@mui/joy';
 import { useDispatch, useSelector } from 'react-redux';
+import { useLocation, useNavigate } from 'react-router-dom';
 import reducer from './reducer';
 import saga from './saga';
 import Section from '../../components/AdminSection/AddCourse/Section';
@@ -34,6 +35,7 @@ import QuestionForm from '../../components/AdminSection/AddCourse/QuestionForm';
 import * as selectors from './selectors';
 import * as actions from './actions';
 import Confirmation from '../../components/AdminSection/AddCourse/Confirmation';
+import useAxiosPrivate from '../../utils/custom/hooks/useAxiosPrivate';
 
 const mapStateToProps = createStructuredSelector({
   courseInfo: selectors.makeSelectCourseInfo(),
@@ -54,8 +56,11 @@ const mapStateToProps = createStructuredSelector({
 export function AdminCoursesAdd() {
   useInjectReducer({ key: 'adminCoursesAdd', reducer });
   useInjectSaga({ key: 'adminCoursesAdd', saga });
+  useAxiosPrivate();
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
   const [currentTab, setCurrentTab] = useState(0);
   const {
     sections,
@@ -94,12 +99,20 @@ export function AdminCoursesAdd() {
     [],
   );
 
+  useEffect(() => {
+    if (addCourseSuccess === true) {
+      navigate('/admin/courses', {
+        state: { from: location.pathname, success: true },
+      });
+    }
+  }, [addCourseSuccess]);
+
   return (
     <>
       <Box
         sx={{
           position: 'sticky',
-          top: { sm: -100, md: -110 },
+          top: { sm: -60, md: -70 },
           bgcolor: 'background.body',
           zIndex: 9995,
         }}
@@ -115,6 +128,7 @@ export function AdminCoursesAdd() {
           defaultValue={0}
           sx={{
             bgcolor: 'transparent',
+            position: 'relative',
           }}
         >
           <TabList

@@ -30,7 +30,7 @@ export function* GetCourseCategories() {
       WebService.GET_COURSE_CATEGORIES_ENDPOINT,
     );
 
-    if (response.data) yield put(getCourseCategoriesSuccess(response.data));
+    yield put(getCourseCategoriesSuccess(response.data));
   } catch (error) {
     yield put(getCourseCategoriesError(error));
   }
