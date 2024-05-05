@@ -4,44 +4,110 @@
  *
  */
 
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import React, { useEffect, useState } from 'react';
 import { createStructuredSelector } from 'reselect';
-import { compose } from 'redux';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
-import { Button, IconButton, Sheet, Table, Typography } from '@mui/joy';
+import {
+  Box,
+  Divider,
+  Dropdown,
+  IconButton,
+  Menu,
+  MenuButton,
+  MenuItem,
+  Sheet,
+  Stack,
+  Table,
+  Typography,
+} from '@mui/joy';
+import MoreHorizRoundedIcon from '@mui/icons-material/MoreHorizRounded';
+
 import AddCircleIcon from '@mui/icons-material/AddCircle';
-import { StyledButton } from 'components/Styled/StyledButton';
 import { useLocation, useNavigate } from 'react-router-dom';
-import makeSelectAdminCourses from './selectors';
+import { useDispatch, useSelector } from 'react-redux';
+import { useTheme } from 'styled-components';
 import reducer from './reducer';
 import saga from './saga';
-AdminCourses.propTypes = {};
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
-const rows = [
-  createData('1', 159, 6.0, 24, 4.0),
-  createData('2', 237, 9.0, 37, 4.3),
-  createData('3', 262, 16.0, 24, 6.0),
-  createData('4', 305, 3.7, 67, 4.3),
-  createData('5', 356, 16.0, 49, 3.9),
-  createData('6', 159, 6.0, 24, 4.0),
-  createData('7', 237, 9.0, 37, 4.3),
-  createData('8', 262, 16.0, 24, 6.0),
-  createData('9', 305, 3.7, 67, 4.3),
-  createData('10', 356, 16.0, 49, 3.9),
-];
+import * as selectors from './selectors';
+import * as actions from './actions';
+import DropdownMenu from '../../components/AdminSection/CoursesTable/DopdownMenu';
+import NoResultIcon from '../../components/icons/NoResult';
+import NoResultFound from '../../components/NoResultFound';
+import LoadingIndicator from '../../components/LoadingIndicator';
+import MySnackbar from '../../components/MySnackbar';
+import MyModal from '../../components/MyModal';
+import useAxiosPrivate from '../../utils/custom/hooks/useAxiosPrivate';
+
+const mapStateToProps = createStructuredSelector({
+  gettingCourses: selectors.makeSelectGettingCourses(),
+  courses: selectors.makeSelectCourses(),
+  gettingCoursesError: selectors.makeSelectGettingCoursesError(),
+  deletingCourse: selectors.makeSelectDeletingCourse(),
+  deletingCourseError: selectors.makeSelectDeletingCourseError(),
+  deletingCourseSuccess: selectors.makeSelectDeletingCourseSuccess(),
+});
 
 export function AdminCourses() {
   useInjectReducer({ key: 'adminCourses', reducer });
   useInjectSaga({ key: 'adminCourses', saga });
+  useAxiosPrivate();
 
+  const {
+    gettingCourses,
+    courses,
+    gettingCoursesError,
+    deletingCourse,
+    deletingCourseError,
+    deletingCourseSuccess,
+  } = useSelector(mapStateToProps);
+
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
+
+  const [showSnackbar, setShowSnackbar] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState('');
+  const [snackbarColor, setSnackbarColor] = useState('neutral');
+
+  const [showModal, setShowModal] = useState(false);
+
+  const [courseIdToDelete, setCourseIdToDelete] = useState(null);
+
+  useEffect(() => {
+    if (courses === null) {
+      dispatch(actions.getCourses());
+    }
+  }, [courses]);
+
+  useEffect(() => {
+    if (
+      location.state?.from === '/admin/courses/add' &&
+      location.state?.success
+    ) {
+      setSnackbarMessage('Course a été ajouté avec succès');
+      setSnackbarColor('success');
+      setShowSnackbar(true);
+    }
+  }, [location]);
+
+  useEffect(() => {
+    if (deletingCourseSuccess !== null) {
+      dispatch(actions.getCourses());
+
+      setSnackbarMessage('Course a été supprimé avec succès');
+      setSnackbarColor('danger');
+      setShowSnackbar(true);
+    }
+  }, [deletingCourseSuccess]);
+
+  useEffect(
+    () => () => {
+      dispatch(actions.cleanupStore());
+    },
+    [],
+  );
 
   return (
     <>
@@ -60,57 +126,86 @@ export function AdminCourses() {
         <AddCircleIcon />
         Ajouter
       </IconButton>
-      <Sheet
-        variant="outlined"
-        sx={{
-          display: { xs: 'initial', sm: 'initial' },
-          width: '100%',
-          borderRadius: 'sm',
-          flexShrink: 1,
-          overflow: 'auto',
-          minHeight: 0,
-        }}
-      >
-        <Table
-          stickyHeader
-          stickyFooter
-          hoverRow
+      {/* eslint-disable-next-line no-nested-ternary */}
+      {gettingCourses || deletingCourse ? (
+        <LoadingIndicator />
+      ) : courses?.length > 0 ? (
+        <Sheet
+          variant="outlined"
           sx={{
-            '--TableCell-headBackground':
-              'var(--joy-palette-background-level1)',
-            '--Table-headerUnderlineThickness': '1px',
-            '--TableRow-hoverBackground':
-              'var(--joy-palette-background-level1)',
-            '--TableCell-paddingY': '4px',
-            '--TableCell-paddingX': '8px',
+            display: { xs: 'initial', sm: 'initial' },
+            width: '100%',
+            borderRadius: 'sm',
+            flexShrink: 1,
+            overflow: 'auto',
+            minHeight: 0,
           }}
         >
-          <thead>
-            <tr>
-              <th>colonne 1</th>
-              <th>colonne 2</th>
-              <th>colonne 3</th>
-              <th>colonne 4</th>
-              <th>colonne 5</th>
-            </tr>
-          </thead>
-          <tbody>
-            {rows.map((row) => (
-              <tr key={row.name}>
-                <td>{row.name}</td>
-                <td>{row.calories}</td>
-                <td>{row.fat}</td>
-                <td>{row.carbs}</td>
-                <td>{row.protein}</td>
+          <Table
+            stickyHeader
+            stickyFooter
+            hoverRow
+            sx={{
+              '--TableCell-headBackground':
+                'var(--joy-palette-background-level1)',
+              '--Table-headerUnderlineThickness': '1px',
+              '--TableRow-hoverBackground':
+                'var(--joy-palette-background-level1)',
+              '--TableCell-paddingY': '4px',
+              '--TableCell-paddingX': '8px',
+            }}
+          >
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Titre</th>
+                <th>Catégorie</th>
+                <th> </th>
               </tr>
-            ))}
-          </tbody>
-        </Table>
-      </Sheet>
+            </thead>
+            <tbody>
+              {courses?.map((row) => (
+                <tr key={row.id}>
+                  <td>{row.id}</td>
+                  <td>{row.title}</td>
+                  <td>{row.category}</td>
+                  <td>
+                    <DropdownMenu
+                      onDelete={() => {
+                        setCourseIdToDelete(row.id);
+                        setShowModal(true);
+                      }}
+                    />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        </Sheet>
+      ) : (
+        <NoResultFound message="Aucune course trouvée" color="darkGray" />
+      )}
+      <MySnackbar
+        open={showSnackbar}
+        setOpen={setShowSnackbar}
+        message={snackbarMessage}
+        color={snackbarColor}
+      />
+      <MyModal
+        open={showModal}
+        setOpen={setShowModal}
+        onConfirm={() => {
+          dispatch(actions.deleteCourse(courseIdToDelete));
+          setCourseIdToDelete(null);
+          setShowModal(false);
+        }}
+        color="danger"
+        message="Êtes-vous sûr de vouloir supprimer cette course ? Cela supprimera toutes les informations relatives à cette course, y compris les inscriptions des utilisateurs."
+      />
     </>
   );
 }
 
-const mapStateToProps = createStructuredSelector({});
+AdminCourses.propTypes = {};
 
 export default AdminCourses;
