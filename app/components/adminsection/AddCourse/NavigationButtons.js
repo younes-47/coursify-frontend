@@ -7,22 +7,16 @@ import { CenteredContainer } from '../../Styled/CenteredContainer';
 import { StyledButton } from '../../Styled/StyledButton';
 import { StyledLink } from '../../Styled/StyledLink';
 
-const NavigationButtons = ({ setCurrentTab, CurrentTab }) => (
+const NavigationButtons = ({ setCurrent, current, lastIndex }) => (
   <CenteredContainer>
     <Stack direction="row" spacing={2}>
-      {CurrentTab !== 0 && (
-        <StyledLink
-          color="darkBlue"
-          onClick={() => setCurrentTab(CurrentTab - 1)}
-        >
+      {current !== 0 && (
+        <StyledLink color="darkBlue" onClick={() => setCurrent(current - 1)}>
           Précedent
         </StyledLink>
       )}
-      {CurrentTab !== 4 && (
-        <StyledLink
-          color="darkBlue"
-          onClick={() => setCurrentTab(CurrentTab + 1)}
-        >
+      {current !== lastIndex && (
+        <StyledLink color="darkBlue" onClick={() => setCurrent(current + 1)}>
           Suivant
         </StyledLink>
       )}
@@ -31,8 +25,9 @@ const NavigationButtons = ({ setCurrentTab, CurrentTab }) => (
 );
 
 NavigationButtons.propTypes = {
-  setCurrentTab: PropTypes.func,
-  CurrentTab: PropTypes.number,
+  setCurrent: PropTypes.func,
+  current: PropTypes.number,
+  lastIndex: PropTypes.number,
 };
 
 export default NavigationButtons;

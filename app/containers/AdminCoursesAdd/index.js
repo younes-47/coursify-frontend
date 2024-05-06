@@ -20,6 +20,7 @@ import {
   TabList,
   Tabs,
   Typography,
+  accordionClasses,
   tabClasses,
 } from '@mui/joy';
 import { useDispatch, useSelector } from 'react-redux';
@@ -180,8 +181,9 @@ export function AdminCoursesAdd() {
               categories={courseCategories}
             />
             <NavigartionButtons
-              setCurrentTab={setCurrentTab}
-              CurrentTab={currentTab}
+              setCurrent={setCurrentTab}
+              current={currentTab}
+              lastIndex={4}
             />
           </>
         )}
@@ -211,8 +213,9 @@ export function AdminCoursesAdd() {
               </AccordionGroup>
             </Stack>
             <NavigartionButtons
-              setCurrentTab={setCurrentTab}
-              CurrentTab={currentTab}
+              setCurrent={setCurrentTab}
+              current={currentTab}
+              lastIndex={4}
             />
           </>
         )}
@@ -242,8 +245,9 @@ export function AdminCoursesAdd() {
               </AccordionGroup>
             </Stack>
             <NavigartionButtons
-              setCurrentTab={setCurrentTab}
-              CurrentTab={currentTab}
+              setCurrent={setCurrentTab}
+              current={currentTab}
+              lastIndex={4}
             />
           </>
         )}
@@ -274,8 +278,9 @@ export function AdminCoursesAdd() {
               </AccordionGroup>
             </Stack>
             <NavigartionButtons
-              setCurrentTab={setCurrentTab}
-              CurrentTab={currentTab}
+              setCurrent={setCurrentTab}
+              current={currentTab}
+              lastIndex={4}
             />
           </>
         )}
@@ -290,8 +295,9 @@ export function AdminCoursesAdd() {
               data={data}
             />
             <NavigartionButtons
-              setCurrentTab={setCurrentTab}
-              CurrentTab={currentTab}
+              setCurrent={setCurrentTab}
+              current={currentTab}
+              lastIndex={4}
             />
           </>
         )}
