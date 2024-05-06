@@ -152,7 +152,7 @@ export function UserMyCoursesPage() {
       ) : (
         <NoResultFound
           message="Vous n'êtes inscrit à aucune course pour le moment"
-          color="darkPurple"
+          color="darkGray"
         />
       )}
     </>

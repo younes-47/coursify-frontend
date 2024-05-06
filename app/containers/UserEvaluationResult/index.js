@@ -45,8 +45,6 @@ export function UserEvaluationResult() {
 
   const result = location?.state?.result;
 
-  console.log(location);
-
   useEffect(() => {
     if (location?.state?.from !== '/evaluate') {
       navigate('/enroll', { replace: true });
