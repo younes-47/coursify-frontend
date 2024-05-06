@@ -12,6 +12,24 @@ const selectUserCourseContentDomain = (state) =>
  * Other specific selectors
  */
 
+const makeSelectCourseContent = () =>
+  createSelector(
+    selectUserCourseContentDomain,
+    (substate) => substate.courseContent,
+  );
+
+const makeSelectGettingCourseContent = () =>
+  createSelector(
+    selectUserCourseContentDomain,
+    (substate) => substate.gettingCourseContent,
+  );
+
+const makeSelectGettingCourseContentError = () =>
+  createSelector(
+    selectUserCourseContentDomain,
+    (substate) => substate.gettingCourseContentError,
+  );
+
 /**
  * Default selector used by UserCourseContent
  */
@@ -20,4 +38,9 @@ const makeSelectUserCourseContent = () =>
   createSelector(selectUserCourseContentDomain, (substate) => substate);
 
 export default makeSelectUserCourseContent;
-export { selectUserCourseContentDomain };
+export {
+  selectUserCourseContentDomain,
+  makeSelectCourseContent,
+  makeSelectGettingCourseContent,
+  makeSelectGettingCourseContentError,
+};
