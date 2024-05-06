@@ -40,7 +40,7 @@ export default function QuestionForm({ data, update, remove }) {
   return (
     <Grid container alignItems="center">
       <Grid xs>
-        <Accordion key={data.id}>
+        <Accordion key={data.id} defaultExpanded={data.id === 0}>
           <AccordionSummary>{data.question || 'Question'}</AccordionSummary>
           <AccordionDetails>
             <Stack spacing={4} sx={{ p: { xs: 2, md: 2 } }}>

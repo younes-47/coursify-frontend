@@ -23,7 +23,7 @@ const Section = ({ data, update, remove }) => {
   return (
     <Grid container alignItems="center" key={data.id}>
       <Grid xs>
-        <Accordion key={data.id}>
+        <Accordion key={data.id} defaultExpanded={data.id === 0}>
           <AccordionSummary>{data.title || 'Section'}</AccordionSummary>
           <AccordionDetails>
             <Stack spacing={4} sx={{ p: { xs: 2, md: 4 } }}>
