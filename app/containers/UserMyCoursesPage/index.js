@@ -24,6 +24,8 @@ import {
   Typography,
 } from '@mui/joy';
 import { useLocation, useNavigate } from 'react-router-dom';
+import LightbulbIcon from '@mui/icons-material/Lightbulb';
+import SportsScoreIcon from '@mui/icons-material/SportsScore';
 import makeSelectUserMyCoursesPage from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -120,17 +122,15 @@ export function UserMyCoursesPage() {
                   </Typography>
                 </CardContent>
                 <CardOverflow>
-                  <Stack spacing={1} direction="row">
-                    <Chip color="primary" variant="soft">
-                      {course?.totalSections} sections
+                  {course?.highestQuizScore === null ? (
+                    <Chip color="warning" startDecorator={<LightbulbIcon />}>
+                      Vous n'avais jamais passer un quiz
                     </Chip>
-                    <Chip color="success" variant="soft">
-                      {course?.totalSlides} slides
+                  ) : (
+                    <Chip color="success" startDecorator={<SportsScoreIcon />}>
+                      {course?.highestQuizScore}% Score le plus élevé au quiz
                     </Chip>
-                    <Chip color="warning" variant="soft">
-                      {course?.totalDocuments} Documents
-                    </Chip>
-                  </Stack>
+                  )}
                 </CardOverflow>
                 <CardActions>
                   <StyledButton
@@ -143,6 +143,17 @@ export function UserMyCoursesPage() {
                     }
                   >
                     Continuer
+                  </StyledButton>
+                  <StyledButton
+                    style={{ width: '100%' }}
+                    color="lightBrown"
+                    onClick={() =>
+                      navigate(`/Quiz/${course?.id}`, {
+                        state: { from: location.pathname },
+                      })
+                    }
+                  >
+                    Quiz
                   </StyledButton>
                 </CardActions>
               </Card>
