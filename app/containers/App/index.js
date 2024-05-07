@@ -30,6 +30,8 @@ import UserCourseDetailsPage from '../UserCourseDetailsPage/Loadable';
 import UserEvaluationPage from '../UserEvaluationPage/Loadable';
 import UserEvaluationResult from '../UserEvaluationResult/Loadable';
 import UserCourseContent from '../UserCourseContent/Loadable';
+import UserQuizPage from '../UserQuizPage/Loadable';
+import UserQuizResult from '../UserQuizResult/Loadable';
 
 
 import GlobalStyle from '../../global-styles';
@@ -92,6 +94,8 @@ export default function App() {
                 <Route path='/evaluate/:courseId' element={<UserEvaluationPage />} />
                 <Route path='/evaluation/result' element={<UserEvaluationResult />} />
                 <Route path='/course/content/:courseId' element={<UserCourseContent />} />
+                <Route path='/quiz/:courseId' element={<UserQuizPage />} />
+                <Route path='/quiz/result' element={<UserQuizResult />} />
               </Route>
             </Route>
           </Route>
