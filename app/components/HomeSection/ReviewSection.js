@@ -62,7 +62,15 @@ function ReviewSection() {
       }}
     >
       <CardContent>
-        <CenteredContainer style={{ gap: '5em' }}>
+        <Box
+          sx={{
+            gap: { xs: '1em', sm: '2em', md: '5em' },
+            display: 'flex',
+            flexDirection: { xs: 'column', sm: 'row' },
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
           <Box display="flex" flexDirection="column" alignItems="center">
             <Avatar src={review.avatar} sx={{ '--Avatar-size': '5em' }} />
             <Typography fontSize="xl" fontWeight="lg" textAlign="center">
@@ -72,7 +80,12 @@ function ReviewSection() {
               {review.role}
             </Typography>
           </Box>
-          <Box sx={{ width: '50%' }}>
+          <Box
+            sx={{
+              width: { xs: '100%', sm: '100%', md: '50%' },
+              textAlign: { xs: 'center', sm: 'center', md: 'left', lg: 'left' },
+            }}
+          >
             <Typography level="h4" fontWeight="lg">
               <QuoteIcon Color={theme.palette.lightBrown} />
             </Typography>
@@ -80,18 +93,23 @@ function ReviewSection() {
               {review.review}
             </Typography>
           </Box>
-        </CenteredContainer>
+        </Box>
       </CardContent>
     </Card>
   );
   return (
-    <div
-      style={{
-        padding: '1em 25%',
+    <Box
+      sx={{
         backgroundColor: theme.palette.lightYellow,
+        padding: { xs: '1em', sm: '2em', md: '2em 15%', lg: '2em 25%' },
       }}
     >
-      <Typography level="h3" textAlign="center" sx={{ marginBottom: '1em' }}>
+      <Typography
+        level="h3"
+        textAlign="center"
+        marginBottom="1em"
+        fontWeight={400}
+      >
         Ce que nos étudiants disent de nous
       </Typography>
       <Carousel
@@ -101,7 +119,7 @@ function ReviewSection() {
         itemTemplate={reviewTemplate}
         autoplayInterval={3500}
       />
-    </div>
+    </Box>
   );
 }
 

@@ -5,7 +5,7 @@
  */
 
 import React from 'react';
-import { Typography } from '@mui/joy';
+import { AspectRatio, Box, Stack, Typography } from '@mui/joy';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { CenteredContainer } from '../Styled/CenteredContainer';
 import happyStudent from '../../images/happy-student.jpg';
@@ -17,39 +17,52 @@ function JoinSection() {
   const navigate = useNavigate();
   const location = useLocation();
   return (
-    <div
-      style={{
-        padding: '5em 20%',
+    <Stack
+      sx={{
+        py: { xs: 3, sm: 3, md: '5em' },
+        px: { xs: 3, sm: 3, md: '10%' },
         marginTop: '2em',
       }}
+      spacing={5}
+      direction={{ xs: 'column', sm: 'column', md: 'row' }}
     >
-      <CenteredContainer style={{ gap: '3em' }}>
+      <Box width="100%" display="flex" justifyContent="center">
         <img
           src={happyStudent}
           alt="Happy student"
           style={{
-            height: '400px',
+            maxHeight: '30em',
+            objectFit: 'cover',
             borderRadius: '1em',
             boxShadow: '0 0 1em rgba(0, 0, 0, 0.1)',
           }}
         />
-        <div>
-          <Typography level="h2" style={{ marginBottom: '1em' }}>
-            Inscrivez-vous dès maintenant pour accéder à des centaines de cours
-            de qualité, et ce, gratuitement !
-          </Typography>
+      </Box>
 
+      <Stack
+        direction="column"
+        spacing={3}
+        display="flex"
+        justifyContent="center"
+      >
+        <Typography level="h3" style={{ marginBottom: '1em' }}>
+          Inscrivez-vous dès maintenant pour accéder à des centaines de cours de
+          qualité, et ce, gratuitement !
+        </Typography>
+
+        <Box>
           <StyledButton
             color="darkPurple"
             onClick={() =>
               navigate('/Signup', { state: { from: location.pathname } })
             }
+            style={{ width: '100%' }}
           >
             S&apos;inscrire
           </StyledButton>
-        </div>
-      </CenteredContainer>
-    </div>
+        </Box>
+      </Stack>
+    </Stack>
   );
 }
 

@@ -176,8 +176,8 @@ export function SignupPage() {
       <HomePageHeader />
       <Sheet
         sx={{
-          width: 460,
-          mx: 'auto', // margin left & right
+          width: { xs: '90%', sm: 460 },
+          mx: { xs: '5%', sm: 'auto' }, // margin left & right
           my: 4, // margin top & bottom
           py: 3, // padding top & bottom
           px: 2, // padding left & right
@@ -195,7 +195,7 @@ export function SignupPage() {
             Inscrivez-vous et commencez à apprendre maintenant !
           </Typography>
         </div>
-        <Stack direction="row" spacing={2}>
+        <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
           <FormControl>
             <FormLabel>Prénom</FormLabel>
             <Input

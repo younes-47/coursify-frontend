@@ -140,8 +140,8 @@ export function LoginPage() {
       <HomePageHeader />
       <Sheet
         sx={{
-          width: 400,
-          mx: 'auto', // margin left & right
+          width: { xs: '90%', sm: 400 },
+          mx: { xs: '5%', sm: 'auto' }, // margin left & right
           my: 4, // margin top & bottom
           py: 3, // padding top & bottom
           px: 2, // padding left & right

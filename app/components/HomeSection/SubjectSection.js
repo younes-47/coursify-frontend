@@ -5,6 +5,7 @@ import CardCover from '@mui/joy/CardCover';
 import CardContent from '@mui/joy/CardContent';
 import Typography from '@mui/joy/Typography';
 import { useTheme } from 'styled-components';
+import { Grid } from '@mui/joy';
 import technologyImage from '../../images/categories/technology.jpg';
 import languagesImage from '../../images/categories/languages.jpg';
 import artsImage from '../../images/categories/arts.jpg';
@@ -20,7 +21,7 @@ export default function SubjectSection() {
       cover: technologyImage,
     },
     {
-      title: 'Language and Communication',
+      title: 'Langues et Communication',
       cover: languagesImage,
     },
     {
@@ -41,36 +42,36 @@ export default function SubjectSection() {
     },
   ];
   return (
-    <div
-      style={{
-        padding: '1em 10%',
-        marginTop: '2em',
+    <Box
+      sx={{
+        px: { xs: 3, sm: 3, md: '10%' },
+        marginTop: '3em',
       }}
     >
       <Typography level="h3" textAlign="left" sx={{ marginBottom: '1em' }}>
         Explorer les sujets et les compétences
       </Typography>
-      <Box
-        sx={{
-          display: 'flex',
-          gap: '3em',
-          flexWrap: 'wrap',
-          justifyContent: 'space-between',
-        }}
+      <Grid
+        container
+        direction="row"
+        justifyContent="center"
+        alignItems="center"
       >
         {subjects.map((subject) => (
-          <div
-            key={subject.title}
-            style={{
-              width: 'calc(33% - (2 * 1em))',
-              flexGrow: 0,
-            }}
+          <Grid
+            xs={12}
+            sm={6}
+            md={4}
+            sx={{ display: 'flex', justifyContent: 'center' }}
+            key={subject?.title}
           >
             <Card
               sx={{
                 aspectRatio: '1/1',
                 transition: '0.3s',
                 borderWidth: '0px',
+                width: '100%',
+                margin: '1em',
                 '&:hover': {
                   transform: 'scale(1.03)',
                   boxShadow: ` 3px 2px 26px 5px ${theme.palette.lightPurple}`,
@@ -86,15 +87,15 @@ export default function SubjectSection() {
                   level="body-lg"
                   fontWeight="lg"
                   textColor="#fff"
-                  mt={{ xs: 6, sm: 35 }}
+                  mt={{ xs: 35, sm: 35 }}
                 >
                   {subject.title}
                 </Typography>
               </CardContent>
             </Card>
-          </div>
+          </Grid>
         ))}
-      </Box>
-    </div>
+      </Grid>
+    </Box>
   );
 }

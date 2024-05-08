@@ -12,4 +12,7 @@ export const StyledHeader = styled.header`
   background: rgba(255, 255, 255, 0.55);
   -webkit-backdrop-filter: blur(20px);
   backdrop-filter: blur(20px);
+  @media (max-width: 600px) {
+    padding: 1em 1em;
+  }
 `;

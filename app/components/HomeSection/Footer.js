@@ -23,19 +23,17 @@ function Footer() {
         marginTop: '2em',
       }}
     >
-      <CenteredContainer>
-        <Typography level="body-md">
-          Copyright &copy; {currentYear} | Developed by{' '}
-          <StyledLink
-            href="https://www.linkedin.com/in/younes-khoubaz/"
-            target="_blank"
-            color="lightBrown"
-            fontSize="medium"
-          >
-            Younes Khoubaz
-          </StyledLink>
-        </Typography>
-      </CenteredContainer>
+      <Typography level="body-md" textAlign="center">
+        &copy; {currentYear} | Developed by{' '}
+        <StyledLink
+          href="https://www.linkedin.com/in/younes-khoubaz/"
+          target="_blank"
+          color="lightBrown"
+          fontSize="medium"
+        >
+          Younes Khoubaz
+        </StyledLink>
+      </Typography>
     </div>
   );
 }
