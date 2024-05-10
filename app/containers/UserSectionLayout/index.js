@@ -116,7 +116,7 @@ export function UserSectionLayout() {
             navigate('/mycourses', { state: { from: location.pathname } })
           }
         >
-          Mes Courses
+          Mes Cours
         </Button>
         <Button
           variant="plain"

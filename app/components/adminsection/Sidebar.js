@@ -148,7 +148,7 @@ export default function Sidebar() {
             >
               <LibraryBooksSharpIcon />
               <ListItemContent>
-                <Typography level="title-sm">Courses</Typography>
+                <Typography level="title-sm">Cours</Typography>
               </ListItemContent>
             </ListItemButton>
           </ListItem>

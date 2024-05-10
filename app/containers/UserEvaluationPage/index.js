@@ -114,7 +114,7 @@ export function UserEvaluationPage() {
   return (
     <>
       <Typography level="h4">
-        Passer cette évaluation pour pouvoir inscrire au course :{' '}
+        Passer cette évaluation pour pouvoir inscrire au cours :{' '}
         <Typography color="primary" level="h4">
           {courseEvaluation?.courseTitle}
         </Typography>

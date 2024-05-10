@@ -59,7 +59,7 @@ export function AdminDashboard() {
         direction="row"
         display={{ xs: 'none', md: 'flex', lg: 'flex' }}
       >
-        <InsightCard data={insights?.totalCourses} title="Courses" />
+        <InsightCard data={insights?.totalCourses} title="Cours" />
         <InsightCard data={insights?.totalUsers} title="Utilisateurs" />
         <InsightCard data={insights?.totalAdmins} title="Administrateurs" />
       </Stack>
@@ -68,7 +68,7 @@ export function AdminDashboard() {
         direction="column"
         display={{ xs: 'flex', md: 'none', lg: 'none' }}
       >
-        <InsightCard data={insights?.totalCourses} title="Courses" />
+        <InsightCard data={insights?.totalCourses} title="Cours" />
         <InsightCard data={insights?.totalUsers} title="Utilisateurs" />
         <InsightCard data={insights?.totalAdmins} title="Administrateurs" />
       </Stack>

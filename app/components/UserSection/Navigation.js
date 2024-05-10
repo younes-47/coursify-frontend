@@ -44,7 +44,7 @@ export default function UserSectionNavigation() {
               <ListItemDecorator>
                 <BookmarkIcon fontSize="small" />
               </ListItemDecorator>
-              <ListItemContent>Mes Courses</ListItemContent>
+              <ListItemContent>Mes Cours</ListItemContent>
             </ListItemButton>
           </ListItem>
 

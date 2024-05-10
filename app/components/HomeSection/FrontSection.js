@@ -27,8 +27,8 @@ function FrontSection() {
           alignItems="center"
         >
           <Typography level="h2" fontWeight={400}>
-            Améliorez vos compétences et libérez votre potentiel avec nos
-            courses gratuits
+            Améliorez vos compétences et libérez votre potentiel avec nos cours
+            gratuits
           </Typography>
         </Box>
 
@@ -54,8 +54,8 @@ function FrontSection() {
           alignItems="center"
         >
           <Typography level="h2" fontWeight={400}>
-            Améliorez vos compétences et libérez votre potentiel avec nos
-            courses gratuits
+            Améliorez vos compétences et libérez votre potentiel avec nos cours
+            gratuits
           </Typography>
         </Box>
 

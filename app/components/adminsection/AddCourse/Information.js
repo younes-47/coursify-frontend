@@ -21,7 +21,7 @@ const Informations = ({ data, update, categories }) => {
     <Stack spacing={4} sx={{ p: { xs: 2, md: 6 } }}>
       <FormControl>
         <FormLabel required>
-          <Typography level="title-lg">Titre de course</Typography>
+          <Typography level="title-lg">Titre du cours</Typography>
         </FormLabel>
         <Input
           type="text"
@@ -32,7 +32,7 @@ const Informations = ({ data, update, categories }) => {
       </FormControl>
       <FormControl required>
         <FormLabel>
-          <Typography level="title-lg">Categorie de course</Typography>
+          <Typography level="title-lg">Categorie du cours</Typography>
         </FormLabel>
         <Select
           placeholder="Séléctionner..."

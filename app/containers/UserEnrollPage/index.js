@@ -79,7 +79,7 @@ export function UserEnrollPage() {
     <>
       <Stack sx={{ marginBottom: '2em' }}>
         <Typography level="h4">
-          S&apos;inscrire à l&apos;un de nos course en ligne
+          S&apos;inscrire à l&apos;un de nos cours en ligne
         </Typography>
         <Typography level="title-md" color="neutral">
           Prospérez avec les compétences les plus demandées gratuitement

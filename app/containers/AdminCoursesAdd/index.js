@@ -9,7 +9,6 @@ import { createStructuredSelector } from 'reselect';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
-import { v4 as uuidv4 } from 'uuid';
 import {
   AccordionGroup,
   Box,
@@ -120,7 +119,7 @@ export function AdminCoursesAdd() {
       >
         <Box sx={{ px: { xs: 2, md: 6 } }}>
           <Typography level="h2" gutterBottom fontWeight={600}>
-            Ajouter une course
+            Ajouter un cours
           </Typography>
         </Box>
         <Tabs

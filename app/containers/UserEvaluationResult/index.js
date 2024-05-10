@@ -97,7 +97,7 @@ export function UserEvaluationResult() {
           </Typography>
           <Typography fontSize="sm" sx={{ mt: 0.5 }}>
             {result.isPassed
-              ? 'Vous pouvez maintenant accéder au contenu de course via l\'onglet "Mes courses"'
+              ? 'Vous pouvez maintenant accéder au contenu du cours via l\'onglet "Mes cours"'
               : ''}
           </Typography>
           <CenteredContainer>

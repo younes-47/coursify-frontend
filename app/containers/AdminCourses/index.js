@@ -112,7 +112,7 @@ export function AdminCourses() {
   return (
     <>
       <Typography level="h2" gutterBottom fontWeight={600}>
-        Courses
+        Cours
       </Typography>
 
       <IconButton
@@ -200,7 +200,7 @@ export function AdminCourses() {
           setShowModal(false);
         }}
         color="danger"
-        message="Êtes-vous sûr de vouloir supprimer cette course ? Cela supprimera toutes les informations relatives à cette course, y compris les inscriptions des utilisateurs."
+        message="Êtes-vous sûr de vouloir supprimer ce cours ? Cela supprimera toutes les informations relatives à ce cous, y compris les inscriptions des utilisateurs."
       />
     </>
   );
