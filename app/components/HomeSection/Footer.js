@@ -5,12 +5,9 @@
  */
 
 import React from 'react';
-import { Link, Typography } from '@mui/joy';
+import Typography from '@mui/joy/Typography';
 import { useTheme } from 'styled-components';
-import { CenteredContainer } from '../Styled/CenteredContainer';
 import { StyledLink } from '../Styled/StyledLink';
-// import PropTypes from 'prop-types';
-// import styled from 'styled-components';
 
 function Footer() {
   const currentYear = new Date().getFullYear();

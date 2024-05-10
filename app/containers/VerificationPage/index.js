@@ -5,10 +5,8 @@
  */
 
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
-import { connect, useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { compose } from 'redux';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
@@ -16,11 +14,8 @@ import MarkEmailReadIcon from '@mui/icons-material/MarkEmailRead';
 import Typography from '@mui/joy/Typography';
 import VerifiedIcon from '@mui/icons-material/Verified';
 import Alert from '@mui/joy/Alert';
-import Divider from '@mui/joy/Divider';
 import Sheet from '@mui/joy/Sheet';
 import FormControl from '@mui/joy/FormControl';
-import Box from '@mui/joy/Box';
-import FormLabel from '@mui/joy/FormLabel';
 import Input from '@mui/joy/Input';
 import ErrorIcon from '@mui/icons-material/Error';
 import FormHelperText from '@mui/joy/FormHelperText';

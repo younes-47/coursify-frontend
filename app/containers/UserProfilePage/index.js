@@ -12,26 +12,24 @@ import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
-import {
-  AspectRatio,
-  Box,
-  Card,
-  CardActions,
-  CardOverflow,
-  DialogContent,
-  DialogTitle,
-  Divider,
-  FormControl,
-  FormHelperText,
-  FormLabel,
-  IconButton,
-  Input,
-  Modal,
-  ModalClose,
-  ModalDialog,
-  Stack,
-  Typography,
-} from '@mui/joy';
+import AspectRatio from '@mui/joy/AspectRatio';
+import Box from '@mui/joy/Box';
+import Card from '@mui/joy/Card';
+import CardActions from '@mui/joy/CardActions';
+import CardOverflow from '@mui/joy/CardOverflow';
+import DialogContent from '@mui/joy/DialogContent';
+import DialogTitle from '@mui/joy/DialogTitle';
+import Divider from '@mui/joy/Divider';
+import FormControl from '@mui/joy/FormControl';
+import FormHelperText from '@mui/joy/FormHelperText';
+import FormLabel from '@mui/joy/FormLabel';
+import IconButton from '@mui/joy/IconButton';
+import Input from '@mui/joy/Input';
+import Modal from '@mui/joy/Modal';
+import ModalClose from '@mui/joy/ModalClose';
+import ModalDialog from '@mui/joy/ModalDialog';
+import Stack from '@mui/joy/Stack';
+import Typography from '@mui/joy/Typography';
 import Visibility from '../../components/icons/Visibility';
 import VisibilityOff from '../../components/icons/VisibilityOff';
 import reducer from './reducer';

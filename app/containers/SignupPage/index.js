@@ -5,21 +5,18 @@
  */
 
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import { createStructuredSelector } from 'reselect';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
-import {
-  Alert,
-  FormControl,
-  FormHelperText,
-  FormLabel,
-  IconButton,
-  Input,
-  Sheet,
-  Stack,
-  Typography,
-} from '@mui/joy';
+import Alert from '@mui/joy/Alert';
+import FormControl from '@mui/joy/FormControl';
+import FormHelperText from '@mui/joy/FormHelperText';
+import FormLabel from '@mui/joy/FormLabel';
+import IconButton from '@mui/joy/IconButton';
+import Input from '@mui/joy/Input';
+import Sheet from '@mui/joy/Sheet';
+import Stack from '@mui/joy/Stack';
+import Typography from '@mui/joy/Typography';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import {
@@ -47,10 +44,7 @@ import {
   setPassword,
   signupAction,
 } from './actions';
-import {
-  formatName,
-  formatNumberToDate,
-} from '../../utils/custom/stringManipulation';
+import { formatName } from '../../utils/custom/stringManipulation';
 import {
   validateData,
   validateDate,

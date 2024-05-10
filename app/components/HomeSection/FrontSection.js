@@ -5,8 +5,9 @@
  */
 
 import React from 'react';
-import { Box, Stack, Typography } from '@mui/joy';
-import { StyledContainer } from '../Styled/StyledContainer';
+import Box from '@mui/joy/Box';
+import Stack from '@mui/joy/Stack';
+import Typography from '@mui/joy/Typography';
 import creativeIllustration from '../../images/creative-illustration.svg';
 // import PropTypes from 'prop-types';
 // import styled from 'styled-components';

@@ -12,17 +12,13 @@ import Sheet from '@mui/joy/Sheet';
 import DashboardRoundedIcon from '@mui/icons-material/DashboardRounded';
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 import SettingsSharpIcon from '@mui/icons-material/SettingsSharp';
-import SpeedSharpIcon from '@mui/icons-material/SpeedSharp';
-import AutoAwesomeSharpIcon from '@mui/icons-material/AutoAwesomeSharp';
 import LibraryBooksSharpIcon from '@mui/icons-material/LibraryBooksSharp';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Chip } from '@mui/joy';
 import { closeSidebar } from './utils';
 import { StyledLogo } from '../Styled/StyledLogo';
 import appLogo from '../../images/app-logo.svg';
 import useAuth from '../../utils/custom/hooks/useAuth';
 import useLogout from '../../utils/custom/hooks/useLogout';
-import { CenteredContainer } from '../Styled/CenteredContainer';
 
 export default function Sidebar() {
   const navigate = useNavigate();

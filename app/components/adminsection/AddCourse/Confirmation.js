@@ -1,6 +1,6 @@
 import React from 'react';
-
-import { Sheet, Typography } from '@mui/joy';
+import Sheet from '@mui/joy/Sheet';
+import Typography from '@mui/joy/Typography';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { StyledButton } from '../../Styled/StyledButton';

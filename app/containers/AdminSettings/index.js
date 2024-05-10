@@ -9,20 +9,18 @@ import { createStructuredSelector } from 'reselect';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
 import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
-import {
-  Box,
-  Card,
-  CardActions,
-  CardOverflow,
-  Divider,
-  FormControl,
-  FormHelperText,
-  FormLabel,
-  IconButton,
-  Input,
-  Stack,
-  Typography,
-} from '@mui/joy';
+import Box from '@mui/joy/Box';
+import Card from '@mui/joy/Card';
+import CardActions from '@mui/joy/CardActions';
+import CardOverflow from '@mui/joy/CardOverflow';
+import Divider from '@mui/joy/Divider';
+import FormControl from '@mui/joy/FormControl';
+import FormHelperText from '@mui/joy/FormHelperText';
+import FormLabel from '@mui/joy/FormLabel';
+import IconButton from '@mui/joy/IconButton';
+import Input from '@mui/joy/Input';
+import Stack from '@mui/joy/Stack';
+import Typography from '@mui/joy/Typography';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import VisibilityOff from '../../components/icons/VisibilityOff';

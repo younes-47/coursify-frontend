@@ -1,12 +1,9 @@
 import React from 'react';
-import {
-  Dropdown,
-  IconButton,
-  Menu,
-  MenuButton,
-  MenuItem,
-  Divider,
-} from '@mui/joy';
+import Dropdown from '@mui/joy/Dropdown';
+import IconButton from '@mui/joy/IconButton';
+import Menu from '@mui/joy/Menu';
+import MenuButton from '@mui/joy/MenuButton';
+import MenuItem from '@mui/joy/MenuItem';
 import MoreHorizRoundedIcon from '@mui/icons-material/MoreHorizRounded';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';

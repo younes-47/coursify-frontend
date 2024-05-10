@@ -1,10 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Stack } from '@mui/joy';
-import FastForwardIcon from '@mui/icons-material/FastForward';
-import FastRewindIcon from '@mui/icons-material/FastRewind';
+import Stack from '@mui/joy/Stack';
 import { CenteredContainer } from '../../Styled/CenteredContainer';
-import { StyledButton } from '../../Styled/StyledButton';
 import { StyledLink } from '../../Styled/StyledLink';
 
 const NavigationButtons = ({ setCurrent, current, lastIndex }) => (

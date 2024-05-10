@@ -7,9 +7,8 @@
  */
 /* eslint-disable prettier/prettier */
 import React from 'react';
-import styled, { ThemeProvider } from 'styled-components';
+import { ThemeProvider } from 'styled-components';
 import { Route, Routes } from 'react-router-dom';
-
 import HomePage from 'containers/HomePage/Loadable';
 import SignupPage from 'containers/SignupPage/Loadable';
 import LoginPage from 'containers/LoginPage/Loadable';

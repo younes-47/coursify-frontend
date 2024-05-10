@@ -4,28 +4,21 @@
  *
  */
 
-import React, { useEffect, useState, useContext } from 'react';
-import PropTypes from 'prop-types';
-import { connect, useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
-import {
-  Checkbox,
-  Button,
-  FormControl,
-  FormHelperText,
-  FormLabel,
-  Input,
-  Stack,
-  Sheet,
-  Typography,
-  IconButton,
-} from '@mui/joy';
-import Alert from '@mui/joy/Alert';
+import Checkbox from '@mui/joy/Checkbox';
+import FormControl from '@mui/joy/FormControl';
+import FormHelperText from '@mui/joy/FormHelperText';
+import FormLabel from '@mui/joy/FormLabel';
+import Input from '@mui/joy/Input';
+import Stack from '@mui/joy/Stack';
+import Sheet from '@mui/joy/Sheet';
+import Typography from '@mui/joy/Typography';
+import IconButton from '@mui/joy/IconButton';
 import validator from 'validator';
-import { filter, set } from 'lodash';
-import { StyledInputEndDecorator } from '@mui/joy/Input/Input';
 import { useNavigate, useLocation } from 'react-router-dom';
 import {
   makeSelectEmail,

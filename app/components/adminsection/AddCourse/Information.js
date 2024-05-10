@@ -1,16 +1,14 @@
 import React from 'react';
 
 import PropTypes from 'prop-types';
-import {
-  FormControl,
-  FormLabel,
-  Input,
-  Option,
-  Select,
-  Stack,
-  Textarea,
-  Typography,
-} from '@mui/joy';
+import FormControl from '@mui/joy/FormControl';
+import FormLabel from '@mui/joy/FormLabel';
+import Input from '@mui/joy/Input';
+import Option from '@mui/joy/Option';
+import Select from '@mui/joy/Select';
+import Stack from '@mui/joy/Stack';
+import Textarea from '@mui/joy/Textarea';
+import Typography from '@mui/joy/Typography';
 import { useDispatch } from 'react-redux';
 import FileDropzone from '../../FileDropzone';
 

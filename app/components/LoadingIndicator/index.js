@@ -1,7 +1,5 @@
 import React from 'react';
 import 'animate.css';
-
-import CircularProgress from '@mui/joy/CircularProgress';
 import Typography from '@mui/joy/Typography';
 import Wrapper from './Wrapper';
 import brainLogo from '../../images/brain-icon.png';

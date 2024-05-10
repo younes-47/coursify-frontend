@@ -5,28 +5,17 @@
  */
 
 import React from 'react';
-import {
-  AspectRatio,
-  Avatar,
-  Box,
-  Button,
-  Card,
-  CardContent,
-  Sheet,
-  Typography,
-} from '@mui/joy';
+import Avatar from '@mui/joy/Avatar';
+import Box from '@mui/joy/Box';
+import Card from '@mui/joy/Card';
+import CardContent from '@mui/joy/CardContent';
+import Typography from '@mui/joy/Typography';
 import { Carousel } from 'primereact/carousel';
 import { useTheme } from 'styled-components';
-import { StyledContainer } from '../Styled/StyledContainer';
-import creativeIllustration from '../../images/creative-illustration.svg';
-import { CenteredContainer } from '../Styled/CenteredContainer';
 import QuoteIcon from '../icons/QuoteIcon';
 import mehdiAvatar from '../../images/reviewers/mehdi.jpg';
 import marieAvatar from '../../images/reviewers/marie.jpg';
 import mohammedAvatar from '../../images/reviewers/mohammed.jpg';
-
-// import PropTypes from 'prop-types';
-// import styled from 'styled-components';
 
 function ReviewSection() {
   const theme = useTheme();

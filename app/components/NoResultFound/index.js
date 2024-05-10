@@ -6,10 +6,11 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Box, Sheet, Stack, Typography } from '@mui/joy';
+import Sheet from '@mui/joy/Sheet';
+import Stack from '@mui/joy/Stack';
+import Typography from '@mui/joy/Typography';
 import { useTheme } from 'styled-components';
 import NoResultIcon from '../icons/NoResult';
-// import styled from 'styled-components';
 
 function NoResultFound({
   message = 'Aucun résultat trouvé',

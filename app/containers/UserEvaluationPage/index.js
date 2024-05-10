@@ -5,27 +5,13 @@
  */
 
 import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { connect, useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { compose } from 'redux';
-
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import {
-  Box,
-  Divider,
-  FormControl,
-  FormLabel,
-  Grid,
-  List,
-  ListItem,
-  Radio,
-  RadioGroup,
-  Typography,
-} from '@mui/joy';
-import makeSelectUserEvaluationPage from './selectors';
+import Box from '@mui/joy/Box';
+import Typography from '@mui/joy/Typography';
 import reducer from './reducer';
 import saga from './saga';
 import useAxiosPrivate from '../../utils/custom/hooks/useAxiosPrivate';

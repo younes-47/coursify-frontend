@@ -5,16 +5,13 @@
  */
 
 import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { connect, useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { compose } from 'redux';
-
+import Box from '@mui/joy/Box';
+import Typography from '@mui/joy/Typography';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { Box, Typography } from '@mui/joy';
-import makeSelectUserQuizPage from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import useAxiosPrivate from '../../utils/custom/hooks/useAxiosPrivate';
@@ -54,9 +51,7 @@ export function UserQuizPage() {
     submittingQuizForm,
     submitQuizError,
     quizResult,
-  } = useSelector(makeSelectUserQuizPage());
-
-  console.log('quizResult', quizResult);
+  } = useSelector(mapStateToProps);
 
   useEffect(() => {
     if (courseId === undefined) {

@@ -5,9 +5,10 @@
  */
 
 import React from 'react';
-import { AspectRatio, Box, Stack, Typography } from '@mui/joy';
+import Box from '@mui/joy/Box';
+import Stack from '@mui/joy/Stack';
+import Typography from '@mui/joy/Typography';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { CenteredContainer } from '../Styled/CenteredContainer';
 import happyStudent from '../../images/happy-student.jpg';
 import { StyledButton } from '../Styled/StyledButton';
 // import PropTypes from 'prop-types';

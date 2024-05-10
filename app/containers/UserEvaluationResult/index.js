@@ -5,35 +5,20 @@
  */
 
 import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
-import { compose } from 'redux';
-
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
 import { useLocation, useNavigate } from 'react-router-dom';
-import {
-  AspectRatio,
-  Button,
-  Card,
-  CardContent,
-  CardOverflow,
-  IconButton,
-  Sheet,
-  Typography,
-} from '@mui/joy';
+import Card from '@mui/joy/Card';
+import CardContent from '@mui/joy/CardContent';
+import CardOverflow from '@mui/joy/CardOverflow';
+import Typography from '@mui/joy/Typography';
 import MoodIcon from '@mui/icons-material/Mood';
 import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
-import makeSelectUserEvaluationResult from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import useAxiosPrivate from '../../utils/custom/hooks/useAxiosPrivate';
 import { CenteredContainer } from '../../components/Styled/CenteredContainer';
-import { StyledButton } from '../../components/Styled/StyledButton';
 import { StyledLink } from '../../components/Styled/StyledLink';
-
-const mapStateToProps = createStructuredSelector({});
 
 export function UserEvaluationResult() {
   useInjectReducer({ key: 'userEvaluationResult', reducer });

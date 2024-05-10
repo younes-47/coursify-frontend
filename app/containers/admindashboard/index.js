@@ -5,15 +5,11 @@
  */
 
 import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { connect, useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { compose } from 'redux';
-
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
 import { Stack, Typography } from '@mui/joy';
-import makeSelectAdminDashboard from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import InsightCard from '../../components/AdminSection/Dashboard/InsightCard';

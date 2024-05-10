@@ -8,32 +8,18 @@ import React, { useEffect, useState } from 'react';
 import { createStructuredSelector } from 'reselect';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
-import {
-  Box,
-  Divider,
-  Dropdown,
-  IconButton,
-  Menu,
-  MenuButton,
-  MenuItem,
-  Sheet,
-  Stack,
-  Table,
-  Typography,
-} from '@mui/joy';
-import MoreHorizRoundedIcon from '@mui/icons-material/MoreHorizRounded';
-
+import IconButton from '@mui/joy/IconButton';
+import Sheet from '@mui/joy/Sheet';
+import Table from '@mui/joy/Table';
+import Typography from '@mui/joy/Typography';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { useTheme } from 'styled-components';
 import reducer from './reducer';
 import saga from './saga';
-
 import * as selectors from './selectors';
 import * as actions from './actions';
 import DropdownMenu from '../../components/AdminSection/CoursesTable/DopdownMenu';
-import NoResultIcon from '../../components/icons/NoResult';
 import NoResultFound from '../../components/NoResultFound';
 import LoadingIndicator from '../../components/LoadingIndicator';
 import MySnackbar from '../../components/MySnackbar';

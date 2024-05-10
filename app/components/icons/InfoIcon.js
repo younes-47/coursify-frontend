@@ -6,8 +6,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import { SvgIcon } from '@mui/joy';
+import SvgIcon from '@mui/joy/SvgIcon';
 
 const InfoIcon = ({ Color = 'black' }) => <SvgIcon></SvgIcon>;
 InfoIcon.propTypes = {

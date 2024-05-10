@@ -6,16 +6,13 @@
 
 import React, { useEffect, useState } from 'react';
 import { CssVarsProvider } from '@mui/joy/styles';
-import CssBaseline from '@mui/joy/CssBaseline';
 import Button from '@mui/joy/Button';
 import Stack from '@mui/joy/Stack';
 import HomeIcon from '@mui/icons-material/Home';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import StarsIcon from '@mui/icons-material/Stars';
-
 import { createStructuredSelector } from 'reselect';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
-
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
 import { useDispatch, useSelector } from 'react-redux';

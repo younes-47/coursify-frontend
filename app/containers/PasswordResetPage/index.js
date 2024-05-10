@@ -5,19 +5,16 @@
  */
 
 import React, { useEffect, useState } from 'react';
-// import PropTypes from 'prop-types';
 import { createStructuredSelector } from 'reselect';
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
-import {
-  Alert,
-  Sheet,
-  Typography,
-  FormLabel,
-  Input,
-  FormControl,
-  FormHelperText,
-  IconButton,
-} from '@mui/joy';
+import Alert from '@mui/joy/Alert';
+import Sheet from '@mui/joy/Sheet';
+import Typography from '@mui/joy/Typography';
+import FormLabel from '@mui/joy/FormLabel';
+import Input from '@mui/joy/Input';
+import FormControl from '@mui/joy/FormControl';
+import FormHelperText from '@mui/joy/FormHelperText';
+import IconButton from '@mui/joy/IconButton';
 import LockResetIcon from '@mui/icons-material/LockReset';
 import MarkEmailReadIcon from '@mui/icons-material/MarkEmailRead';
 import { useInjectSaga } from 'utils/injectSaga';

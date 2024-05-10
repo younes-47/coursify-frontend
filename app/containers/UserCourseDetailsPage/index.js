@@ -5,41 +5,26 @@
  */
 
 import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { connect, useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { compose } from 'redux';
-
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
-import {
-  Alert,
-  AspectRatio,
-  Box,
-  Card,
-  Chip,
-  Sheet,
-  Stack,
-  Typography,
-} from '@mui/joy';
+import AspectRatio from '@mui/joy/AspectRatio';
+import Box from '@mui/joy/Box';
+import Chip from '@mui/joy/Chip';
+import Sheet from '@mui/joy/Sheet';
+import Stack from '@mui/joy/Stack';
+import Typography from '@mui/joy/Typography';
 import InfoIcon from '@mui/icons-material/Info';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useTheme } from 'styled-components';
-import makeSelectUserCourseDetailsPage from './selectors';
 import coursePlaceholder from '../../images/cover-placeholder.png';
 import reducer from './reducer';
 import saga from './saga';
 import useAxiosPrivate from '../../utils/custom/hooks/useAxiosPrivate';
 import * as actions from './actions';
 import * as selectors from './selectors';
-import { StyledButton } from '../../components/Styled/StyledButton';
-import { StyledLink } from '../../components/Styled/StyledLink';
-import StyledActionButton, {
-  ActionButton,
-  ButtonText,
-  Circle,
-  Icon,
-} from '../../components/Styled/ActionButton';
+import StyledActionButton from '../../components/Styled/ActionButton';
 
 const mapStateToProps = createStructuredSelector({
   courseDetails: selectors.makeSelectCourseDetails(),

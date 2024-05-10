@@ -5,28 +5,20 @@
  */
 
 import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { connect, useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { compose } from 'redux';
-
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
-import {
-  AspectRatio,
-  Box,
-  Card,
-  CardActions,
-  CardContent,
-  CardOverflow,
-  Chip,
-  Divider,
-  Grid,
-  Stack,
-  Typography,
-} from '@mui/joy';
+import AspectRatio from '@mui/joy/AspectRatio';
+import Card from '@mui/joy/Card';
+import CardActions from '@mui/joy/CardActions';
+import CardContent from '@mui/joy/CardContent';
+import CardOverflow from '@mui/joy/CardOverflow';
+import Chip from '@mui/joy/Chip';
+import Grid from '@mui/joy/Grid';
+import Stack from '@mui/joy/Stack';
+import Typography from '@mui/joy/Typography';
 import { useLocation, useNavigate } from 'react-router-dom';
-import makeSelectUserEnrollPage from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import { StyledButton } from '../../components/Styled/StyledButton';

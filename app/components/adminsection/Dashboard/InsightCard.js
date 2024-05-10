@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Card, CardContent, Typography } from '@mui/joy';
+import Card from '@mui/joy/Card';
+import CardContent from '@mui/joy/CardContent';
+import Typography from '@mui/joy/Typography';
 import { useTheme } from 'styled-components';
 const InsightCard = ({ data, title }) => {
   const theme = useTheme();

@@ -4,7 +4,10 @@
  *
  */
 
-import { List, ListItem, Sheet, Typography } from '@mui/joy';
+import List from '@mui/joy/List';
+import ListItem from '@mui/joy/ListItem';
+import Sheet from '@mui/joy/Sheet';
+import Typography from '@mui/joy/Typography';
 import React, { useState } from 'react';
 import Dropzone from 'react-dropzone';
 import PropTypes from 'prop-types';

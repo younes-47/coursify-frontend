@@ -5,13 +5,14 @@
  */
 
 import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
 import { createStructuredSelector } from 'reselect';
-
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Card, CardContent, CardOverflow, Typography } from '@mui/joy';
+import Card from '@mui/joy/Card';
+import CardContent from '@mui/joy/CardContent';
+import CardOverflow from '@mui/joy/CardOverflow';
+import Typography from '@mui/joy/Typography';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import reducer from './reducer';
 import saga from './saga';

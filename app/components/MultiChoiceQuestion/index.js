@@ -6,20 +6,15 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  Box,
-  Divider,
-  FormControl,
-  FormLabel,
-  Grid,
-  List,
-  ListItem,
-  Radio,
-  RadioGroup,
-  Typography,
-} from '@mui/joy';
+import Box from '@mui/joy/Box';
+import FormControl from '@mui/joy/FormControl';
+import Grid from '@mui/joy/Grid';
+import List from '@mui/joy/List';
+import ListItem from '@mui/joy/ListItem';
+import Radio from '@mui/joy/Radio';
+import RadioGroup from '@mui/joy/RadioGroup';
+import Typography from '@mui/joy/Typography';
 import { useDispatch } from 'react-redux';
-// import styled from 'styled-components';
 
 function MultiChoiceQuestion({ data, update }) {
   const dispatch = useDispatch();

@@ -8,16 +8,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import WarningRoundedIcon from '@mui/icons-material/WarningRounded';
 import InfoIcon from '@mui/icons-material/Info';
-import {
-  Button,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  Divider,
-  Modal,
-  ModalDialog,
-} from '@mui/joy';
-// import styled from 'styled-components';
+import Button from '@mui/joy/Button';
+import DialogActions from '@mui/joy/DialogActions';
+import DialogContent from '@mui/joy/DialogContent';
+import DialogTitle from '@mui/joy/DialogTitle';
+import Divider from '@mui/joy/Divider';
+import Modal from '@mui/joy/Modal';
+import ModalDialog from '@mui/joy/ModalDialog';
 
 function MyModal({ open, setOpen, message, color, ...props }) {
   return (

@@ -1,18 +1,16 @@
 import React from 'react';
 
 import PropTypes from 'prop-types';
-import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-  FormControl,
-  FormLabel,
-  Grid,
-  IconButton,
-  Input,
-  Stack,
-  Typography,
-} from '@mui/joy';
+import Accordion from '@mui/joy/Accordion';
+import AccordionDetails from '@mui/joy/AccordionDetails';
+import AccordionSummary from '@mui/joy/AccordionSummary';
+import FormControl from '@mui/joy/FormControl';
+import FormLabel from '@mui/joy/FormLabel';
+import Grid from '@mui/joy/Grid';
+import IconButton from '@mui/joy/IconButton';
+import Input from '@mui/joy/Input';
+import Stack from '@mui/joy/Stack';
+import Typography from '@mui/joy/Typography';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import { useDispatch } from 'react-redux';
 import SectionDropZone from './SectionDropZone';

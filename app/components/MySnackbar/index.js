@@ -12,7 +12,6 @@ import DangerousSharpIcon from '@mui/icons-material/DangerousSharp';
 import InfoSharpIcon from '@mui/icons-material/InfoSharp';
 import CloseSharpIcon from '@mui/icons-material/CloseSharp';
 import IconButton from '@mui/joy/IconButton';
-// import styled from 'styled-components';
 
 function MySnackbar({ message, open, setOpen, color = 'neutral' }) {
   const startIcon = () => {

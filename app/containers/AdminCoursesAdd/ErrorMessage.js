@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Alert from '@mui/joy/Alert';
-import InfoIcon from '@mui/icons-material/Info';
-import { List, ListItem, Stack, Typography } from '@mui/joy';
+import List from '@mui/joy/List';
+import ListItem from '@mui/joy/ListItem';
+import Stack from '@mui/joy/Stack';
+import Typography from '@mui/joy/Typography';
 
 function displayErrors(validationObject) {
   if (typeof validationObject === 'string') {

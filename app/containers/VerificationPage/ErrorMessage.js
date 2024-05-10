@@ -5,12 +5,8 @@
  */
 
 import React from 'react';
-import { Link, Typography } from '@mui/joy';
-import { useTheme } from 'styled-components';
 import PropTypes from 'prop-types';
 import Alert from '@mui/joy/Alert';
-import { StyledLink } from '../../components/Styled/StyledLink';
-// import styled from 'styled-components';
 
 function ErrorMessage({ error = null }) {
   const errorMessages = {
