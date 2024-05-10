@@ -183,7 +183,7 @@ export function AdminCourses() {
           </Table>
         </Sheet>
       ) : (
-        <NoResultFound message="Aucune course trouvée" color="darkGray" />
+        <NoResultFound message="Aucun cours trouvée" color="darkGray" />
       )}
       <MySnackbar
         open={showSnackbar}

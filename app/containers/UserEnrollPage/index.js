@@ -35,6 +35,7 @@ import * as actions from './actions';
 import LoadingIndicator from '../../components/LoadingIndicator';
 import coursePlaceholder from '../../images/cover-placeholder.png';
 import useAxiosPrivate from '../../utils/custom/hooks/useAxiosPrivate';
+import NoResultFound from '../../components/NoResultFound';
 
 const mapStateToProps = createStructuredSelector({
   availableCourses: selectors.makeSelectAvailableCourses(),
@@ -86,9 +87,10 @@ export function UserEnrollPage() {
         </Typography>
       </Stack>
 
+      {/* eslint-disable-next-line no-nested-ternary */}
       {gettingAvailableCourses === true ? (
         <LoadingIndicator />
-      ) : (
+      ) : availableCourses?.length > 0 ? (
         <Grid
           container
           direction="row"
@@ -158,6 +160,11 @@ export function UserEnrollPage() {
             </Grid>
           ))}
         </Grid>
+      ) : (
+        <NoResultFound
+          message="Aucun cours trouvée dans la platforme pour le moment"
+          color="darkGray"
+        />
       )}
     </>
   );
