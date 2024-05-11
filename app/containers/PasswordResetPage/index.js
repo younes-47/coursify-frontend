@@ -165,8 +165,8 @@ export function PasswordResetPage() {
       {location.pathname === '/Password-reset' && (
         <Sheet
           sx={{
-            width: 460,
-            mx: 'auto', // margin left & right
+            width: { xs: '90%', sm: 460 },
+            mx: { xs: '5%', sm: 'auto' }, // margin left & right
             my: 4, // margin top & bottom
             py: 3, // padding top & bottom
             px: 2, // padding left & right
@@ -228,8 +228,8 @@ export function PasswordResetPage() {
       {successVerifyingResetPasswordToken && !successResettingPassword && (
         <Sheet
           sx={{
-            width: 460,
-            mx: 'auto', // margin left & right
+            width: { xs: '90%', sm: 460 },
+            mx: { xs: '5%', sm: 'auto' }, // margin left & right
             my: 4, // margin top & bottom
             py: 3, // padding top & bottom
             px: 2, // padding left & right

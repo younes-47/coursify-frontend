@@ -113,7 +113,10 @@ export function VerificationPage() {
             variant="soft"
             color="success"
             startDecorator={<MarkEmailReadIcon />}
-            sx={{ maxWidth: '50%' }}
+            sx={{
+              width: { xs: '90%', md: '50%' },
+              mx: { xs: '5%', md: 'auto' }, // margin left & right
+            }}
           >
             Nous avons envoyé un lien de vérification à votre adresse e-mail.
             Veuillez vérifier votre boîte de réception et cliquer sur le lien
@@ -124,8 +127,8 @@ export function VerificationPage() {
       {location.state?.from === '/Login' && (
         <Sheet
           sx={{
-            width: 460,
-            mx: 'auto', // margin left & right
+            width: { xs: '90%', sm: 460 },
+            mx: { xs: '5%', sm: 'auto' }, // margin left & right
             my: 4, // margin top & bottom
             py: 3, // padding top & bottom
             px: 2, // padding left & right
@@ -192,6 +195,10 @@ export function VerificationPage() {
             variant="soft"
             color="success"
             startDecorator={<VerifiedIcon />}
+            sx={{
+              width: { xs: '90%', md: '50%' },
+              mx: { xs: '5%', md: 'auto' }, // margin left & right
+            }}
           >
             Votre adresse e-mail a été vérifiée avec succès. Vous pouvez
             maintenant vous connecter.
@@ -206,6 +213,10 @@ export function VerificationPage() {
             variant="soft"
             color="danger"
             startDecorator={<ErrorIcon />}
+            sx={{
+              width: { xs: '90%', md: '50%' },
+              mx: { xs: '5%', md: 'auto' }, // margin left & right
+            }}
           >
             Lien de vérification invalide ou expiré.
           </Alert>
