@@ -14,8 +14,8 @@ import { Carousel } from 'primereact/carousel';
 import { useTheme } from 'styled-components';
 import QuoteIcon from '../icons/QuoteIcon';
 import mehdiAvatar from '../../images/reviewers/mehdi.jpg';
-import marieAvatar from '../../images/reviewers/marie.jpg';
 import mohammedAvatar from '../../images/reviewers/mohammed.jpg';
+import manalAvatar from '../../images/reviewers/manal.jpg';
 
 function ReviewSection() {
   const theme = useTheme();
@@ -28,9 +28,9 @@ function ReviewSection() {
         "Les cours ici sont très bien faits. J'aime bien comment ils sont organisés, c'est facile à suivre. C'est vraiment super pour apprendre, je vous le recommande.",
     },
     {
-      name: 'Marie Dubois',
+      name: 'Manal Jellouli',
       role: 'Etudiante',
-      avatar: marieAvatar,
+      avatar: manalAvatar,
       review:
         "J'ai appris beaucoup de choses sur ce site. Les cours sont très bien expliqués et j'ai pu les suivre sans problème. Je recommande ce site à tous ceux qui veulent apprendre.",
     },
