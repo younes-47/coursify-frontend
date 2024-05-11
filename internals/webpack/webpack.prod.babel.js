@@ -7,6 +7,7 @@ const WebpackPwaManifest = require('webpack-pwa-manifest');
 const webpack = require('webpack');
 const TerserPlugin = require('terser-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = require('./webpack.base.babel')({
   mode: 'production',
@@ -143,6 +144,13 @@ module.exports = require('./webpack.base.babel')({
     //   hashDigest: 'hex',
     //   hashDigestLength: 20,
     // }),
+
+    // Copy Web.config to the build folder
+
+    new CopyPlugin({
+      patterns: [{ from: 'app/web.config', to: '' }],
+    }),
+
     new webpack.ids.HashedModuleIdsPlugin({
       hashFunction: 'sha256',
       hashDigest: 'hex',
