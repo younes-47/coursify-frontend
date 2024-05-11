@@ -93,7 +93,8 @@ function SectionDropZone({ color = 'neutral', type, update, id, files }) {
               <input {...getInputProps()} />
               <Typography variant="body-md" textAlign="center">
                 Faites glisser et déposez des fichiers ici, ou cliquez pour
-                sélectionner des fichiers
+                sélectionner des fichiers{' '}
+                {type === 'slides' ? '(PNG)' : '(PDF)'}
               </Typography>
             </div>
           </Sheet>

@@ -69,10 +69,12 @@ const Informations = ({ data, update, categories }) => {
         <FormLabel>
           <Typography level="title-lg">Couverture</Typography>
         </FormLabel>
+
         <FileDropzone
           update={update}
           files={data.courseCover}
           field="courseCover"
+          bodyText="Faites glisser et déposez une image ici, ou cliquez pour sélectionner une image (PNG)"
         />
       </FormControl>
     </Stack>
