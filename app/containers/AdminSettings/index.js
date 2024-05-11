@@ -205,9 +205,10 @@ export function AdminSettings() {
         spacing={4}
         sx={{
           display: 'flex',
-          maxWidth: '700px',
-          mx: 'auto',
-          px: { xs: 2, md: 6 },
+          width: { xs: '90%', md: 700, lg: 800 },
+          maxWidth: 800,
+          mx: { xs: '5%', md: 'auto' }, // margin left & right
+          px: { xs: 0, md: 6 },
           py: { xs: 2, md: 3 },
         }}
       >
@@ -288,7 +289,7 @@ export function AdminSettings() {
             }}
           >
             <Stack direction="column" spacing={2}>
-              <Stack direction="row" spacing={2}>
+              <Stack direction="column" spacing={2}>
                 <FormControl sx={{ flexGrow: 1 }}>
                   <FormLabel>Prénom</FormLabel>
                   <Input
