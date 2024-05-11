@@ -12,7 +12,7 @@ const LoadingIndicator = () => (
       width="60px"
       src={brainLogo}
       alt="coursify-logo-brain-variant"
-      className="animate__heartBeat"
+      className="animate__animated animate__heartBeat animate__infinite"
     />
     <Typography level="title-lg" fontSize={35} fontWeight={500}>
       En cours...
