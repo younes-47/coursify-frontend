@@ -338,9 +338,8 @@ export function PasswordResetPage() {
           </Alert>
         </CenteredContainer>
       )}
-      <section style={{ position: 'absolute', bottom: 0, width: '100%' }}>
-        <Footer />
-      </section>
+
+      <Footer />
     </>
   );
 }

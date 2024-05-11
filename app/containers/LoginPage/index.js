@@ -228,9 +228,7 @@ export function LoginPage() {
           </Typography>
         </Stack>
       </Sheet>
-      <section style={{ position: 'relative', bottom: 0, width: '100%' }}>
-        <Footer />
-      </section>
+      <Footer />
     </>
   );
 }

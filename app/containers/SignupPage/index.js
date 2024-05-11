@@ -288,9 +288,8 @@ export function SignupPage() {
           </StyledLink>
         </Typography>
       </Sheet>
-      <section style={{ position: 'relative', bottom: 0, width: '100%' }}>
-        <Footer />
-      </section>
+
+      <Footer />
     </>
   );
 }

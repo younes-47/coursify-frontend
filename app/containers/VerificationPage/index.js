@@ -223,9 +223,7 @@ export function VerificationPage() {
         </CenteredContainer>
       )}
 
-      <section style={{ position: 'absolute', bottom: 0, width: '100%' }}>
-        <Footer />
-      </section>
+      <Footer />
     </>
   );
 }
