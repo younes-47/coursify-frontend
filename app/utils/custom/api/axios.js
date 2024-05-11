@@ -1,6 +1,6 @@
 import axios from 'axios';
-// const BASE_URL = 'https://localhost:7142/api/';
-const BASE_URL = 'http://localhost:5041/api/';
+const BASE_URL = 'https://coursify-api.azurewebsites.net/api/';
+// const BASE_URL = 'http://localhost:5041/api/';
 
 // This axios instance is used with public routes (no interceptors nor cookies)
 export const axiosPublic = axios.create({
