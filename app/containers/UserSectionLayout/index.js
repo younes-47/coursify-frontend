@@ -16,6 +16,7 @@ import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
 import { useDispatch, useSelector } from 'react-redux';
+import Box from '@mui/joy/Box';
 import reducer from './reducer';
 import saga from './saga';
 import UserSectionHeader from '../../components/UserSection/Header';
@@ -150,7 +151,9 @@ export function UserSectionLayout() {
         </Layout.Main>
 
         {/* This div fixes the overlapping of the bottom nav */}
-        <div style={{ height: '80px' }}></div>
+        <Box
+          sx={{ height: '80px', display: { xs: 'initial', sm: 'none' } }}
+        ></Box>
       </Layout.Root>
     </CssVarsProvider>
   );
