@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/d1d770dd-6684-4457-8e24-12d9a530928a/resourceGroups/coursify_group-8cfb/providers/Microsoft.Web/sites/coursify",
+    "appService.deploySubpath": "build"
+}
