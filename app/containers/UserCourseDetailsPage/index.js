@@ -25,6 +25,7 @@ import useAxiosPrivate from '../../utils/custom/hooks/useAxiosPrivate';
 import * as actions from './actions';
 import * as selectors from './selectors';
 import StyledActionButton from '../../components/Styled/ActionButton';
+import LoadingIndicator from '../../components/LoadingIndicator';
 
 const mapStateToProps = createStructuredSelector({
   courseDetails: selectors.makeSelectCourseDetails(),
@@ -68,72 +69,85 @@ export function UserCourseDetailsPage() {
   useEffect(() => () => dispatch(actions.cleanupStore()), []);
 
   return (
-    <Sheet
-      sx={{
-        bgcolor: theme.palette.darkBlue,
-        display: 'flex',
-        alignItems: 'center',
-        flexDirection: { xs: 'column-reverse', md: 'row' },
-      }}
-    >
-      <Box padding={{ xs: '2em', md: '3em' }} width={{ xs: '100%', md: '50%' }}>
-        <Typography level="h1" sx={{ color: 'white' }}>
-          {courseDetails?.title}
-        </Typography>
-        <Typography level="title-md" sx={{ color: 'white' }}>
-          {courseDetails?.category}
-        </Typography>
-        <Stack spacing={1} direction="row" marginTop={2}>
-          <Chip color="primary" variant="soft">
-            {courseDetails?.totalSections} sections
-          </Chip>
-          <Chip color="success" variant="soft">
-            {courseDetails?.totalSlides} slides
-          </Chip>
-          <Chip color="warning" variant="soft">
-            {courseDetails?.totalDocuments} Documents
-          </Chip>
-        </Stack>
-        <Box marginTop={2}>
-          <Typography level="body-md" sx={{ color: 'white' }}>
-            {courseDetails?.description}
-          </Typography>
-        </Box>
-        <Box marginTop={2}>
-          {courseDetails?.isEnrolled ? (
-            <Chip variant="soft" color="primary" startDecorator={<InfoIcon />}>
-              Vous êtes déjà inscrit
-            </Chip>
-          ) : (
-            <Box
-              onClick={() =>
-                navigate(`/evaluate/${courseDetails?.id}`, {
-                  state: { from: location.pathname },
-                })
-              }
-            >
-              <StyledActionButton text="Evaluation" />
-            </Box>
-          )}
-        </Box>
-      </Box>
-
-      <Box width={{ xs: '100%', md: '50%' }}>
-        <Box sx={{ padding: { xs: '2em', md: '3em' } }}>
-          <AspectRatio
-            maxHeight="300px"
-            sx={{
-              boxShadow: '0px 0px 40px 6px rgba(255,255,255,0.5)',
-            }}
+    <>
+      {gettingCourseDetails ? (
+        <LoadingIndicator />
+      ) : (
+        <Sheet
+          sx={{
+            bgcolor: theme.palette.darkBlue,
+            display: 'flex',
+            alignItems: 'center',
+            flexDirection: { xs: 'column-reverse', md: 'row' },
+          }}
+        >
+          <Box
+            padding={{ xs: '2em', md: '3em' }}
+            width={{ xs: '100%', md: '50%' }}
           >
-            <img
-              src={getCourseCover(courseDetails?.cover)}
-              alt="Course couverture"
-            />
-          </AspectRatio>
-        </Box>
-      </Box>
-    </Sheet>
+            <Typography level="h1" sx={{ color: 'white' }}>
+              {courseDetails?.title}
+            </Typography>
+            <Typography level="title-md" sx={{ color: 'white' }}>
+              {courseDetails?.category}
+            </Typography>
+            <Stack spacing={1} direction="row" marginTop={2}>
+              <Chip color="primary" variant="soft">
+                {courseDetails?.totalSections} sections
+              </Chip>
+              <Chip color="success" variant="soft">
+                {courseDetails?.totalSlides} slides
+              </Chip>
+              <Chip color="warning" variant="soft">
+                {courseDetails?.totalDocuments} Documents
+              </Chip>
+            </Stack>
+            <Box marginTop={2}>
+              <Typography level="body-md" sx={{ color: 'white' }}>
+                {courseDetails?.description}
+              </Typography>
+            </Box>
+            <Box marginTop={2}>
+              {courseDetails?.isEnrolled ? (
+                <Chip
+                  variant="soft"
+                  color="primary"
+                  startDecorator={<InfoIcon />}
+                >
+                  Vous êtes déjà inscrit
+                </Chip>
+              ) : (
+                <Box
+                  onClick={() =>
+                    navigate(`/evaluate/${courseDetails?.id}`, {
+                      state: { from: location.pathname },
+                    })
+                  }
+                >
+                  <StyledActionButton text="Evaluation" />
+                </Box>
+              )}
+            </Box>
+          </Box>
+
+          <Box width={{ xs: '100%', md: '50%' }}>
+            <Box sx={{ padding: { xs: '2em', md: '3em' } }}>
+              <AspectRatio
+                maxHeight="300px"
+                sx={{
+                  boxShadow: '0px 0px 40px 6px rgba(255,255,255,0.5)',
+                }}
+              >
+                <img
+                  src={getCourseCover(courseDetails?.cover)}
+                  alt="Course couverture"
+                />
+              </AspectRatio>
+            </Box>
+          </Box>
+        </Sheet>
+      )}
+    </>
   );
 }
 

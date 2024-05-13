@@ -20,6 +20,7 @@ import * as actions from './actions';
 import MultiChoiceQuestion from '../../components/MultiChoiceQuestion';
 import { CenteredContainer } from '../../components/Styled/CenteredContainer';
 import { StyledButton } from '../../components/Styled/StyledButton';
+import LoadingIndicator from '../../components/LoadingIndicator';
 
 const mapStateToProps = createStructuredSelector({
   courseQuiz: selectors.makeSelectCourseQuiz(),
@@ -97,20 +98,24 @@ export function UserQuizPage() {
       <Typography level="title-md" color="neutral">
         Course : {courseQuiz?.courseTitle}
       </Typography>
-      <Box
-        display="flex"
-        flexDirection="column"
-        justifyContent="center"
-        marginTop={8}
-      >
-        {courseQuiz?.questions?.map((question, index) => (
-          <MultiChoiceQuestion
-            key={index}
-            data={question}
-            update={actions.updateQuizAnswers}
-          />
-        ))}
-      </Box>
+      {gettingCourseQuiz ? (
+        <LoadingIndicator />
+      ) : (
+        <Box
+          display="flex"
+          flexDirection="column"
+          justifyContent="center"
+          marginTop={8}
+        >
+          {courseQuiz?.questions?.map((question, index) => (
+            <MultiChoiceQuestion
+              key={index}
+              data={question}
+              update={actions.updateQuizAnswers}
+            />
+          ))}
+        </Box>
+      )}
 
       <CenteredContainer>
         <StyledButton

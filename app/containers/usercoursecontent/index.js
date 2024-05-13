@@ -78,7 +78,7 @@ export function UserCourseContent() {
 
   return (
     <>
-      {gettingCourseContentError ? (
+      {gettingCourseContent ? (
         <LoadingIndicator />
       ) : (
         <>
@@ -90,6 +90,7 @@ export function UserCourseContent() {
             <Box width={{ sm: 1, md: 1, lg: 0.75 }} p={{ sm: 0, md: 0, lg: 5 }}>
               <Stack spacing={4} direction="column">
                 <Carousel
+                  key={sectionIndex}
                   value={courseContent?.sections[sectionIndex]?.slides}
                   numVisible={1}
                   numScroll={1}

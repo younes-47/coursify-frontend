@@ -20,6 +20,7 @@ import * as selectors from './selectors';
 import MultiChoiceQuestion from '../../components/MultiChoiceQuestion';
 import { StyledButton } from '../../components/Styled/StyledButton';
 import { CenteredContainer } from '../../components/Styled/CenteredContainer';
+import LoadingIndicator from '../../components/LoadingIndicator';
 
 const mapStateToProps = createStructuredSelector({
   courseEvaluation: selectors.makeSelectCourseEvaluation(),
@@ -108,20 +109,24 @@ export function UserEvaluationPage() {
       <Typography level="title-md" color="neutral">
         Vous deverez obtenir au moins 60%
       </Typography>
-      <Box
-        display="flex"
-        flexDirection="column"
-        justifyContent="center"
-        marginTop={8}
-      >
-        {courseEvaluation?.questions?.map((question, index) => (
-          <MultiChoiceQuestion
-            key={index}
-            data={question}
-            update={actions.updateEvaluationAnswers}
-          />
-        ))}
-      </Box>
+      {gettingCourseEvaluation ? (
+        <LoadingIndicator />
+      ) : (
+        <Box
+          display="flex"
+          flexDirection="column"
+          justifyContent="center"
+          marginTop={8}
+        >
+          {courseEvaluation?.questions?.map((question, index) => (
+            <MultiChoiceQuestion
+              key={index}
+              data={question}
+              update={actions.updateEvaluationAnswers}
+            />
+          ))}
+        </Box>
+      )}
 
       <CenteredContainer>
         <StyledButton
