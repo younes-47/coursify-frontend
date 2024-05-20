@@ -55,10 +55,10 @@ export function UserQuizPage() {
   } = useSelector(mapStateToProps);
 
   useEffect(() => {
-    if (courseId === undefined) {
+    if (courseId === undefined || location?.state?.from !== '/mycourses') {
       navigate('/mycourses', { replace: true });
     }
-  }, [courseId]);
+  }, [courseId, location]);
 
   useEffect(() => {
     if (courseQuiz === null && courseId !== undefined) {
