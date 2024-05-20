@@ -101,7 +101,7 @@ export function UserSectionLayout() {
             navigate('/home', { state: { from: location.pathname } })
           }
         >
-          Acceuil
+          Accueil
         </Button>
         <Button
           variant="plain"

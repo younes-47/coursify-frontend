@@ -30,7 +30,7 @@ export default function UserSectionNavigation() {
               <ListItemDecorator>
                 <HomeIcon fontSize="small" />
               </ListItemDecorator>
-              <ListItemContent>Acceuil</ListItemContent>
+              <ListItemContent>Accueil</ListItemContent>
             </ListItemButton>
           </ListItem>
 
