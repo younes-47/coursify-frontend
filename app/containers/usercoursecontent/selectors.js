@@ -30,6 +30,30 @@ const makeSelectGettingCourseContentError = () =>
     (substate) => substate.gettingCourseContentError,
   );
 
+const makeSelectMarkingAsCompleted = () =>
+  createSelector(
+    selectUserCourseContentDomain,
+    (substate) => substate.markingAsCompleted,
+  );
+
+const makeSelectMarkingAsCompletedError = () =>
+  createSelector(
+    selectUserCourseContentDomain,
+    (substate) => substate.markingAsCompletedError,
+  );
+
+const makeSelectMarkingAsIncomplete = () =>
+  createSelector(
+    selectUserCourseContentDomain,
+    (substate) => substate.markingAsIncomplete,
+  );
+
+const makeSelectMarkingAsIncompleteError = () =>
+  createSelector(
+    selectUserCourseContentDomain,
+    (substate) => substate.markingAsIncompleteError,
+  );
+
 /**
  * Default selector used by UserCourseContent
  */
@@ -43,4 +67,8 @@ export {
   makeSelectCourseContent,
   makeSelectGettingCourseContent,
   makeSelectGettingCourseContentError,
+  makeSelectMarkingAsCompleted,
+  makeSelectMarkingAsCompletedError,
+  makeSelectMarkingAsIncomplete,
+  makeSelectMarkingAsIncompleteError,
 };

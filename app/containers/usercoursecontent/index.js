@@ -12,6 +12,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import AspectRatio from '@mui/joy/AspectRatio';
 import Box from '@mui/joy/Box';
+import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
+import TaskAltIcon from '@mui/icons-material/TaskAlt';
 import Button from '@mui/joy/Button';
 import Divider from '@mui/joy/Divider';
 import Stack from '@mui/joy/Stack';
@@ -25,10 +27,17 @@ import * as actions from './actions';
 import * as selectors from './selectors';
 import NavigationButtons from '../../components/AdminSection/AddCourse/NavigationButtons';
 import LoadingIndicator from '../../components/LoadingIndicator';
+import MySnackbar from '../../components/MySnackbar';
 const mapStateToProps = createStructuredSelector({
   courseContent: selectors.makeSelectCourseContent(),
   gettingCourseContent: selectors.makeSelectGettingCourseContent(),
   gettingCourseContentError: selectors.makeSelectGettingCourseContentError(),
+
+  markingAsCompleted: selectors.makeSelectMarkingAsCompleted(),
+  markingAsCompletedError: selectors.makeSelectMarkingAsCompletedError(),
+
+  markingAsIncomplete: selectors.makeSelectMarkingAsIncomplete(),
+  markingAsIncompleteError: selectors.makeSelectMarkingAsIncompleteError(),
 });
 
 const slideTemplate = (slide) => (
@@ -45,8 +54,19 @@ export function UserCourseContent() {
   const dispatch = useDispatch();
   const { courseId } = useParams();
 
-  const { courseContent, gettingCourseContent, gettingCourseContentError } =
-    useSelector(mapStateToProps);
+  const {
+    courseContent,
+    gettingCourseContent,
+    gettingCourseContentError,
+    markingAsCompleted,
+    markingAsCompletedError,
+    markingAsIncomplete,
+    markingAsIncompleteError,
+  } = useSelector(mapStateToProps);
+
+  const [showSnackbar, setShowSnackbar] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState('');
+  const [snackbarColor, setSnackbarColor] = useState('neutral');
 
   const [sectionIndex, setSectionIndex] = useState(0);
   const [loadingButton, setLoadingButton] = useState(false);
@@ -74,6 +94,35 @@ export function UserCourseContent() {
     setLoadingButton(false);
   };
 
+  // SHOW SNACKBAR
+  useEffect(() => {
+    if (markingAsCompletedError === false) {
+      dispatch(actions.getCourseContent(courseId));
+      setSnackbarMessage('Section marquée comme complétée');
+      setSnackbarColor('success');
+      setShowSnackbar(true);
+    }
+    if (markingAsCompletedError === true) {
+      setSnackbarMessage("Une erreur s'est produite");
+      setSnackbarColor('danger');
+      setShowSnackbar(true);
+    }
+  }, [markingAsCompletedError]);
+
+  useEffect(() => {
+    if (markingAsIncompleteError === false) {
+      dispatch(actions.getCourseContent(courseId));
+      setSnackbarMessage('Section marquée comme incomplète');
+      setSnackbarColor('success');
+      setShowSnackbar(true);
+    }
+    if (markingAsIncompleteError === true) {
+      setSnackbarMessage("Une erreur s'est produite");
+      setSnackbarColor('danger');
+      setShowSnackbar(true);
+    }
+  }, [markingAsIncompleteError]);
+
   useEffect(() => () => dispatch(actions.cleanupStore()), []);
 
   return (
@@ -86,6 +135,41 @@ export function UserCourseContent() {
             Section #{sectionIndex + 1} :{' '}
             {courseContent?.sections[sectionIndex]?.title}
           </Typography>
+          {courseContent?.sections[sectionIndex]?.isCompleted === false ? (
+            <Button
+              color="success"
+              variant="outlined"
+              startDecorator={<RadioButtonUncheckedIcon />}
+              sx={{ marginTop: 2 }}
+              disabled={markingAsCompleted === true}
+              onClick={() => {
+                dispatch(
+                  actions.markCompleteAction(
+                    courseContent?.sections[sectionIndex]?.id,
+                  ),
+                );
+              }}
+            >
+              Marquer complétée
+            </Button>
+          ) : (
+            <Button
+              color="success"
+              variant="solid"
+              startDecorator={<TaskAltIcon />}
+              sx={{ marginTop: 2 }}
+              disabled={markingAsIncomplete === true}
+              onClick={() => {
+                dispatch(
+                  actions.markIncompleteAction(
+                    courseContent?.sections[sectionIndex]?.id,
+                  ),
+                );
+              }}
+            >
+              Complétée
+            </Button>
+          )}
           <Box display={{ sm: 'block', md: 'block', lg: 'flex' }} marginTop={5}>
             <Box width={{ sm: 1, md: 1, lg: 0.75 }} p={{ sm: 0, md: 0, lg: 5 }}>
               <Stack spacing={4} direction="column">
@@ -141,6 +225,12 @@ export function UserCourseContent() {
           </Box>
         </>
       )}
+      <MySnackbar
+        open={showSnackbar}
+        setOpen={setShowSnackbar}
+        message={snackbarMessage}
+        color={snackbarColor}
+      />
     </>
   );
 }
