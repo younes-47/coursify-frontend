@@ -11,6 +11,7 @@ import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
 import AspectRatio from '@mui/joy/AspectRatio';
 import Card from '@mui/joy/Card';
+import InfoIcon from '@mui/icons-material/Info';
 import CardActions from '@mui/joy/CardActions';
 import CardContent from '@mui/joy/CardContent';
 import CardOverflow from '@mui/joy/CardOverflow';
@@ -20,6 +21,7 @@ import Typography from '@mui/joy/Typography';
 import { useLocation, useNavigate } from 'react-router-dom';
 import LightbulbIcon from '@mui/icons-material/Lightbulb';
 import SportsScoreIcon from '@mui/icons-material/SportsScore';
+import LinearProgress from '@mui/joy/LinearProgress';
 import reducer from './reducer';
 import saga from './saga';
 import useAxiosPrivate from '../../utils/custom/hooks/useAxiosPrivate';
@@ -115,13 +117,34 @@ export function UserMyCoursesPage() {
                   </Typography>
                 </CardContent>
                 <CardOverflow>
-                  {course?.highestQuizScore === null ? (
-                    <Chip color="warning" startDecorator={<LightbulbIcon />}>
-                      Vous n'avais jamais passer un quiz
-                    </Chip>
+                  <Typography level="body-xs" color="success">
+                    {course?.progress}% Complété
+                  </Typography>
+                  <LinearProgress
+                    determinate
+                    variant="soft"
+                    color="success"
+                    thickness={7}
+                    value={course?.progress}
+                    sx={{ marginBottom: '0.7em' }}
+                  ></LinearProgress>
+                  {/* eslint-disable-next-line no-nested-ternary */}
+                  {course?.isCompleted === true ? (
+                    course?.highestQuizScore === null ? (
+                      <Chip color="warning" startDecorator={<LightbulbIcon />}>
+                        Vous n'avais jamais passer un quiz
+                      </Chip>
+                    ) : (
+                      <Chip
+                        color="success"
+                        startDecorator={<SportsScoreIcon />}
+                      >
+                        {course?.highestQuizScore}% Score le plus élevé au quiz
+                      </Chip>
+                    )
                   ) : (
-                    <Chip color="success" startDecorator={<SportsScoreIcon />}>
-                      {course?.highestQuizScore}% Score le plus élevé au quiz
+                    <Chip color="primary" startDecorator={<InfoIcon />}>
+                      Complétez le cours pour passer le quiz
                     </Chip>
                   )}
                 </CardOverflow>
@@ -140,6 +163,7 @@ export function UserMyCoursesPage() {
                   <StyledButton
                     style={{ width: '100%' }}
                     color="lightBrown"
+                    disabled={course?.isCompleted === false}
                     onClick={() =>
                       navigate(`/Quiz/${course?.id}`, {
                         state: { from: location.pathname },
